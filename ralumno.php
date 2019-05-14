@@ -9,7 +9,4 @@ error_reporting(0);
 $sql="INSERT INTO `asistencia`.`alumno` VALUES ('$coduni','$nom','$apepa','$apema','$huella','1');";
         $rs=$mysqli->query($sql);         
         $mysqli->close();
-    
-
-
 ?>
