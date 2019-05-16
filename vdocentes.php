@@ -1,15 +1,14 @@
 <?php
 error_reporting(0);
  include_once'./conexion.php'; 
-$sql="select * from asistencia.clase order by idClase desc limit 1;";
+$sql="SELECT * FROM asistencia.docente;";
 
         $rs=$mysqli->query($sql);         
    while ($row = $rs ->fetch_array()) {
 
-                  $alumno[]=array_map('utf8_encode',$row);
+                  $curso[]=array_map('utf8_encode',$row);
 
-
-}  echo json_encode($alumno);
+}  echo json_encode($curso);
         
         $rs -> close();
     
