@@ -7,7 +7,7 @@ error_reporting(0);
   $apema = $_POST['apema'];
   $huella = $_POST['huella'];
 $sql="UPDATE `asistencia`.`alumno` SET `nomAlu`='$nom', `apepaAlu`='$apepa', `apemaAlu`='$apema', `idhuella`='$huella' WHERE `codAlu`='$coduni';";
-        echo $sql;
+   
         $rs=$mysqli->query($sql);         
         $mysqli->close();
     
