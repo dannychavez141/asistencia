@@ -1,1 +1,0 @@
-INSERT INTO `asistencia`.`docente` (`nomDoc`, `apepaDoc`, `apemaDoc`, `dni`, `pass`) VALUES ('Diana Margarita', 'Diaz ', 'Estrada', '12312345', '4321');
