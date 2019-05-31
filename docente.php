@@ -49,7 +49,7 @@ $sql=buscar($bus);
   ?>
 
 <tr><td><?php echo $row[0]; ?></td><td><?php echo $row[2]." ".$row[3]." ".$row[1]; ?></td><td><?php echo $row[4]; ?></td><td><?php echo $estado; ?></td>
-<td align="center" ><a href="mdocente.php?cod=<?php echo $row[0];?>" ><img src="images/edit.jpg"width="30" height="30"></a></td></tr> 
+<td align="center" ><a href="moddocente.php?cod=<?php echo $row[0];?>" ><img src="images/edit.jpg"width="30" height="30"></a></td></tr> 
 
 <?php }    $rs -> close();?>
 

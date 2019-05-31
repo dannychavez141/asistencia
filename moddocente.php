@@ -29,6 +29,11 @@
                 <div class="col-lg-6 contact-right-wthree-info login">
                     <h5 class="text-center mb-4"></h5>
                     <form action="modelos/cdocente.php" method="post">
+                        <div class="form-group mt-4">
+                            <label> Codigo:</label>
+
+                            <input type="text" class="form-control" id="validationDefault01" maxlength="8"name="tlog" onkeypress="return esInteger(event)" value="" required="" placeholder="Ingrese Codigo">
+                        </div>
                          <div class="form-group mt-4">
                             <label> DNI:</label>
 
