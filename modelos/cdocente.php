@@ -1,5 +1,5 @@
 <?php
-//error_reporting(0);
+error_reporting(0);
 require 'conexion.php';
 $accion = $_POST['baccion'];
     echo "go?".$accion;
@@ -11,11 +11,11 @@ $accion = $_POST['baccion'];
           $tlog = $_POST['tlog'];
           $tpass = $_POST['tpass'];
           
-        $sql="INSERT INTO `bdcontrolcomedor`.`usuario`(`idUsuario`,`NombreUsu`,`ApepaUsu`,`ApemaUsu`,`Login`,`Pass`)VALUES(null,'$tnom','$tapepa','$tapema','$tlog','$tpass');";
+        $sql="INSERT INTO `asistencia`.`docente` (`nomDoc`, `apepaDoc`, `apemaDoc`, `dni`, `pass`, `est`) VALUES ('$tnom', '$tapepa', '$tapema', '$tlog', '$tpass', '1');";
         echo $sql;
      // $rs=$mysqli->query($sql);
       
-      header("Location: docente.php?tconf=true");
+      header("Location: ../docente.php?tconf=true");
         exit;
             break;
 
@@ -26,10 +26,11 @@ $accion = $_POST['baccion'];
          $tapema = $_POST['tapema'];
           $tlog = $_POST['tlog'];
           $tpass = $_POST['tpass'];
-     $sql="UPDATE `bdcontrolcomedor`.`usuario` SET `NombreUsu` = '$tnom', `ApepaUsu` ='$tapepa' ,`ApemaUsu` = '$tapema',`Login` = '$tlog',`Pass` = '$tpass' WHERE `idUsuario` = $tcod;";
+          $test = $_POST['test'];
+     $sql="UPDATE `asistencia`.`docente` SET `nomDoc`='$tnom ', `apepaDoc`='$tapepa', `apemaDoc`='$tapema', `dni`='$tlog', `pass`='$tpass', `est`='$test' WHERE `idDocente`='$tcod';";
         echo $sql;
-       // $rs=$mysqli->query($sql);
-       header("Location: $Path./docente.php?tconf=true");
+      $rs=$mysqli->query($sql);
+       header("Location: ../docente.php?tconf=true");
        exit;
             break;
     	default:
