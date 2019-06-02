@@ -28,6 +28,7 @@
     <!-- //font-awesome-icons -->
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/estilos.css"> 
 </head>
 
 <body>

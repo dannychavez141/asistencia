@@ -14,7 +14,7 @@ if ($conf) {
    
         <section class="principal">
 
-  <h1>Docentes Registrados</h1>
+  <h1>Clases Registradas</h1>
 
   <div class="formulario">
     <label for="caja_busqueda">Buscar</label>
@@ -28,7 +28,7 @@ if ($conf) {
 </section>
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/bdocente.js"></script>
+<script type="text/javascript" src="js/bclase.js"></script>
 </body>
 
 </html>
