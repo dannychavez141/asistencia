@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-05-2019 a las 21:27:48
+-- Tiempo de generación: 02-06-2019 a las 21:20:13
 -- Versión del servidor: 5.5.40
 -- Versión de PHP: 5.5.19
 
@@ -28,6 +28,7 @@ USE `asistencia`;
 -- Estructura de tabla para la tabla `alumno`
 --
 
+DROP TABLE IF EXISTS `alumno`;
 CREATE TABLE IF NOT EXISTS `alumno` (
   `codAlu` varchar(10) NOT NULL,
   `nomAlu` varchar(45) DEFAULT NULL,
@@ -42,8 +43,13 @@ CREATE TABLE IF NOT EXISTS `alumno` (
 --
 
 INSERT INTO `alumno` (`codAlu`, `nomAlu`, `apepaAlu`, `apemaAlu`, `idhuella`, `est`) VALUES
-('0002130314', 'Danny Manuel', 'CHAVEZ', '', '\n1981931799', 1),
-('0002132424', 'Ricardo', 'Villacorta ', 'Dias', '\n21711422386', 1);
+('0002130314', 'Danny Manuel', 'Chavez', 'Herrera', '1', 1),
+('0002130317', 'Garlli', 'Garcia', 'Rocha', '3', 1),
+('0002130369', 'Maykol', 'Santos', 'Luycho', '7', 1),
+('0002132424', 'Ricardo', 'Villacorta ', 'Dias', '2', 1),
+('0002137152', 'Frank', 'Ramos ', 'Del Aguila', '6', 1),
+('0002140641', 'Franco', 'Cortez', 'Valverde', '5', 1),
+('0002146141', 'Maria', 'Pinedo ', 'FernÃ¡ndez ', '4', 1);
 
 -- --------------------------------------------------------
 
@@ -51,6 +57,7 @@ INSERT INTO `alumno` (`codAlu`, `nomAlu`, `apepaAlu`, `apemaAlu`, `idhuella`, `e
 -- Estructura de tabla para la tabla `anioacademico`
 --
 
+DROP TABLE IF EXISTS `anioacademico`;
 CREATE TABLE IF NOT EXISTS `anioacademico` (
 `idAnioAcademico` int(11) NOT NULL,
   `descr` varchar(45) DEFAULT NULL,
@@ -73,12 +80,13 @@ INSERT INTO `anioacademico` (`idAnioAcademico`, `descr`, `est`) VALUES
 -- Estructura de tabla para la tabla `asignaciondoc`
 --
 
+DROP TABLE IF EXISTS `asignaciondoc`;
 CREATE TABLE IF NOT EXISTS `asignaciondoc` (
 `idAsignacionDoc` int(11) NOT NULL,
   `idCurso` int(11) NOT NULL,
   `idDocente` int(11) NOT NULL,
   `idAnioAcademico` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `asignaciondoc`
@@ -90,7 +98,9 @@ INSERT INTO `asignaciondoc` (`idAsignacionDoc`, `idCurso`, `idDocente`, `idAnioA
 (3, 1, 1, 4),
 (4, 5, 2, 4),
 (5, 6, 4, 4),
-(6, 7, 4, 4);
+(6, 7, 4, 4),
+(7, 10, 3, 4),
+(8, 11, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -98,10 +108,25 @@ INSERT INTO `asignaciondoc` (`idAsignacionDoc`, `idCurso`, `idDocente`, `idAnioA
 -- Estructura de tabla para la tabla `asistencia`
 --
 
+DROP TABLE IF EXISTS `asistencia`;
 CREATE TABLE IF NOT EXISTS `asistencia` (
   `idClase` int(11) NOT NULL,
   `codAlu` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `asistencia`
+--
+
+INSERT INTO `asistencia` (`idClase`, `codAlu`) VALUES
+(12, '0002132424'),
+(12, '0002130314'),
+(13, '0002130314'),
+(13, '0002132424'),
+(14, '0002130314'),
+(14, '0002132424'),
+(16, '0002130314'),
+(16, '0002132424');
 
 -- --------------------------------------------------------
 
@@ -109,13 +134,36 @@ CREATE TABLE IF NOT EXISTS `asistencia` (
 -- Estructura de tabla para la tabla `clase`
 --
 
+DROP TABLE IF EXISTS `clase`;
 CREATE TABLE IF NOT EXISTS `clase` (
 `idClase` int(11) NOT NULL,
   `idAsignacionDoc` int(11) NOT NULL,
   `fechaClas` date DEFAULT NULL,
   `horClas` time DEFAULT NULL,
   `est` int(11) DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `clase`
+--
+
+INSERT INTO `clase` (`idClase`, `idAsignacionDoc`, `fechaClas`, `horClas`, `est`) VALUES
+(1, 1, '0000-00-00', '00:00:00', 1),
+(2, 4, '0000-00-00', '14:42:00', 1),
+(3, 1, '2019-05-15', '14:46:00', 1),
+(4, 4, '2019-05-15', '15:21:00', 1),
+(5, 1, '2019-05-15', '15:23:00', 1),
+(6, 1, '2019-05-15', '15:29:00', 1),
+(7, 1, '2019-05-15', '15:35:00', 1),
+(8, 1, '2019-05-15', '15:39:00', 1),
+(9, 4, '2019-05-15', '15:44:00', 1),
+(10, 1, '2019-05-15', '15:46:00', 1),
+(11, 4, '2019-05-15', '15:51:00', 1),
+(12, 1, '2019-05-15', '15:53:00', 1),
+(13, 2, '2019-05-15', '19:48:00', 1),
+(14, 7, '2019-05-15', '20:11:00', 1),
+(15, 3, '2019-05-26', '21:06:00', 1),
+(16, 8, '2019-05-27', '04:20:00', 1);
 
 -- --------------------------------------------------------
 
@@ -123,11 +171,12 @@ CREATE TABLE IF NOT EXISTS `clase` (
 -- Estructura de tabla para la tabla `curso`
 --
 
+DROP TABLE IF EXISTS `curso`;
 CREATE TABLE IF NOT EXISTS `curso` (
 `idCurso` int(11) NOT NULL,
   `descr` varchar(100) DEFAULT NULL,
   `est` int(11) DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `curso`
@@ -142,7 +191,9 @@ INSERT INTO `curso` (`idCurso`, `descr`, `est`) VALUES
 (6, 'DISEÑO DE SISTEMAS', 1),
 (7, 'PRACTICAS PRE PROFECIONALES I', 1),
 (8, 'LOGISTICA', 1),
-(9, 'DESARROLLO DE SOFTWARE LIBRE', 1);
+(9, 'DESARROLLO DE SOFTWARE LIBRE', 1),
+(10, 'Sistemas Distribuidos', 1),
+(11, 'Inteligencia Artificial', 1);
 
 -- --------------------------------------------------------
 
@@ -150,6 +201,7 @@ INSERT INTO `curso` (`idCurso`, `descr`, `est`) VALUES
 -- Estructura de tabla para la tabla `docente`
 --
 
+DROP TABLE IF EXISTS `docente`;
 CREATE TABLE IF NOT EXISTS `docente` (
 `idDocente` int(11) NOT NULL,
   `nomDoc` varchar(45) DEFAULT NULL,
@@ -165,10 +217,10 @@ CREATE TABLE IF NOT EXISTS `docente` (
 --
 
 INSERT INTO `docente` (`idDocente`, `nomDoc`, `apepaDoc`, `apemaDoc`, `dni`, `pass`, `est`) VALUES
-(1, 'Cesar ', 'Ayra', 'Apac', '12345678', '1234', 1),
-(2, 'Freddy', 'Ferrari', 'Fernandez', '87654321', '4321', 1),
-(3, 'Euclides', 'Panduro', 'Padilla', '12341234', '1234', 1),
-(4, 'Diana Margarita', 'Diaz ', 'Estrada', '12312345', '4321', 1);
+(1, 'Cesar ', 'Ayra', 'Apac', '1234', '1234', 1),
+(2, 'Freddy', 'Ferrari', 'Fernandez', '4321', '4321', 1),
+(3, 'Euclides', 'Panduro', 'Padilla', '1212', '1234', 1),
+(4, 'Diana Margarita', 'Diaz ', 'Estrada', '1231', '4321', 1);
 
 -- --------------------------------------------------------
 
@@ -176,6 +228,7 @@ INSERT INTO `docente` (`idDocente`, `nomDoc`, `apepaDoc`, `apemaDoc`, `dni`, `pa
 -- Estructura de tabla para la tabla `estados`
 --
 
+DROP TABLE IF EXISTS `estados`;
 CREATE TABLE IF NOT EXISTS `estados` (
 `idestados` int(11) NOT NULL,
   `descr` varchar(45) DEFAULT NULL
@@ -254,17 +307,17 @@ MODIFY `idAnioAcademico` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT de la tabla `asignaciondoc`
 --
 ALTER TABLE `asignaciondoc`
-MODIFY `idAsignacionDoc` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `idAsignacionDoc` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `clase`
 --
 ALTER TABLE `clase`
-MODIFY `idClase` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `idClase` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT de la tabla `curso`
 --
 ALTER TABLE `curso`
-MODIFY `idCurso` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `idCurso` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT de la tabla `docente`
 --
