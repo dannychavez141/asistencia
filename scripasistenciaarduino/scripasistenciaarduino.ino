@@ -19,9 +19,7 @@ void setup() {
      while (!BT);    
      Serial.print("go?"); 
   delay(100);
-  // put your setup code here, to run once:
- 
-  // set the data rate for the sensor serial port
+  
 
   lcd.init();                     
   lcd.backlight();
@@ -201,7 +199,35 @@ esperaalumno();
   getFingerprintIDez();
   delay(50); 
   }
+// returns -1 if failed, otherwise returns ID #
+int getFingerprintIDez() {
+ 
+  uint8_t p = finger.getImage();
+  if (p != FINGERPRINT_OK) 
+  return -1;
 
+  p = finger.image2Tz();
+  if (p != FINGERPRINT_OK)  return -1;
+
+  p = finger.fingerFastSearch();
+  if (p != FINGERPRINT_OK)  return -1;
+  
+  // found a match!
+
+  lcd.clear();
+    lcd.setCursor(0, 0);
+   lcd.print("ALUMNO:");
+   lcd.print(finger.fingerID);
+    lcd.setCursor(0, 1);
+    lcd.print("IGUALDAD:");
+    lcd.print(finger.confidence);
+  codigo=finger.fingerID;
+  sonidook();
+  confasistencia();
+  delay(1500);
+  esperaalumno(); 
+  return finger.fingerID; 
+}
 void registrarhuella()
 {esperacodigo();
   Serial.println("Ready to enroll a fingerprint!");
@@ -227,15 +253,27 @@ uint8_t getFingerprintEnroll() {
     switch (p) {
     case FINGERPRINT_OK:
       Serial.println("Image taken");
+       lcd.clear();
+       lcd.setCursor(0, 0);
+   lcd.print("Image taken");
       break;
     case FINGERPRINT_NOFINGER:
       Serial.println(".");
+  lcd.clear();
+       lcd.setCursor(0, 0);
+   lcd.print(".");
       break;
     case FINGERPRINT_PACKETRECIEVEERR:
       Serial.println("Communication error");
+       lcd.clear();
+       lcd.setCursor(0, 0);
+   lcd.print("Communication error");
       break;
     case FINGERPRINT_IMAGEFAIL:
       Serial.println("Imaging error");
+        lcd.clear();
+       lcd.setCursor(0, 0);
+   lcd.print("Imaging error");
       break;
     default:
       Serial.println("Unknown error");
@@ -362,34 +400,4 @@ uint8_t getFingerprintEnroll() {
     Serial.println("Unknown error");
     return p;
   }   
-}
-
-// returns -1 if failed, otherwise returns ID #
-int getFingerprintIDez() {
- 
-  uint8_t p = finger.getImage();
-  if (p != FINGERPRINT_OK) 
-  return -1;
-
-  p = finger.image2Tz();
-  if (p != FINGERPRINT_OK)  return -1;
-
-  p = finger.fingerFastSearch();
-  if (p != FINGERPRINT_OK)  return -1;
-  
-  // found a match!
-
-  lcd.clear();
-    lcd.setCursor(0, 0);
-   lcd.print("ALUMNO:");
-   lcd.print(finger.fingerID);
-    lcd.setCursor(0, 1);
-    lcd.print("IGUALDAD:");
-    lcd.print(finger.confidence);
-  codigo=finger.fingerID;
-  sonidook();
-  confasistencia();
-  delay(1500);
-  esperaalumno(); 
-  return finger.fingerID; 
 }
