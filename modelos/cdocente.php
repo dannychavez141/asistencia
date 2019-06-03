@@ -13,7 +13,7 @@ $accion = $_POST['baccion'];
           
         $sql="INSERT INTO `asistencia`.`docente` (`nomDoc`, `apepaDoc`, `apemaDoc`, `dni`, `pass`, `est`) VALUES ('$tnom', '$tapepa', '$tapema', '$tlog', '$tpass', '1');";
         echo $sql;
-     // $rs=$mysqli->query($sql);
+    $rs=$mysqli->query($sql);
       
       header("Location: ../docente.php?tconf=true");
         exit;

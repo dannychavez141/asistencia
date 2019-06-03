@@ -37,7 +37,7 @@ body {
 
 		.tabla_datos th, 
 		.tabla_datos td {
-			border: 1px solid #e1edff;
+			border: 1px solid #2F535D;
 			padding: 7px 17px;
 		}
 		.tabla_datos caption {
@@ -46,7 +46,7 @@ body {
 
 		/* Table Header */
 		#titulo {
-			background-color: #508abb;
+			background-color: #66C83B;
 			color: #FFFFFF;
 			border-color: #6ea1cc !important;
 			text-transform: uppercase;

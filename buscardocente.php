@@ -28,6 +28,7 @@
                         <td>Apellidos y Nombres</td>
                         <td>DNI</td>
                         <td>Estado</td>
+                        <td>Detalles</td>
                         <td>Editar</td>
                     </tr>
 
@@ -43,10 +44,11 @@
 
             $salida.="<tr>
                         <td>".$fila[0]."</td>
-                        <td>".$fila[2]." ".$fila[1]." ".$fila[3]."</td>
+                        <td>".$fila[2]." ".$fila[3]." ".$fila[1]."</td>
                         <td>".$fila[4]."</td>
-                        <td>".$fila[6]."</td>
-                        <td><a href='moddocente.php?cod=".$fila[0]."' ><img src='images/edit.jpg' width='30' height='30'></a></td></tr>";
+                        <td>".$estado."</td>
+                        <td><a href='detdocente.php?cod=".$fila[0]."' ><img src='images/deta.png' width='30' height='30'></a></td>
+                        <td><a href='moddocente.php?cod=".$fila[0]."' ><img src='images/edit.jpg' width='40' height='40'></a></td></tr>";
 
         }
         $salida.="</tbody></table>";

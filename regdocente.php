@@ -53,7 +53,7 @@
                             <input type="password" class="form-control" id="validationDefault01" value="" name="tpass" required=""  placeholder="Ingrese Clave">
                         </div>
                         <a href="docente.php"><button type="button" class="btn btn-primary submit mb-4">Cancelar</button></a>
-                        <button type="submit" class="btn btn-primary submit mb-4" value="R" name="baccion">Registrar</button>
+                        <button type="submit" class="btn btn-success submit mb-4" value="R" name="baccion">Registrar</button>
                     </form>
 
              

@@ -13,7 +13,7 @@ join asignaciondoc ad on c.idAsignacionDoc=ad.idAsignacionDoc
 join curso cu on ad.idCurso=cu.idCurso
 join docente d on ad.idDocente=d.idDocente
 join anioacademico aa on ad.idAnioAcademico=aa.idAnioAcademico
-join estados e on c.est=e.idestados  where concat(cu.descr,d.nomDoc,d.apepaDoc,d.apemaDoc,c.fechaClas,c.horClas) like '%%'";
+join estados e on c.est=e.idestados  where concat(cu.descr,d.nomDoc,d.apepaDoc,d.apemaDoc,c.fechaClas,c.horClas) like '%%' ORDER BY c.idClase Desc";
 
     if (isset($_POST['consulta'])) {
         $q = $conn->real_escape_string($_POST['consulta']);
@@ -22,7 +22,7 @@ join asignaciondoc ad on c.idAsignacionDoc=ad.idAsignacionDoc
 join curso cu on ad.idCurso=cu.idCurso
 join docente d on ad.idDocente=d.idDocente
 join anioacademico aa on ad.idAnioAcademico=aa.idAnioAcademico
-join estados e on c.est=e.idestados  where concat(cu.descr,d.nomDoc,d.apepaDoc,d.apemaDoc,c.fechaClas,c.horClas) like '%$q%';";
+join estados e on c.est=e.idestados  where concat(cu.descr,d.nomDoc,d.apepaDoc,d.apemaDoc,c.fechaClas,c.horClas) like '%$q%' ORDER BY c.idClase Desc;";
     }
 
     $resultado = $conn->query($query);
@@ -40,8 +40,8 @@ join estados e on c.est=e.idestados  where concat(cu.descr,d.nomDoc,d.apepaDoc,d
                         <td>Año Universitario</td>
                         <td>Fecha de clase</td>
                         <td>Hora Inicio</td>
-                      
                          <td>Estado</td>
+                         <td>Ver Asistencia</td>
                         <td>Editar</td>
                     </tr>
 
@@ -61,7 +61,8 @@ join estados e on c.est=e.idestados  where concat(cu.descr,d.nomDoc,d.apepaDoc,d
                         <td>".$fila[7]."</td>
                         <td>".$fila[8]."</td>
                         <td>".$fila[10]."</td>
-                        <td><a href='modclase.php?cod=".$fila[0]."' ><img src='images/edit.jpg' width='30' height='30'></a></td></tr>";
+                         <td><a href='asistencia.php?cod=".$fila[0]."' ><img src='images/deta.png' width='30' height='30'></a></td>
+                        <td><a href='modclase.php?cod=".$fila[0]."' ><img src='images/edit.jpg' width='40' height='40'></a></td></tr>";
 
         }
         $salida.="</tbody></table>";

@@ -1,7 +1,16 @@
-
-
 <!DOCTYPE html>
 <html lang="zxx">
+<?php
+session_start();
+if (isset($_SESSION['usuario'])) {
+    echo "";
+}else{
+    header("Location: login.php");
+    exit();
+}
+$usuario=$_SESSION['usuario'];
+$idusuario=$_SESSION['idUsuario'];
+?>
 <head>
     <title>Sistema de Control de Asistencia</title>
     <!-- Meta tag Keywords -->
@@ -54,15 +63,25 @@
                         <li class="active"><a href="index.php">Inicio</a></li>
                          <li><a href="docente.php">Docentes</a>
                              <li><a href="clase.php">Clases</a>
-                        <li class="log-vj ml-lg-5"><a href="cerrar.php"><span class="fa fa-user-circle-o" aria-hidden="true"></span>Cerrar Session</a>
+                        <li class="log-vj ml-lg-5"><a onclick="cerrar()" ><span class="fa fa-user-circle-o" aria-hidden="true"></span>Cerrar Session</a>
                     </ul>
                 </nav>
                 <!-- //nav --> 
-                Usuario:
+                Usuario: <?php echo $usuario; ?>
             </div>
 
         </div>
         <!-- //nav -->
 </body>
+<script language="JavaScript"> 
+function cerrar() 
+{ 
+var statusConfirm = confirm("¿Deseas Cerrar La Seccion?"); 
+if (statusConfirm == true) 
+{ 
+document.location='control/cerrar.php'; 
 
+} 
+} 
+</script> 
 </html>

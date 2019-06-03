@@ -18,7 +18,7 @@ if ($conf) {
 
   <div class="formulario">
     <label for="caja_busqueda">Buscar</label>
-    <input type="text" name="caja_busqueda" id="caja_busqueda"></input>
+    <input type="text" name="caja_busqueda" id="caja_busqueda"></input> <a href="regdocente.php"><button class="btn btn-success">AGREGAR DOCENTE</button></a>
 
     
   </div>
