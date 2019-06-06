@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-06-2019 a las 21:20:13
+-- Tiempo de generación: 06-06-2019 a las 03:42:55
 -- Versión del servidor: 5.5.40
 -- Versión de PHP: 5.5.19
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `alumno` (
   `apepaAlu` varchar(45) DEFAULT NULL,
   `apemaAlu` varchar(45) DEFAULT NULL,
   `idhuella` varchar(45) DEFAULT NULL,
-  `est` int(11) DEFAULT '1'
+  `est` varchar(11) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -43,13 +43,68 @@ CREATE TABLE IF NOT EXISTS `alumno` (
 --
 
 INSERT INTO `alumno` (`codAlu`, `nomAlu`, `apepaAlu`, `apemaAlu`, `idhuella`, `est`) VALUES
-('0002130314', 'Danny Manuel', 'Chavez', 'Herrera', '1', 1),
-('0002130317', 'Garlli', 'Garcia', 'Rocha', '3', 1),
-('0002130369', 'Maykol', 'Santos', 'Luycho', '7', 1),
-('0002132424', 'Ricardo', 'Villacorta ', 'Dias', '2', 1),
-('0002137152', 'Frank', 'Ramos ', 'Del Aguila', '6', 1),
-('0002140641', 'Franco', 'Cortez', 'Valverde', '5', 1),
-('0002146141', 'Maria', 'Pinedo ', 'FernÃ¡ndez ', '4', 1);
+('2040105', 'GINO ANDERSON', 'GARCIA', 'ACOSTA', '19', '1'),
+('2060199', 'WALTER', 'VASQUEZ', 'RIOS', '57', '1'),
+('2070240', 'IVAN', 'HUAMANTICO', 'ALARCON', '26', '1'),
+('2070287', 'LUIGGI PIERRE', 'SAUCEDO', 'LOPEZ', '48', '1'),
+('2080632', 'CARLOS IGNACIO', 'CHAVEZ', 'RAMIREZ', '6', '1'),
+('2090806', 'JOSE LENIN', 'LOZADA', 'FLORES', '32', '1'),
+('2100924', 'HECTOR VILLASON', 'HUAPULA', 'VILLAFANA', '27', '1'),
+('2100941', 'ANDY', 'PAREDES', 'CRIOLLO', '37', '1'),
+('2100955', 'MANUEL ALEXANDER', 'SILVA', 'LURITA', '49', '1'),
+('2100960', 'JACK JUNIOR', 'TORRES', 'REATEGUI', '51', '1'),
+('2110644', 'RENZO ANDRE', 'ALVARADO', 'LA TORRE', '1', '1'),
+('2110651', 'LUBER DANIEL', 'BASILIO', 'DA SILVA', '3', '1'),
+('2110662', 'KEVIN ARNOL', 'FERNANDEZ', 'MALCA', '13', '1'),
+('2110670', 'ZENKI', 'KATAYAMA', 'MORAN', '29', '1'),
+('2110711', 'JOHN ANDRES', 'WAGNER', 'MENDOZA', '60', '1'),
+('2120803', 'GIL MELVIS', 'CONDORCAHUANA', 'TEXEIRA', '8', '1'),
+('2120810', 'SERGIO ORLANDO ', 'FUNG', 'VARGAS', '16', '1'),
+('2120854', 'LUISIN WANDERLEY', 'ZUMAETA', 'TORRES', '62', '1'),
+('2130313', 'VICTOR ANTHONY', 'CASTRO', 'LA TORRE', '5', '1'),
+('2130324', 'GARLLI', 'GARCIA', 'ROCHA', '18', '1'),
+('2130332', 'JUAN JEAN PIERRE', 'HIDALGO', 'MANCILLA', '22', '1'),
+('2130333', 'JOSE JAIRO ', 'HUAMAN', 'MACHUCA', '25', '1'),
+('2130340', 'JOSUE DANIEL', 'MAS', 'DELGADO', '34', '1'),
+('2130351', 'CHRISTIAN KENY', 'PINEDO', 'ACHO', '40', '1'),
+('2130369', 'MAYKOL', 'SANTOS', 'LUYCHO', '47', '1'),
+('2130380', 'GIANFRANCO', 'VASQUEZ', 'CORDOVA', '55', '1'),
+('2130383', 'TONY JORMAN', 'VELA', 'MONSALVE', '58', '1'),
+('2131004', 'JHON FRANK', 'MORENO', 'PEREZ', '35', '1'),
+('2140325', 'MARCELINO JUNIOR', 'CARTAGENA', 'FARFAN', '4', '1'),
+('2140328', 'FRANCO JONAIKER', 'CORTEZ', 'VALVERDE', '9', '1'),
+('2140329', 'ABNER JUAN', 'DAZA', 'MORALES', '10', '1'),
+('2140332', 'CESAR LUIS', 'ESTRELLA', 'ABANTO', '12', '1'),
+('2140334', 'MONICA', 'FERNANDEZ', 'NAVARRO', '14', '1'),
+('2140339', 'NERIO MAVERING', 'GOMEZ', 'PEREYRA', '20', '1'),
+('2140343', 'ELIO DAVID', 'HOYOS', 'BARBA', '23', '1'),
+('2140344', 'EMILY MELISSA', 'LOPEZ', 'IBERICO', '31', '1'),
+('2140352', 'LUIS ARTURO', 'MAQUERA', 'RIVAS', '33', '1'),
+('2140362', 'AUGUSTO JUNIOR', 'PASQUEL', 'DEL AGUILA', '38', '1'),
+('2140364', 'PIERO BRAYAN', 'PEZO', 'MARIN', '39', '1'),
+('2140368', 'PABLO FELIPE', 'RAMIREZ', 'NAVARRO', '41', '1'),
+('2140370', 'FRANK ANTONIO', 'RAMOS', 'DEL AGUILA', '42', '1'),
+('2140394', 'ARNALDO', 'VASQUEZ', 'RUIZ', '56', '1'),
+('2140397', 'RICARDO', 'VILLACORTA', 'DIAZ', '59', '1'),
+('2150315', 'EDWIN LUIS', 'BARBOZA', 'PINEDO', '2', '1'),
+('2150322', 'LUIS OSWALDO', 'COLLADO', 'TORRES', '7', '1'),
+('2150323', 'DANIEL ITALO ROMANO', 'DEGREGORI', 'DONAYRE', '11', '1'),
+('2150329', 'JEAN RICKY', 'FLORES', 'ALVAREZ', '15', '1'),
+('2150330', 'JUMPIER C?SAR', 'GARC?A', 'CH?VEZ', '17', '1'),
+('2150336', 'ERICA CLAUDIA', 'HERRERA', 'HUARAC', '21', '1'),
+('2150339', 'HERLIN', 'HUAMAN', 'GUZMAN', '24', '1'),
+('2150340', 'ISAIAS', 'IBARRA', 'ONOFRE', '28', '1'),
+('2150342', 'KEVIN LINDSEY', 'LEON', 'TIPTO', '30', '1'),
+('2150350', 'EDWAR ENRIQUE', 'NU?EZ', 'MERMAO', '36', '1'),
+('2150358', 'PATRICK JEREMY', 'RODRIGUEZ', 'SANDOVAL', '43', '1'),
+('2150360', 'NICOLAS FABRICIO', 'ROMERO', 'MORALES', '44', '1'),
+('2150362', 'LEIDY DIANA', 'SANCHEZ', 'QUINCHUBIA', '45', '1'),
+('2150363', 'ROMMEL JARED', 'SANGAMA', 'DAVILA', '46', '1'),
+('2150365', 'ISAAC', 'SORIANO', 'AQUISE', '50', '1'),
+('2150366', 'LUIS ALFREDO', 'VALENZUELA', 'D?VILA', '52', '1'),
+('2150367', 'HUGO JUNIOR', 'VALVERDE', 'CHUMBE', '53', '1'),
+('2150368', 'PERLA ESPERANZA ', 'VARGAS', 'ROMAINA', '54', '1'),
+('2150373', 'CARLO ANDONI', 'ZARZOSA', 'GARC?A', '61', '1');
 
 -- --------------------------------------------------------
 
@@ -114,20 +169,6 @@ CREATE TABLE IF NOT EXISTS `asistencia` (
   `codAlu` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `asistencia`
---
-
-INSERT INTO `asistencia` (`idClase`, `codAlu`) VALUES
-(12, '0002132424'),
-(12, '0002130314'),
-(13, '0002130314'),
-(13, '0002132424'),
-(14, '0002130314'),
-(14, '0002132424'),
-(16, '0002130314'),
-(16, '0002132424');
-
 -- --------------------------------------------------------
 
 --
@@ -141,29 +182,7 @@ CREATE TABLE IF NOT EXISTS `clase` (
   `fechaClas` date DEFAULT NULL,
   `horClas` time DEFAULT NULL,
   `est` int(11) DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `clase`
---
-
-INSERT INTO `clase` (`idClase`, `idAsignacionDoc`, `fechaClas`, `horClas`, `est`) VALUES
-(1, 1, '0000-00-00', '00:00:00', 1),
-(2, 4, '0000-00-00', '14:42:00', 1),
-(3, 1, '2019-05-15', '14:46:00', 1),
-(4, 4, '2019-05-15', '15:21:00', 1),
-(5, 1, '2019-05-15', '15:23:00', 1),
-(6, 1, '2019-05-15', '15:29:00', 1),
-(7, 1, '2019-05-15', '15:35:00', 1),
-(8, 1, '2019-05-15', '15:39:00', 1),
-(9, 4, '2019-05-15', '15:44:00', 1),
-(10, 1, '2019-05-15', '15:46:00', 1),
-(11, 4, '2019-05-15', '15:51:00', 1),
-(12, 1, '2019-05-15', '15:53:00', 1),
-(13, 2, '2019-05-15', '19:48:00', 1),
-(14, 7, '2019-05-15', '20:11:00', 1),
-(15, 3, '2019-05-26', '21:06:00', 1),
-(16, 8, '2019-05-27', '04:20:00', 1);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -218,7 +237,7 @@ CREATE TABLE IF NOT EXISTS `docente` (
 
 INSERT INTO `docente` (`idDocente`, `nomDoc`, `apepaDoc`, `apemaDoc`, `dni`, `pass`, `est`) VALUES
 (1, 'Cesar ', 'Ayra', 'Apac', '1234', '1234', 1),
-(2, 'Freddy', 'Ferrari', 'Fernandez', '4321', '4321', 1),
+(2, 'Freddy  ', 'Ferrari', 'Fernandez', '4321', '4321', 1),
 (3, 'Euclides', 'Panduro', 'Padilla', '1212', '1234', 1),
 (4, 'Diana Margarita', 'Diaz ', 'Estrada', '1231', '4321', 1);
 
@@ -241,6 +260,29 @@ CREATE TABLE IF NOT EXISTS `estados` (
 INSERT INTO `estados` (`idestados`, `descr`) VALUES
 (1, 'ACTIVO'),
 (2, 'INACTIVO');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario`
+--
+
+DROP TABLE IF EXISTS `usuario`;
+CREATE TABLE IF NOT EXISTS `usuario` (
+`idUsuario` int(11) NOT NULL,
+  `NombreUsu` varchar(45) DEFAULT NULL,
+  `ApepaUsu` varchar(45) DEFAULT NULL,
+  `ApemaUsu` varchar(45) DEFAULT NULL,
+  `Login` varchar(45) DEFAULT NULL,
+  `Pass` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`idUsuario`, `NombreUsu`, `ApepaUsu`, `ApemaUsu`, `Login`, `Pass`) VALUES
+(1, 'freddy', 'ferrary', 'Fernandez', 'admin', 'admin');
 
 --
 -- Índices para tablas volcadas
@@ -295,6 +337,12 @@ ALTER TABLE `estados`
  ADD PRIMARY KEY (`idestados`);
 
 --
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+ ADD PRIMARY KEY (`idUsuario`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -312,7 +360,7 @@ MODIFY `idAsignacionDoc` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 -- AUTO_INCREMENT de la tabla `clase`
 --
 ALTER TABLE `clase`
-MODIFY `idClase` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+MODIFY `idClase` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `curso`
 --
@@ -328,6 +376,11 @@ MODIFY `idDocente` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 ALTER TABLE `estados`
 MODIFY `idestados` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- Restricciones para tablas volcadas
 --
