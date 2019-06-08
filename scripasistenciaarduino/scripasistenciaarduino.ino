@@ -1,26 +1,25 @@
 #include <SPI.h>      // incluye libreria bus SPI
 #include <Adafruit_Fingerprint.h>
-#include <SoftwareSerial.h>
+#include <SoftwareSerial.h> //puertos de comunicacion
 #include <LiquidCrystal_I2C.h>
 LiquidCrystal_I2C lcd(0x27, 16, 2); // set the LCD address to 0x27 for a 16 chars and 2 line display
-SoftwareSerial huella(3, 4);
+SoftwareSerial huella(3, 4); //puerto seria de huellero
 char modo='a';
 Adafruit_Fingerprint finger = Adafruit_Fingerprint(&huella);
 uint8_t id;
 int t,v=0;
-const int pinBuzzer = 5;
+const int pinBuzzer = 5;// pin de bocina
 const int led = 6;
 String codigo="";
 SoftwareSerial BT(0,1);  
 void setup() {
  BT.begin(9600);
-  Serial.begin(9600);     // inicializa comunicacion por monitor serie a 9600 bps
+ Serial.begin(9600);     // inicializa comunicacion por monitor serie a 9600 bps
     while (!Serial);  
      while (!BT);    
-     Serial.print("go?"); 
+     Serial.print("empezar?"); 
   delay(100);
-  
-
+ 
   lcd.init();                     
   lcd.backlight();
  pinMode(led, OUTPUT);
@@ -30,7 +29,8 @@ uint8_t readnumber(void) {
   while (num == 0) {
   if(BT.available()>0)
   {  num = BT.parseInt();
-   Serial.print("codigo:");Serial.println(num);
+   Serial.print("codigo:");
+   Serial.println(num);
   }
   }
   return num;
@@ -60,7 +60,6 @@ void leerbt()
   if(BT.available()>0)
   { modo = (char)BT.read();
    Serial.println(modo);
-  
   }
   }
 
@@ -203,13 +202,13 @@ esperaalumno();
 int getFingerprintIDez() {
  
   uint8_t p = finger.getImage();
-  if (p != FINGERPRINT_OK) 
+  if (p != FINGERPRINT_OK) //verificacion 1
   return -1;
 
-  p = finger.image2Tz();
+  p = finger.image2Tz();   //verificacion 2
   if (p != FINGERPRINT_OK)  return -1;
 
-  p = finger.fingerFastSearch();
+  p = finger.fingerFastSearch();//verificacion 3
   if (p != FINGERPRINT_OK)  return -1;
   
   // found a match!
