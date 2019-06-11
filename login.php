@@ -19,7 +19,7 @@ $ms=$_GET['msj'];
 }
 		
 		?>
-	<title>Comedor</title>
+	<title>Asistencia</title>
 	<!-- Meta tag Keywords -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8" />
