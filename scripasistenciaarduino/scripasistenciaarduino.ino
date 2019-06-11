@@ -253,27 +253,27 @@ uint8_t getFingerprintEnroll() {
     switch (p) {
     case FINGERPRINT_OK:
       Serial.println("Image taken");
-       lcd.clear();
-       lcd.setCursor(0, 0);
-   lcd.print("Image taken");
+      // lcd.clear();
+     //  lcd.setCursor(0, 0);
+  // lcd.print("Image taken");
       break;
     case FINGERPRINT_NOFINGER:
       Serial.println(".");
-  lcd.clear();
-       lcd.setCursor(0, 0);
-   lcd.print(".");
+  //   lcd.clear();
+     //  lcd.setCursor(0, 0);
+   //lcd.print(".");
       break;
     case FINGERPRINT_PACKETRECIEVEERR:
       Serial.println("Communication error");
-       lcd.clear();
-       lcd.setCursor(0, 0);
-   lcd.print("Communication error");
+    //lcd.clear();
+       //lcd.setCursor(0, 0);
+  // lcd.print("Communication error");
       break;
     case FINGERPRINT_IMAGEFAIL:
       Serial.println("Imaging error");
-        lcd.clear();
-       lcd.setCursor(0, 0);
-   lcd.print("Imaging error");
+      //  lcd.clear();
+      // lcd.setCursor(0, 0);
+  // lcd.print("Imaging error");
       break;
     default:
       Serial.println("Unknown error");
