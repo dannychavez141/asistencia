@@ -51,8 +51,11 @@ void menu(){switch (modo) {
   leerbt();
 leerhuella();
     break;
+    case 'd':
+boton();
+    break;
   default:
-leerbt();
+boton();
     break;
 }       }
 void leerbt()
@@ -92,6 +95,14 @@ void esperaalumno() {
     lcd.print("PONER HUELLA");
     lcd.setCursor(0, 1);
     lcd.print("PARA IDENTIFICAR");
+    delay(1000);
+}
+void boton() {
+   lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("PRESIONE BOTON");
+    lcd.setCursor(0, 1);
+    lcd.print("PARA CONTINUAR");
     delay(1000);
 }
 void esperaregistrar() {
@@ -381,7 +392,7 @@ uint8_t getFingerprintEnroll() {
   p = finger.storeModel(id);
   if (p == FINGERPRINT_OK) {
     Serial.println("Stored!");
-   modo='a';
+   modo='d';
    confregalumno();
    p=-1;
    delay(1000);
