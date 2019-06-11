@@ -42,7 +42,7 @@ join estados e on c.est=e.idestados  where concat(cu.descr,d.nomDoc,d.apepaDoc,d
                         <td>Hora Inicio</td>
                          <td>Estado</td>
                          <td>Ver Asistencia</td>
-                        <td>Editar</td>
+                        
                     </tr>
 
                 </thead>
@@ -62,7 +62,7 @@ join estados e on c.est=e.idestados  where concat(cu.descr,d.nomDoc,d.apepaDoc,d
                         <td>".$fila[8]."</td>
                         <td>".$fila[10]."</td>
                          <td><a href='asistencia.php?cod=".$fila[0]."' ><img src='images/deta.png' width='30' height='30'></a></td>
-                        <td><a href='modclase.php?cod=".$fila[0]."' ><img src='images/edit.jpg' width='40' height='40'></a></td></tr>";
+                        </tr>";
 
         }
         $salida.="</tbody></table>";

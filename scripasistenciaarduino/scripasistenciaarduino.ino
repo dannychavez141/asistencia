@@ -53,9 +53,11 @@ leerhuella();
     break;
     case 'd':
 boton();
+delay(200);
     break;
   default:
 boton();
+delay(200);
     break;
 }       }
 void leerbt()

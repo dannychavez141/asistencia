@@ -38,7 +38,7 @@ join estados e on c.est=e.idestados  where c.idClase=$id;";
   <div class="formulario">
     <label for="caja_busqueda">Buscar Alumno en Asistencia</label>
     <input type="text" name="caja_busqueda" id="caja_busqueda"></input>
-      <a href="reporteasis.php?cod=<?php echo $id;?> "><button class="btn btn-success">Imprimir Asistencia</button></a>  <input type="text" name="caja_id" style="visibility:hidden" id="caja_id" value="<?php echo $id;?>">
+      <a href="reporteasis.php?cod=<?php echo $id;?>" target='_blank'><button class="btn btn-success">Imprimir Asistencia</button></a>  <input type="text" name="caja_id" style="visibility:hidden" id="caja_id" value="<?php echo $id;?>">
 
   </div>
 

@@ -37,19 +37,21 @@ join estados e on c.est=e.idestados  where c.idClase=$id;";
 		$pdf->Line(10,70,200,70);
 	$pdf->Ln(10);
 	$pdf->SetFillColor(232,232,232);
-	$pdf->SetX(60);
+	$pdf->SetX(20);
 	$pdf->SetFont('Arial','B',12);
 	$pdf->Cell(25,6,'CODIGO',1,0,'C',1);
-	$pdf->Cell(55,6,'APELLIDOS Y NOMBRES',1,0,'C',1);
+	$pdf->Cell(100,6,'APELLIDOS Y NOMBRES',1,0,'C',1);
+	$pdf->Cell(50,6,'OBSERVACIONES',1,0,'C',1);
 	$pdf->SetX(35);
 	$pdf->SetFont('Arial','',10);
 	$resultado = $mysqli->query($sql);
 	while($row = $resultado->fetch_array())
 	{
 		$pdf->Ln(6);
-		$pdf->SetX(60);
+		$pdf->SetX(20);
 		$pdf->Cell(25,6,$row[1],1,0,'C');
-		$pdf->Cell(55,6,utf8_decode($row[2]),1,0,'C');
+		$pdf->Cell(100,6,utf8_decode($row[2]),1,0,'C');
+		$pdf->Cell(50,6,"",1,0,'C');
 		
 	}
 	$pdf->Output();
