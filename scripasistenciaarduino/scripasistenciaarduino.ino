@@ -39,7 +39,9 @@ void loop() {
 leerbt();
 menu();
 }
-void menu(){switch (modo) {
+void menu(){
+  // seleccion de modo
+  switch (modo) {
   case 'a':
     bienvenida();
     break;
@@ -56,10 +58,9 @@ boton();
 delay(200);
     break;
   default:
-boton();
-delay(200);
     break;
 }       }
+// leer blutoOTH
 void leerbt()
 {
   if(BT.available()>0)
@@ -67,7 +68,7 @@ void leerbt()
    Serial.println(modo);
   }
   }
-
+//mensaje bienvenida en lcd
 void bienvenida() {
     t = 0;
   do {leerbt();
@@ -91,6 +92,7 @@ void bienvenida() {
   } while (t <= 1000);
 
 }
+//mesj de espera de alumno
 void esperaalumno() {
    lcd.clear();
     lcd.setCursor(0, 0);
@@ -99,13 +101,14 @@ void esperaalumno() {
     lcd.print("PARA IDENTIFICAR");
     delay(1000);
 }
+//
 void boton() {
    lcd.clear();
     lcd.setCursor(0, 0);
     lcd.print("PRESIONE BOTON");
     lcd.setCursor(0, 1);
     lcd.print("PARA CONTINUAR");
-    delay(1000);
+    delay(500);
 }
 void esperaregistrar() {
    lcd.clear();
@@ -113,7 +116,7 @@ void esperaregistrar() {
     lcd.print("ESPERANDO HUELLA");
     lcd.setCursor(0, 1);
     lcd.print("PARA REGISTRAR ");
-    delay(1000);
+    delay(500);
 }
 void esperacodigo() {
    lcd.clear();
@@ -121,7 +124,7 @@ void esperacodigo() {
     lcd.print("ESPERANDO CODIGO");
     lcd.setCursor(0, 1);
     lcd.print("PARA REGISTRAR");
-    delay(1000);
+    delay(500);
 }
 void removerdedo() {
    lcd.clear();
@@ -138,9 +141,13 @@ void ponerdedo() {
     lcd.print("  DEDO");
   
 }
-
-
-
+void error() {
+   lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("  HUELLA NO ");
+    lcd.setCursor(0, 1);
+    lcd.print("  REGISTRADA");
+}
 void confregalumno() {
    t = 0;
    lcd.clear();
@@ -160,13 +167,11 @@ void confasistencia() {
     delay(1000);
 
 }
-
 void sonidook(){
           //generar tono de 440Hz durante 1000 ms
           digitalWrite(led, HIGH);
   tone(pinBuzzer, 440);
   delay(500);
- 
   //detener tono durante 500ms  
   noTone(pinBuzzer);
   digitalWrite(led, LOW);
@@ -174,23 +179,36 @@ void sonidook(){
      Serial.print(codigo); 
        BT.print(codigo); 
 }
-void sonidoerror(){
-          //generar tono de 440Hz durante 1000 ms
+void sonok(){
+          //generar tono de 440Hz durante 500 ms
           digitalWrite(led, HIGH);
   tone(pinBuzzer, 440);
   delay(500);
  
-  //detener tono durante 500ms  
+  //detener tono durante 440ms  
   noTone(pinBuzzer);
-     delay(500);
-     
+  digitalWrite(led, LOW);
+    
+}
+void sonerr(){
+  error();
+          //generar tono de 440Hz durante 250 ms
+          digitalWrite(led, HIGH);
+  tone(pinBuzzer, 440);
+  delay(250);
+ //detener tono durante 250ms  
+  digitalWrite(led, LOW);
+  noTone(pinBuzzer);
+     delay(250);
+     digitalWrite(led, HIGH);
      tone(pinBuzzer, 440);
-      digitalWrite(led, LOW);
-  delay(500);
-  digitalWrite(led, HIGH);
+     
+  delay(250);
+  
   //detener tono durante 500ms  
   noTone(pinBuzzer);
    digitalWrite(led, LOW);
+   esperaalumno();
 }
 void leerhuella(){
   if(v==0)
@@ -203,8 +221,9 @@ void leerhuella(){
   }
 
   finger.getTemplateCount();
-  Serial.print("Sensor contains "); Serial.print(finger.templateCount); Serial.println(" templates");
-  Serial.println("Waiting for valid finger...");
+ // Serial.print("Sensor contains "); 
+  Serial.print(finger.templateCount); //Serial.println(" templates");
+  //Serial.println("Waiting for valid finger...");
   v=1;
 esperaalumno();
   }
@@ -215,17 +234,21 @@ esperaalumno();
 int getFingerprintIDez() {
  
   uint8_t p = finger.getImage();
-  if (p != FINGERPRINT_OK) //verificacion 1
-  return -1;
 
-  p = finger.image2Tz();   //verificacion 2
-  if (p != FINGERPRINT_OK)  return -1;
-
-  p = finger.fingerFastSearch();//verificacion 3
-  if (p != FINGERPRINT_OK)  return -1;
+  if (p != FINGERPRINT_OK) //verificacion si obtiene imagen 1
+ { 
+  return -1;}
+  p = finger.image2Tz();   //verificacion si la imagen es una huella2
+  //Serial.println(finger.image2Tz(2));
+  if (p != FINGERPRINT_OK) { 
+    return -1;}
+  p = finger.fingerFastSearch();//verificacion si la imagen esta en la base de datos3
+  if (p != FINGERPRINT_OK) { 
+   sonerr();
+    return -1;}
   
   // found a match!
-
+  
   lcd.clear();
     lcd.setCursor(0, 0);
    lcd.print("ALUMNO:");
@@ -236,14 +259,13 @@ int getFingerprintIDez() {
   codigo=finger.fingerID;
   sonidook();
   confasistencia();
-  delay(1500);
   esperaalumno(); 
   return finger.fingerID; 
 }
 void registrarhuella()
 {esperacodigo();
-  Serial.println("Ready to enroll a fingerprint!");
-  Serial.println("Please type in the ID # (from 1 to 127) you want to save this finger as...");
+  //Serial.println("Ready to enroll a fingerprint!");
+  //Serial.println("Please type in the ID # (from 1 to 127) you want to save this finger as...");
   id = readnumber();
   if (id == 0) {// ID #0 not allowed, try again!
      return;
@@ -259,36 +281,37 @@ void registrarhuella()
 uint8_t getFingerprintEnroll() {
 
   int p = -1;
-  Serial.print("Waiting for valid finger to enroll as #"); Serial.println(id);
+  //Serial.print("Waiting for valid finger to enroll as #"); 
+  Serial.println(id);
   while (p != FINGERPRINT_OK) {
     p = finger.getImage();
     switch (p) {
     case FINGERPRINT_OK:
-      Serial.println("Image taken");
+      //Serial.println("Image taken");
       // lcd.clear();
      //  lcd.setCursor(0, 0);
   // lcd.print("Image taken");
       break;
     case FINGERPRINT_NOFINGER:
-      Serial.println(".");
+     // Serial.println(".");
   //   lcd.clear();
      //  lcd.setCursor(0, 0);
    //lcd.print(".");
       break;
     case FINGERPRINT_PACKETRECIEVEERR:
-      Serial.println("Communication error");
+    //  Serial.println("Communication error");
     //lcd.clear();
        //lcd.setCursor(0, 0);
   // lcd.print("Communication error");
       break;
     case FINGERPRINT_IMAGEFAIL:
-      Serial.println("Imaging error");
+   //   Serial.println("Imaging error");
       //  lcd.clear();
       // lcd.setCursor(0, 0);
   // lcd.print("Imaging error");
       break;
     default:
-      Serial.println("Unknown error");
+    //  Serial.println("Unknown error");
       break;
     }
     
@@ -299,24 +322,25 @@ uint8_t getFingerprintEnroll() {
   p = finger.image2Tz(1);
   switch (p) {
     case FINGERPRINT_OK:
-      Serial.println("Image converted");
+    //  Serial.println("Image converted");
       break;
     case FINGERPRINT_IMAGEMESS:
-      Serial.println("Image too messy");
+   //   Serial.println("Image too messy");
       return p;
     case FINGERPRINT_PACKETRECIEVEERR:
-      Serial.println("Communication error");
+    //  Serial.println("Communication error");
       return p;
     case FINGERPRINT_FEATUREFAIL:
-      Serial.println("Could not find fingerprint features");
+    //  Serial.println("Could not find fingerprint features");
       return p;
     case FINGERPRINT_INVALIDIMAGE:
-      Serial.println("Could not find fingerprint features");
+     // Serial.println("Could not find fingerprint features");
       return p;
     default:
       Serial.println("Unknown error");
       return p;
   }
+  sonok();
   removerdedo();
   Serial.println("Remove finger");
   delay(2000);
@@ -326,6 +350,7 @@ uint8_t getFingerprintEnroll() {
   }
   Serial.print("ID "); Serial.println(id);
   p = -1;
+  sonok();
   ponerdedo();
   Serial.println("Place same finger again");
   while (p != FINGERPRINT_OK) {
@@ -395,6 +420,7 @@ uint8_t getFingerprintEnroll() {
   if (p == FINGERPRINT_OK) {
     Serial.println("Stored!");
    modo='d';
+   sonok();
    confregalumno();
    p=-1;
    delay(1000);
