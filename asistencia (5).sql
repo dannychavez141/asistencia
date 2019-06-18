@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-06-2019 a las 03:42:55
+-- Tiempo de generación: 17-06-2019 a las 19:41:09
 -- Versión del servidor: 5.5.40
 -- Versión de PHP: 5.5.19
 
@@ -169,6 +169,23 @@ CREATE TABLE IF NOT EXISTS `asistencia` (
   `codAlu` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `asistencia`
+--
+
+INSERT INTO `asistencia` (`idClase`, `codAlu`) VALUES
+(1, '2040105'),
+(1, '2110644'),
+(1, '2110651'),
+(1, '2150315'),
+(1, '2140325'),
+(2, '2110644'),
+(2, '2110651'),
+(2, '2040105'),
+(2, '2140325'),
+(2, '2150315'),
+(2, '2130313');
+
 -- --------------------------------------------------------
 
 --
@@ -182,7 +199,15 @@ CREATE TABLE IF NOT EXISTS `clase` (
   `fechaClas` date DEFAULT NULL,
   `horClas` time DEFAULT NULL,
   `est` int(11) DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `clase`
+--
+
+INSERT INTO `clase` (`idClase`, `idAsignacionDoc`, `fechaClas`, `horClas`, `est`) VALUES
+(1, 8, '2019-06-05', '13:41:00', 1),
+(2, 1, '2019-06-10', '14:50:00', 1);
 
 -- --------------------------------------------------------
 
@@ -360,7 +385,7 @@ MODIFY `idAsignacionDoc` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 -- AUTO_INCREMENT de la tabla `clase`
 --
 ALTER TABLE `clase`
-MODIFY `idClase` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `idClase` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `curso`
 --
