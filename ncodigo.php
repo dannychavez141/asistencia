@@ -2,7 +2,7 @@
 error_reporting(0);
  include_once'./conexion.php'; 
  
-$sql="SELECT max(idhuella)+1 from alumno  limit 1";
+$sql="SELECT (count(idhuella))+1  from alumno ";
  $rs=$mysqli->query($sql);         
    while ($row = $rs ->fetch_array()) {
 
