@@ -10,6 +10,7 @@ uint8_t id;
 int t,v=0;
 const int pinBuzzer = 5;// pin de bocina
 const int led = 6;
+const int res = 8;
 String codigo="";
 SoftwareSerial BT(0,1);  
 void setup() {
@@ -19,10 +20,11 @@ void setup() {
      while (!BT);    
      Serial.print("empezar?"); 
   delay(100);
- 
   lcd.init();                     
   lcd.backlight();
  pinMode(led, OUTPUT);
+  pinMode(res, INPUT);
+  digitalWrite(res, LOW);
 }
 uint8_t readnumber(void) {
   uint8_t num = 0;
@@ -56,6 +58,10 @@ leerhuella();
     case 'd':
 boton();
 delay(200);
+    break;
+    case 'e':
+leerbt();
+leerhuella2();
     break;
   default:
     break;
@@ -210,6 +216,26 @@ void sonerr(){
    digitalWrite(led, LOW);
    esperaalumno();
 }
+void leerhuella2(){
+  if(v==0)
+ { finger.begin(57600);
+ if (finger.verifyPassword()) {
+    Serial.println("Found fingerprint sensor!");
+  } else {
+    Serial.println("Did not find fingerprint sensor :(");
+    while (1) { delay(1); }
+  }
+
+  finger.getTemplateCount();
+ // Serial.print("Sensor contains "); 
+  Serial.print(finger.templateCount); //Serial.println(" templates");
+  //Serial.println("Waiting for valid finger...");
+  v=1;
+esperaalumno();
+  }
+  getFingerprintIDez2();
+  delay(50); 
+  }
 void leerhuella(){
   if(v==0)
  { finger.begin(57600);
@@ -245,6 +271,39 @@ int getFingerprintIDez() {
   p = finger.fingerFastSearch();//verificacion si la imagen esta en la base de datos3
   if (p != FINGERPRINT_OK) { 
    sonerr();
+    return -1;}
+  
+  // found a match!
+  
+  lcd.clear();
+    lcd.setCursor(0, 0);
+   lcd.print("ALUMNO:");
+   lcd.print(finger.fingerID);
+    lcd.setCursor(0, 1);
+    lcd.print("IGUALDAD:");
+    lcd.print(finger.confidence);
+  codigo=finger.fingerID;
+  sonidook();
+  confasistencia();
+  esperaalumno(); 
+  return finger.fingerID; 
+}
+// returns -1 if failed, otherwise returns ID #
+int getFingerprintIDez2() {
+ 
+  uint8_t p = finger.getImage();
+
+  if (p != FINGERPRINT_OK) //verificacion si obtiene imagen 1
+ { 
+  return -1;}
+  p = finger.image2Tz();   //verificacion si la imagen es una huella2
+  //Serial.println(finger.image2Tz(2));
+  if (p != FINGERPRINT_OK) { 
+    return -1;}
+  p = finger.fingerFastSearch();//verificacion si la imagen esta en la base de datos3
+  if (p != FINGERPRINT_OK) { 
+   sonerr();
+    digitalWrite(res, HIGH);
     return -1;}
   
   // found a match!
@@ -419,11 +478,11 @@ uint8_t getFingerprintEnroll() {
   p = finger.storeModel(id);
   if (p == FINGERPRINT_OK) {
     Serial.println("Stored!");
-   modo='d';
    sonok();
    confregalumno();
    p=-1;
    delay(1000);
+    digitalWrite(res, HIGH);
   return p;
   } else if (p == FINGERPRINT_PACKETRECIEVEERR) {
     Serial.println("Communication error");
