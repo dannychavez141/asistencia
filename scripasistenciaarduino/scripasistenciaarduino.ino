@@ -11,6 +11,7 @@ int t,v=0;
 const int pinBuzzer = 5;// pin de bocina
 const int led = 6;
 const int res = 8;
+int cont=0;
 String codigo="";
 SoftwareSerial BT(0,1);  
 void setup() {
@@ -23,8 +24,8 @@ void setup() {
   lcd.init();                     
   lcd.backlight();
  pinMode(led, OUTPUT);
-  pinMode(res, INPUT);
-  digitalWrite(res, LOW);
+  pinMode(res,OUTPUT );
+  digitalWrite(res, HIGH);
 }
 uint8_t readnumber(void) {
   uint8_t num = 0;
@@ -56,10 +57,6 @@ void menu(){
 leerhuella();
     break;
     case 'd':
-boton();
-delay(200);
-    break;
-    case 'e':
 leerbt();
 leerhuella2();
     break;
@@ -271,6 +268,10 @@ int getFingerprintIDez() {
   p = finger.fingerFastSearch();//verificacion si la imagen esta en la base de datos3
   if (p != FINGERPRINT_OK) { 
    sonerr();
+   cont++;
+  if(cont>=2){cont=0;
+  digitalWrite(res, LOW);
+  }
     return -1;}
   
   // found a match!
@@ -285,7 +286,7 @@ int getFingerprintIDez() {
   codigo=finger.fingerID;
   sonidook();
   confasistencia();
-  esperaalumno(); 
+  esperaalumno();
   return finger.fingerID; 
 }
 // returns -1 if failed, otherwise returns ID #
@@ -303,7 +304,6 @@ int getFingerprintIDez2() {
   p = finger.fingerFastSearch();//verificacion si la imagen esta en la base de datos3
   if (p != FINGERPRINT_OK) { 
    sonerr();
-    digitalWrite(res, HIGH);
     return -1;}
   
   // found a match!
@@ -482,7 +482,7 @@ uint8_t getFingerprintEnroll() {
    confregalumno();
    p=-1;
    delay(1000);
-    digitalWrite(res, HIGH);
+     digitalWrite(res, LOW);
   return p;
   } else if (p == FINGERPRINT_PACKETRECIEVEERR) {
     Serial.println("Communication error");
