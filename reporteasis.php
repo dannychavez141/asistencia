@@ -54,5 +54,10 @@ join estados e on c.est=e.idestados  where c.idClase=$id;";
 		$pdf->Cell(50,6,"",1,0,'C');
 		
 	}
+	$pdf->Ln(20);
+$pdf->Cell(200,6,'_______________________                     	______________________',0,0,'C',0);
+$pdf->Ln(5);
+	$pdf->Cell(200,6,'Firma Docente                                          Firma Delegado',0,0,'C',0);
+
 	$pdf->Output();
 ?>

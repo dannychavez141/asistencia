@@ -5,7 +5,7 @@
 include_once'./cabezera2.php'; 
 $id=$_GET['cod'];
 require 'conexion.php';?>
- ?>
+
 
 <body>
    
