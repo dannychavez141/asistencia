@@ -63,7 +63,12 @@ $idusuario=$_SESSION['idUsuario'];
                         <li class="active"><a href="index.php">Inicio</a></li>
                          <li><a href="docente.php">Docentes</a>
                              <li><a href="clase.php">Clases</a>
-                        <li class="log-vj ml-lg-5"><a onclick="cerrar()" ><span class="fa fa-user-circle-o" aria-hidden="true"></span>Cerrar Session</a>
+                                <li><a href="cursos.php">Cursos</a>
+                                    <li><a href="alumnos.php">Alumnos</a>
+                                        <li><a href="asignacion.php">Asignaciones</a>
+                                                <li><a href="anioacademico.php">Año Academico</a>
+                                                    <li><a href="anioacademico.php">Reportes</a>
+                        <li ><a onclick="cerrar()" ><span class="fa fa-user-circle-o" ></span>Cerrar Session</a>
                     </ul>
                 </nav>
                 <!-- //nav --> 
