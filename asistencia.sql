@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-06-2019 a las 19:41:09
+-- Tiempo de generación: 10-07-2019 a las 17:28:00
 -- Versión del servidor: 5.5.40
 -- Versión de PHP: 5.5.19
 
@@ -184,7 +184,14 @@ INSERT INTO `asistencia` (`idClase`, `codAlu`) VALUES
 (2, '2040105'),
 (2, '2140325'),
 (2, '2150315'),
-(2, '2130313');
+(2, '2130313'),
+(7, '2130313'),
+(7, '2140325'),
+(7, '2110644'),
+(7, '2110651'),
+(7, '2150322'),
+(7, '2060199'),
+(7, '2140329');
 
 -- --------------------------------------------------------
 
@@ -199,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `clase` (
   `fechaClas` date DEFAULT NULL,
   `horClas` time DEFAULT NULL,
   `est` int(11) DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `clase`
@@ -207,7 +214,13 @@ CREATE TABLE IF NOT EXISTS `clase` (
 
 INSERT INTO `clase` (`idClase`, `idAsignacionDoc`, `fechaClas`, `horClas`, `est`) VALUES
 (1, 8, '2019-06-05', '13:41:00', 1),
-(2, 1, '2019-06-10', '14:50:00', 1);
+(2, 1, '2019-06-10', '14:50:00', 1),
+(3, 3, '2019-06-27', '11:20:00', 1),
+(4, 3, '2019-06-27', '11:37:00', 1),
+(5, 3, '2019-06-27', '11:41:00', 1),
+(6, 3, '2019-06-27', '11:41:00', 1),
+(7, 2, '2019-06-27', '11:46:00', 1),
+(8, 2, '2019-06-27', '11:46:00', 1);
 
 -- --------------------------------------------------------
 
@@ -242,6 +255,20 @@ INSERT INTO `curso` (`idCurso`, `descr`, `est`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `curso_alumno`
+--
+
+DROP TABLE IF EXISTS `curso_alumno`;
+CREATE TABLE IF NOT EXISTS `curso_alumno` (
+`idasig` int(11) NOT NULL,
+  `codAlu` varchar(11) NOT NULL,
+  `idcurso` int(11) NOT NULL,
+  `idAnioAcademico` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `docente`
 --
 
@@ -261,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `docente` (
 --
 
 INSERT INTO `docente` (`idDocente`, `nomDoc`, `apepaDoc`, `apemaDoc`, `dni`, `pass`, `est`) VALUES
-(1, 'Cesar ', 'Ayra', 'Apac', '1234', '1234', 1),
+(1, ' TomatO ', '', '', '', '', 0),
 (2, 'Freddy  ', 'Ferrari', 'Fernandez', '4321', '4321', 1),
 (3, 'Euclides', 'Panduro', 'Padilla', '1212', '1234', 1),
 (4, 'Diana Margarita', 'Diaz ', 'Estrada', '1231', '4321', 1);
@@ -350,6 +377,12 @@ ALTER TABLE `curso`
  ADD PRIMARY KEY (`idCurso`);
 
 --
+-- Indices de la tabla `curso_alumno`
+--
+ALTER TABLE `curso_alumno`
+ ADD PRIMARY KEY (`idasig`);
+
+--
 -- Indices de la tabla `docente`
 --
 ALTER TABLE `docente`
@@ -385,12 +418,17 @@ MODIFY `idAsignacionDoc` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 -- AUTO_INCREMENT de la tabla `clase`
 --
 ALTER TABLE `clase`
-MODIFY `idClase` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `idClase` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `curso`
 --
 ALTER TABLE `curso`
 MODIFY `idCurso` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT de la tabla `curso_alumno`
+--
+ALTER TABLE `curso_alumno`
+MODIFY `idasig` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `docente`
 --
