@@ -63,11 +63,11 @@ $idusuario=$_SESSION['idUsuario'];
                         <li class="active"><a href="index.php">Inicio</a></li>
                          <li><a href="docente.php">Docentes</a>
                              <li><a href="clase.php">Clases</a>
-                                <li><a href="cursos.php">Cursos</a>
-                                    <li><a href="alumnos.php">Alumnos</a>
+                                <li><a href="curso.php">Cursos</a>
+                                    <li><a href="alumno.php">Alumnos</a>
                                         <li><a href="asignacion.php">Asignaciones</a>
                                                 <li><a href="anioacademico.php">Año Academico</a>
-                                                    <li><a href="anioacademico.php">Reportes</a>
+                                                    <li><a href="reporte.php">Reportes</a>
                         <li ><a onclick="cerrar()" ><span class="fa fa-user-circle-o" ></span>Cerrar Session</a>
                     </ul>
                 </nav>
