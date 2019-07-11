@@ -16,8 +16,8 @@ $idusuario=$_SESSION['idUsuario'];
     <title>Sistema de Control de Asistencia</title>
     <!-- Meta tag Keywords -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="UTF-8" />
-    <meta name="keywords" content="EduWily Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
     <script>
         addEventListener("load", function() {
             setTimeout(hideURLbar, 0);
@@ -38,7 +38,7 @@ $idusuario=$_SESSION['idUsuario'];
     <link href="css/font-awesome.css" rel="stylesheet">
     <!-- //font-awesome-icons -->
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    
     <link rel="stylesheet" type="text/css" href="css/estilos.css"> 
 </head>
 
@@ -64,8 +64,8 @@ $idusuario=$_SESSION['idUsuario'];
                         <li class="active"><a href="index.php">Inicio</a></li>
                          <li><a href="docente.php">Docentes</a>
                              <li><a href="clase.php">Clases</a>
-                                <li><a href="cursos.php">Cursos</a>
-                                    <li><a href="alumnos.php">Alumnos</a>
+                                <li><a href="curso.php">Cursos</a>
+                                    <li><a href="alumno.php">Alumnos</a>
                                         <li><a href="asignacion.php">Asignaciones</a>
                                                 <li><a href="anioacademico.php">Año Academico</a>
                                                     <li><a href="anioacademico.php">Reportes</a>

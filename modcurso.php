@@ -28,7 +28,7 @@ require 'conexion.php';?>
          <center>
                 <div class="col-lg-6 contact-right-wthree-info login">
                     <h5 class="text-center mb-4"></h5>
-                    <form action="modelos/cdocente.php" method="post">
+                    <form action="modelos/ccurso.php" method="post">
                        <?php $url="SELECT * FROM asistencia.curso c join estados e on  c.est=e.idestados where idCurso=$id;";
                      $docente= $mysqli->query($url);
 
@@ -37,12 +37,12 @@ require 'conexion.php';?>
                        ?>
                          <div class="form-group mt-4">
                             <label> CODIGO:</label>
-                            <input type="text" class="form-control" id="validationDefault01" maxlength="8"name="tlog" onkeypress="return esInteger(event)" value="<?php echo $fila[0];?>" required="" placeholder="Ingrese Dni">
+                            <input type="text" class="form-control" id="validationDefault01" maxlength="8"name="tcod" onkeypress="return esInteger(event)" value="<?php echo $fila[0];?>" required="" placeholder="Ingrese Dni">
                         </div>
                         <div class="form-group mt-4">
                             <label>Nombre del Curso:</label>
 
-                            <input type="text" class="form-control" id="validationDefault01" value="<?php echo $fila[1];?>" onkeypress="return validar(event)" maxlength="15" name="tnom" required="" placeholder="Ingrese Nombres">
+                            <input type="text" class="form-control" id="validationDefault01" value="<?php echo $fila[1];?>" onkeypress="return validar(event)" maxlength="30" name="tnom" required="" placeholder="Ingrese Nombres">
                         </div>
                        
                         <div class="form-group mt-4">
@@ -54,7 +54,7 @@ require 'conexion.php';?>
                             </select>
                         </div>
                         <input type="text" class="form-control" id="validationDefault01" maxlength="8"name="tcod" onkeypress="return esInteger(event)" value="<?php echo $fila[0];?>" required="" readonly="readonly" style="visibility:hidden">
-                        <a href="docente.php"><button type="button" class="btn btn-primary submit mb-4">Cancelar</button></a>
+                        <a href="curso.php"><button type="button" class="btn btn-primary submit mb-4">Cancelar</button></a>
                         <button type="submit" class="btn btn-primary submit mb-4" value="M" name="baccion">Modificar</button>
                     <?php } ?>
                     </form>
@@ -98,7 +98,7 @@ return patron.test(te); // 6
 function validar(e) { // 1
 tecla = (document.all) ? e.keyCode : e.which; // 2
 if (tecla==8) return true; // 3
-patron =/[A-Za-z\s]/; // 4
+patron =/[A-Za-z\sñÑ]/; // 4
 te = String.fromCharCode(tecla); // 5
 return patron.test(te); // 6
 }

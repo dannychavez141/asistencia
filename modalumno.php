@@ -3,19 +3,9 @@
 
 <?php 
  include_once'./cabezera.php';  
- include_once'./conexion.php'; 
- 
-$sql="SELECT (max(idhuella))+1  from alumno";
- $rs=$mysqli->query($sql);         
-   while ($row = $rs ->fetch_array()) {
+$id=$_GET['cod'];
 
-                  $codi=$row[0];
-
-
-
-}  
-$rs -> close();
-?>
+require 'conexion.php';?>
 
 <body>
     <!-- home -->
@@ -34,47 +24,52 @@ $rs -> close();
    
     <section class="about py-3">
         <div class="container py-md-3">
-            <h3 class="tittle-wthree text-center">Registrando Alumno</h3>
+            <h3 class="tittle-wthree text-center">Modificando Alumno</h3>
          <center>
                 <div class="col-lg-6 contact-right-wthree-info login">
                     <h5 class="text-center mb-4"></h5>
                     <form action="modelos/calumno.php" method="post">
-                     
+                       <?php $url="SELECT * FROM asistencia.alumno a join estados e on a.est=e.idestados where a.codAlu=$id;";
+                     $docente= $mysqli->query($url);
+
+  while ($fila = $docente->fetch_array()) {
+    
+                       ?>
                          <div class="form-group mt-4">
                             <label> Codigo Universitario:</label>
-                            <input type="text" class="form-control" id="validationDefault01" maxlength="100" name="tcod" onkeypress="return esInteger(event)" value="" required="" placeholder="Ingrese Codigo Universitario">
+                            <input type="text" class="form-control" id="validationDefault01" maxlength="8"name="tcod" onkeypress="return esInteger(event)" value="<?php echo $fila[0];?>" required="" placeholder="Ingrese Codigo" readonly>
                         </div>
                         <div class="form-group mt-4">
                             <label>Nombres:</label>
 
-                            <input type="text" class="form-control" id="validationDefault01" value="" onkeypress="return validar(event)" maxlength="40" name="tnom" required="" placeholder="Ingrese Nombres">
+                            <input type="text" class="form-control" id="validationDefault01" value="<?php echo $fila[1];?>" onkeypress="return validar(event)" maxlength="15" name="tnom" required="" placeholder="Ingrese Nombres">
                         </div><div class="form-group mt-4">
                             <label>Apellido Paterno:</label>
 
-                            <input type="text" class="form-control" id="validationDefault01" value="" name="tapepa" required="" onkeypress="return validar(event)" maxlength="25" placeholder="Ingrese Apellido Paterno">
+                            <input type="text" class="form-control" id="validationDefault01" value="<?php echo $fila[2];?>" name="tapepa" required="" onkeypress="return validar(event)" maxlength="15" placeholder="Ingrese Apellido Paterno">
                         </div><div class="form-group mt-4">
                             <label>Apellido Materno:</label>
 
-                            <input type="text" class="form-control" id="validationDefault01" value="" name="tapema" required="" onkeypress="return validar(event)" maxlength="25" placeholder="Ingrese Apellido Materno">
+                            <input type="text" class="form-control" id="validationDefault01" value="<?php echo $fila[3];?>" name="tapema" required="" onkeypress="return validar(event)" maxlength="15" placeholder="Ingrese Dni">
                         </div>
                        <div class="form-group mt-4">
                             <label> IDHUELLA:</label>
-                            
-
-                            <input type="text" class="form-control" id="validationDefault01" maxlength="8"name="thue" onkeypress="return esInteger(event)" value="<?php echo $codi; ?>" required="" placeholder="Ingrese idhuella">
+                            <input type="text" class="form-control" id="validationDefault01" maxlength="8"name="thue" onkeypress="return esInteger(event)" value="<?php echo $fila[4];?>" required="" placeholder="Ingrese Dni" readonly>
                         </div>
 
                         
                         <div class="form-group mt-4">
                             <label>Estado:</label>
                             <select class="form-control" id="validationDefault01" name="test">
+                                <option value="<?php echo $fila[6];?>"><?php echo $fila[7];?></option>
                                 <option value="1">Activo</option>
                                 <option value="2">Inactivo</option>
                             </select>
                         </div>
+                        <input type="text" class="form-control" id="validationDefault01" maxlength="8"name="tcod" onkeypress="return esInteger(event)" value="<?php echo $fila[0];?>" required="" readonly="readonly" style="visibility:hidden">
                         <a href="alumno.php"><button type="button" class="btn btn-primary submit mb-4">Cancelar</button></a>
-                        <button type="submit" class="btn btn-primary submit mb-4" value="R" name="baccion">Registrar</button>
-                 
+                        <button type="submit" class="btn btn-primary submit mb-4" value="M" name="baccion">Modificar</button>
+                    <?php } ?>
                     </form>
 
              

@@ -5,10 +5,10 @@ $accion = $_POST['baccion'];
     echo "go?".$accion;
     switch ($accion) {
      case 'R':
-         $nom = $_POST['nom'];
-        
+         $nom = $_POST['tnom'];
+        $test = $_POST['test'];
           
-        $sql="INSERT INTO `asistencia`.`curso` (`descr`, `est`) VALUES ('$nom', '1');";
+        $sql="INSERT INTO `asistencia`.`curso` (`descr`, `est`) VALUES ('$nom', '$test');";
         echo $sql;
     $rs=$mysqli->query($sql);
       
@@ -19,7 +19,8 @@ $accion = $_POST['baccion'];
        $tcod = $_POST['tcod'];
         $tnom = $_POST['tnom'];
           $test = $_POST['test'];
-     $sql="UPDATE `asistencia`.`docente` SET `nomDoc`='$tnom ', `apepaDoc`='$tapepa', `apemaDoc`='$tapema', `dni`='$tlog', `pass`='$tpass', `est`='$test' WHERE `idDocente`='$tcod';";
+     $sql="UPDATE `asistencia`.`curso` SET `descr`='$tnom', `est`='$test' WHERE `idCurso`='$tcod';
+";
         echo $sql;
       $rs=$mysqli->query($sql);
        header("Location: ../curso.php?tconf=true");

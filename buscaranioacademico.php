@@ -8,11 +8,11 @@
 
     $salida = "";
 
-    $query = "SELECT * FROM asistencia.alumno a join estados e on a.est=e.idestados where concat(a.codAlu,a.nomAlu,a.apepaAlu,a.apemaAlu) like '%%';";
+    $query = "SELECT * FROM asistencia.anioacademico a join estados e on a.est=e.idestados where a.descr like '%%';";
 
     if (isset($_POST['consulta'])) {
         $q = $conn->real_escape_string($_POST['consulta']);
-        $query = "SELECT * FROM asistencia.alumno a join estados e on a.est=e.idestados where concat(a.codAlu,a.nomAlu,a.apepaAlu,a.apemaAlu) like '%$q%';";
+        $query = "SELECT * FROM asistencia.anioacademico a join estados e on a.est=e.idestados where a.descr like '%$q%';";
     }
 
     $resultado = $conn->query($query);
@@ -25,7 +25,7 @@
                 <thead>
                     <tr id='titulo'>
                         <td>Codigo</td>
-                        <td>Apellidos y Nombres</td>
+                        <td>Nombre de Año Universitario</td>
                         <td>Estado</td>
                         <td>Editar</td>
                     </tr>
@@ -40,10 +40,10 @@
 
             $salida.="<tr>
                         <td>".$fila[0]."</td>
-                        <td>".$fila[2]." ".$fila[3]." ".$fila[1]."</td>
+                        <td>".$fila[1]."</td>
                        
-                        <td>".$fila[7]."</td>
-                        <td><a href='modalumno.php?cod=".$fila[0]."' ><img src='images/edit.jpg' width='40' height='40'></a></td></tr>";
+                        <td>".$fila[4]."</td>
+                        <td><a href='modaniouniversitario.php?cod=".$fila[0]."' ><img src='images/edit.jpg' width='40' height='40'></a></td></tr>";
 
         }
         $salida.="</tbody></table>";
