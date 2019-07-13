@@ -45,7 +45,7 @@
                         </div><div class="form-group mt-4">
                             <label>Apellido Materno:</label>
 
-                            <input type="text" class="form-control" id="validationDefault01" value="" name="tapema" required="" onkeypress="return validar(event)" maxlength="15" placeholder="Ingrese Dni">
+                            <input type="text" class="form-control" id="validationDefault01" value="" name="tapema" required="" onkeypress="return validar(event)" maxlength="15" placeholder="Ingrese Apellido Materno">
                         </div>
                        
                         <div class="form-group mt-4">

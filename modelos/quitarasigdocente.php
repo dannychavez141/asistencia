@@ -8,8 +8,8 @@ require 'conexion.php';
           
         $sql="UPDATE `asistencia`.`asignaciondoc` SET `est`='$est' WHERE `idAsignacionDoc`='$cod';";
         echo $sql;
-  //$rs=$mysqli->query($sql);
+  $rs=$mysqli->query($sql);
       
-      header("Location: ../cursodocente.php?tconf=true&&cod=$cod&&anio=$anio");
+      header("Location: ../cursodocente.php?tconf=true&&cod=$doc&&anio=$anio");
         exit;
  ?>
