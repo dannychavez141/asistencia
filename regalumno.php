@@ -61,7 +61,7 @@ $rs -> close();
                             <label> IDHUELLA:</label>
                             
 
-                            <input type="text" class="form-control" id="validationDefault01" maxlength="8"name="thue" onkeypress="return esInteger(event)" value="<?php echo $codi; ?>" required="" placeholder="Ingrese idhuella">
+                            <input type="text" class="form-control" id="validationDefault01" maxlength="8"name="thue" onkeypress="return esInteger(event)" value="<?php echo $codi; ?>" required="" placeholder="Ingrese idhuella" readonly>
                         </div>
 
                         
