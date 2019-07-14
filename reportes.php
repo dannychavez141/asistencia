@@ -44,7 +44,7 @@ require 'conexion.php';
   	
 <tr><td colspan="2" bgcolor="#03A9F4"><h1>AÑO ACADEMICO SELECCIONADO:</h1></td><td bgcolor="#B2EBF2"><h1><?php echo $fila[1] ?></h1></td></tr>
 <?php } ?>
-<form action="reporteciclo.php?anio=<?php echo $anio; ?>"    method="post" >
+<form action="reporteciclo.php?anio=<?php echo $anio; ?>"    method="post" target="_blank">
 <tr><td bgcolor="#AB47BC
   "><h1>SELECCIONE CURSO A ASIGNAR:</h1></td><td bgcolor="#E1BEE7"> 
 	<h1><select name="cur">

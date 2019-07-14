@@ -9,7 +9,7 @@
 			$this->SetFont('Arial','B',15);
 			$this->Cell(30);
 			$this->Ln(10);
-			$this->Cell(200,10, 'Reporte De Asistencias',0,0,'C');
+			$this->Cell(200,10, 'Reporte De Asistencias del Ciclo',0,0,'C');
 			$this->Ln(5);
 			$this->SetX(30);
 
