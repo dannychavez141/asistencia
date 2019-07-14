@@ -43,7 +43,7 @@
                                 <option value="2">Inactivo</option>
                             </select>
                         </div>
-                        <a href="curso.php"><button type="button" class="btn btn-primary submit mb-4">Cancelar</button></a>
+                        <a href="anioacademico.php"><button type="button" class="btn btn-primary submit mb-4">Cancelar</button></a>
                         <button type="submit" class="btn btn-primary submit mb-4" value="R" name="baccion">Registrar</button>
             
                     </form>
