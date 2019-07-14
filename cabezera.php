@@ -67,7 +67,7 @@ $idusuario=$_SESSION['idUsuario'];
                                     <li><a href="alumno.php">Alumnos</a>
                                         <li><a href="asignacion.php">Asignaciones</a>
                                                 <li><a href="anioacademico.php">Año Academico</a>
-                                                    <li><a href="reporte.php">Reportes</a>
+                                                    <li><a href="reportes.php">Reportes</a>
                         <li ><a onclick="cerrar()" ><span class="fa fa-user-circle-o" ></span>Cerrar Session</a>
                     </ul>
                 </nav>
