@@ -69,11 +69,11 @@ $alumno=$fila[2].' '.$fila[3].' '.$fila[1];
 <?php } ?>
 	
 </select></h1>
-</td><td><h1><button >ADIGNAR</button></h1></td>
+</td><td><h1><button >ASIGNAR</button></h1></td>
 </tr>
 </form>
 <form>
-<tr bgcolor="#FF7043"><td colspan="2"><h1> Cursos Asigandos</h1></td><td colspan="2"><h1>ACCION</h1></td></tr>
+<tr bgcolor="#FF7043"><td colspan="1"><h1> Cursos Asigandos</h1></td><td colspan="1"><h1>Estado</h1></td><td colspan="2"><h1>ACCION</h1></td></tr>
 <?php $url="SELECT * FROM asistencia.asignacionalu a join curso c on a.idCurso=c.idCurso join anioacademico au on a.idAnioAcademico=au.idAnioAcademico where  a.codAlu='$cod' and a.idAnioAcademico=$anio ;";
                      $clase= $mysqli->query($url);
 $cont=0;
@@ -81,7 +81,12 @@ $cont=0;
 $cont++;
   	?>
 
-	<tr bgcolor="#FFE0B2"><td colspan="2"><h1><?php echo $fila[6]; ?></h1></td>
+	<tr bgcolor="#FFE0B2"><td colspan="1"><h1><?php echo $fila[6]; ?></h1></td><td><h1><?php 
+if ($fila[4]==1) {
+  echo 'HABILITADO';
+} else {echo 'DESHABILITADO';}
+
+  ?></h1></td>
 		<?php if ($fila[4]==1) {
 			
 		 ?>
