@@ -54,7 +54,7 @@ require 'conexion.php';?>
                             </select>
                         </div>
                         <input type="text" class="form-control" id="validationDefault01" maxlength="8"name="tcod" onkeypress="return esInteger(event)" value="<?php echo $fila[0];?>" required="" readonly="readonly" style="visibility:hidden">
-                        <a href="curso.php"><button type="button" class="btn btn-primary submit mb-4">Cancelar</button></a>
+                        <a href="anioacademico.php"><button type="button" class="btn btn-primary submit mb-4">Cancelar</button></a>
                         <button type="submit" class="btn btn-primary submit mb-4" value="M" name="baccion">Modificar</button>
                     <?php } ?>
                     </form>
