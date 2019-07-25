@@ -63,7 +63,7 @@ where ad.idAnioAcademico='$anio' and ad.idCurso='$cur' and a.codAlu='$row[1]';";
 		$nasistencia=$asistencia[0];
 	}
 	$prom=($nasistencia*100)/$nclase;
-		$pdf->Cell(28,6,$nasistencia.'/'.$prom.'%',1,0,'C');
+		$pdf->Cell(28,6,$nasistencia.'/'.round($prom,2).'%',1,0,'C');
 		if($prom>30)
 			{$msj='SI';
 		$pdf->SetTextColor(0,255,0);
