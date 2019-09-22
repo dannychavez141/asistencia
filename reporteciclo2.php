@@ -2,11 +2,11 @@
 	include 'plantilla2.php';
 	require 'conexion.php';
 $anio = $_GET['anio'];
-$cur= $_POST['cur'];
-	$query ="SELECT * FROM asignaciondoc ad join docente d on ad.idDocente=d.idDocente
+$cur= $_GET['cur'];
+	$query ="SELECT * FROM asistencia.asignaciondoc ad join docente d on ad.idDocente=d.idDocente
 join curso c on ad.idCurso=c.idCurso join anioacademico aa on ad.idAnioAcademico=aa.idAnioAcademico where ad.idCurso='$cur' and ad.idAnioAcademico='$anio' limit 1";
     
-     $sql = "SELECT * FROM asignacionalu ad join alumno d on ad.codAlu=d.codAlu
+     $sql = "SELECT * FROM asistencia.asignacionalu ad join alumno d on ad.codAlu=d.codAlu
 join curso c on ad.idCurso=c.idCurso join anioacademico aa on ad.idAnioAcademico=aa.idAnioAcademico where ad.idCurso='$cur' and ad.idAnioAcademico='$anio'
  ORDER BY d.apepaAlu asc";
 	$rs = $mysqli->query($query);
@@ -15,7 +15,7 @@ join curso c on ad.idCurso=c.idCurso join anioacademico aa on ad.idAnioAcademico
  $curso=utf8_decode($fila[13]); 
  $docente=utf8_decode($fila[7].' '.$fila[8].' '.$fila[6]);
   $fecha=date('d-m-Y');
-  $sqlnclase="SELECT count(idClase) FROM clase c join asignaciondoc ad on c.idAsignacionDoc=ad.idAsignacionDoc where ad.idCurso='$cur' and ad.idAnioAcademico='$anio';";
+  $sqlnclase="SELECT count(idClase) FROM asistencia.clase c join asignaciondoc ad on c.idAsignacionDoc=ad.idAsignacionDoc where ad.idCurso='$cur' and ad.idAnioAcademico='$anio';";
  $clases = $mysqli->query($sqlnclase);
 	while($clase = $clases->fetch_array()){
 		$nclase=$clase[0];
@@ -49,13 +49,14 @@ join curso c on ad.idCurso=c.idCurso join anioacademico aa on ad.idAnioAcademico
 	$pdf->SetX(35);
 	$pdf->SetFont('Arial','',10);
 	$resultado = $mysqli->query($sql);
+	$cont=0;
 	while($row = $resultado->fetch_array())
-	{
+	{$cont++;
 		$pdf->Ln(6);
 		$pdf->SetX(20);
 		$pdf->Cell(25,6,$row[1],1,0,'C');
 		$pdf->Cell(85,6,utf8_decode($row[7].' '.$row[8].' '.$row[6]),1,0,'C');
-		$sqlnasis="SELECT count(a.idClase) FROM asistencia a join clase c on a.idClase=c.idClase 
+		$sqlnasis="SELECT count(a.idClase) FROM asistencia.asistencia a join clase c on a.idClase=c.idClase 
 join alumno al on a.codAlu=al.codAlu join asignaciondoc ad on c.idAsignacionDoc=ad.idAsignacionDoc
 where ad.idAnioAcademico='$anio' and ad.idCurso='$cur' and a.codAlu='$row[1]';";
  $asistencias = $mysqli->query($sqlnasis);
@@ -74,6 +75,11 @@ where ad.idAnioAcademico='$anio' and ad.idCurso='$cur' and a.codAlu='$row[1]';";
 		$pdf->SetTextColor(0,0,0);
 
 		
+	}
+	if ($cont==0) {
+		$pdf->Ln(10);
+		$pdf->SetX(53);
+	$pdf->Cell(40,6,utf8_decode( 'NO SE REGISTRARON ASISTENCIAS EN EL CURSO'),0,1,'C');
 	}
 	$pdf->Ln(20);
 $pdf->Cell(200,6,'_______________________                     	______________________',0,0,'C',0);

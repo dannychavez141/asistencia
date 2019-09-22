@@ -3,7 +3,7 @@ error_reporting(0);
  include_once'./conexion.php'; 
  $cod = $_GET['bus'];
  $iddoc = $_GET['iddoc'];
-$sql="SELECT c.idClase,c.idAsignacionDoc,cu.descr as curso,d.nomDoc,d.apepaDoc,d.apemaDoc,aa.descr as auni,c.fechaClas,c.horClas,c.est,e.descr as estado FROM asistencia.clase c 
+$sql="SELECT c.idClase,c.idAsignacionDoc,cu.descr as curso,d.nomDoc,d.apepaDoc,d.apemaDoc,aa.descr as auni,c.fechaClas,c.horClas,c.est,e.descr as estado FROM clase c 
 join asignaciondoc ad on c.idAsignacionDoc=ad.idAsignacionDoc 
 join curso cu on ad.idCurso=cu.idCurso
 join docente d on ad.idDocente=d.idDocente

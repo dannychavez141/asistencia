@@ -29,7 +29,7 @@ require 'conexion.php';?>
                 <div class="col-lg-6 contact-right-wthree-info login">
                     <h5 class="text-center mb-4"></h5>
                     <form action="modelos/caniouniversirario.php" method="post">
-                       <?php $url="SELECT * FROM asistencia.anioacademico a join estados e on a.est=e.idestados where idAnioAcademico=$id;";
+                       <?php $url="SELECT * FROM anioacademico a join estados e on a.est=e.idestados where idAnioAcademico=$id;";
                      $docente= $mysqli->query($url);
 
   while ($fila = $docente->fetch_array()) {

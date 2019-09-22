@@ -8,7 +8,7 @@ $accion = $_POST['baccion'];
          $nom = $_POST['tnom'];
         $test = $_POST['test'];
           
-        $sql="INSERT INTO `asistencia`.`anioacademico` (`descr`, `est`) VALUES ('$nom', '$test');";
+        $sql="INSERT INTO `anioacademico` (`descr`, `est`) VALUES ('$nom', '$test');";
         echo $sql;
     $rs=$mysqli->query($sql);
       
@@ -19,7 +19,7 @@ $accion = $_POST['baccion'];
        $tcod = $_POST['tcod'];
         $tnom = $_POST['tnom'];
           $test = $_POST['test'];
-     $sql="UPDATE `asistencia`.`anioacademico` SET `descr`='$tnom', `est`='$test' WHERE `idAnioAcademico`='$tcod';
+     $sql="UPDATE `anioacademico` SET `descr`='$tnom', `est`='$test' WHERE `idAnioAcademico`='$tcod';
 ";
         echo $sql;
       $rs=$mysqli->query($sql);

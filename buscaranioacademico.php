@@ -8,11 +8,11 @@
 
     $salida = "";
 
-    $query = "SELECT * FROM asistencia.anioacademico a join estados e on a.est=e.idestados where a.descr like '%%';";
+    $query = "SELECT * FROM anioacademico a join estados e on a.est=e.idestados where a.descr like '%%';";
 
     if (isset($_POST['consulta'])) {
         $q = $conn->real_escape_string($_POST['consulta']);
-        $query = "SELECT * FROM asistencia.anioacademico a join estados e on a.est=e.idestados where a.descr like '%$q%';";
+        $query = "SELECT * FROM anioacademico a join estados e on a.est=e.idestados where a.descr like '%$q%';";
     }
 
     $resultado = $conn->query($query);

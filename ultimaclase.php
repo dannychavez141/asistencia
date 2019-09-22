@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);
  include_once'./conexion.php'; 
-$sql="select * from asistencia.clase order by idClase desc limit 1;";
+$sql="select * from clase order by idClase desc limit 1;";
 
         $rs=$mysqli->query($sql);         
    while ($row = $rs ->fetch_array()) {

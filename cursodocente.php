@@ -20,7 +20,7 @@ require 'conexion.php';
   <h1>Cursos de Docentes Registrados</h1>
 
 <table border="1">
-<?php $url="SELECT * FROM asistencia.docente where idDocente='$cod';";
+<?php $url="SELECT * FROM docente where idDocente='$cod';";
                      $clase= $mysqli->query($url);
 
   while ($fila = $clase->fetch_array()) {
@@ -33,7 +33,7 @@ $docente=$fila[2].' '.$fila[3].' '.$fila[1];
 
 <form action="cursodocente.php?cod=<?php echo $cod; ?>"    method="post" >
 <tr><td bgcolor="#81C784"><h1>SELECCIONE AÑO ACADEMICO:</h1></td><td bgcolor="#F1F8E9"> <h1><select name="anio">
-<?php $url="SELECT * FROM asistencia.anioacademico order by idAnioAcademico desc;";
+<?php $url="SELECT * FROM anioacademico order by idAnioAcademico desc;";
                      $clase= $mysqli->query($url);
 
   while ($fila = $clase->fetch_array()) {
@@ -48,7 +48,7 @@ $docente=$fila[2].' '.$fila[3].' '.$fila[1];
 <?php if ($anio!=null) {
 ?>
 
-<?php $url="SELECT * FROM asistencia.anioacademico where idAnioAcademico='$anio'";
+<?php $url="SELECT * FROM anioacademico where idAnioAcademico='$anio'";
                      $aniouni= $mysqli->query($url);
 
   while ($fila = $aniouni->fetch_array()) {
@@ -74,7 +74,7 @@ $docente=$fila[2].' '.$fila[3].' '.$fila[1];
 </form>
 <form>
 <tr bgcolor="#FF7043"><td colspan="1"><h1> Cursos Asigandos</h1></td><td colspan="1"><h1>Estado</h1></td><td colspan="2"><h1>ACCION</h1></td></tr>
-<?php $url="SELECT * FROM asistencia.asignaciondoc a join curso c on a.idCurso=c.idCurso join anioacademico au on a.idAnioAcademico=au.idAnioAcademico where  a.idDocente=$cod and a.idAnioAcademico=$anio ;";
+<?php $url="SELECT * FROM asignaciondoc a join curso c on a.idCurso=c.idCurso join anioacademico au on a.idAnioAcademico=au.idAnioAcademico where  a.idDocente=$cod and a.idAnioAcademico=$anio ;";
                      $clase= $mysqli->query($url);
 $cont=0;
   while ($fila = $clase->fetch_array()) {

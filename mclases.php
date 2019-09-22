@@ -7,7 +7,7 @@ error_reporting(0);
  $hora = $_POST['hora'];
  $est = $_POST['est'];
 
-$sql="UPDATE `asistencia`.`clase` SET `idAsignacionDoc`='$curso', `fechaClas`='$fecha', `horClas`='$hora', `est`='$est' WHERE `idClase`='$clase';";
+$sql="UPDATE `clase` SET `idAsignacionDoc`='$curso', `fechaClas`='$fecha', `horClas`='$hora', `est`='$est' WHERE `idClase`='$clase';";
         $rs=$mysqli->query($sql);         
         $mysqli->close();
 ?>

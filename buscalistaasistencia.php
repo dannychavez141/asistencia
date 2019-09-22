@@ -5,7 +5,9 @@
       if($conn->connect_error){
         die("Conexión fallida: ".$conn->connect_error);
       }
-
+      $idanio=$_POST['anio'];
+     $idcur=$_POST['cur'];
+      
     $salida = "";
 
     $query = "SELECT c.idClase,c.idAsignacionDoc,cu.descr as curso,d.nomDoc,d.apepaDoc,d.apemaDoc,aa.descr as auni,c.fechaClas,c.horClas,c.est,e.descr as estado FROM clase c 
@@ -13,7 +15,7 @@ join asignaciondoc ad on c.idAsignacionDoc=ad.idAsignacionDoc
 join curso cu on ad.idCurso=cu.idCurso
 join docente d on ad.idDocente=d.idDocente
 join anioacademico aa on ad.idAnioAcademico=aa.idAnioAcademico
-join estados e on c.est=e.idestados  where concat(cu.descr,d.nomDoc,d.apepaDoc,d.apemaDoc,c.fechaClas,c.horClas) like '%%' ORDER BY c.idClase Desc";
+join estados e on c.est=e.idestados  where cu.idCurso=$idcur and aa.idAnioAcademico=$idanio and concat(cu.descr,d.nomDoc,d.apepaDoc,d.apemaDoc,c.fechaClas,c.horClas) like '%%' ORDER BY c.idClase Desc";
 
     if (isset($_POST['consulta'])) {
         $q = $conn->real_escape_string($_POST['consulta']);
@@ -22,7 +24,7 @@ join asignaciondoc ad on c.idAsignacionDoc=ad.idAsignacionDoc
 join curso cu on ad.idCurso=cu.idCurso
 join docente d on ad.idDocente=d.idDocente
 join anioacademico aa on ad.idAnioAcademico=aa.idAnioAcademico
-join estados e on c.est=e.idestados  where concat(cu.descr,d.nomDoc,d.apepaDoc,d.apemaDoc,c.fechaClas,c.horClas) like '%$q%' ORDER BY c.idClase Desc;";
+join estados e on c.est=e.idestados  where cu.idCurso=$idcur and aa.idAnioAcademico=$idanio and concat(cu.descr,d.nomDoc,d.apepaDoc,d.apemaDoc,c.fechaClas,c.horClas) like '%$q%' ORDER BY c.idClase Desc;";
     }
 
     $resultado = $conn->query($query);
@@ -36,7 +38,7 @@ join estados e on c.est=e.idestados  where concat(cu.descr,d.nomDoc,d.apepaDoc,d
                     <tr id='titulo'>
                         <td>Codigo</td>
                         <td>Curso </td>
-                        <td>Docente</td>
+                    
                         <td>Año Universitario</td>
                         <td>Fecha de clase</td>
                         <td>Hora Inicio</td>
@@ -56,7 +58,7 @@ join estados e on c.est=e.idestados  where concat(cu.descr,d.nomDoc,d.apepaDoc,d
             $salida.="<tr>
                         <td>".$fila[0]."</td>
                         <td>".$fila[2]."</td>
-                        <td>".$fila[4]." ".$fila[5]." ".$fila[3]."</td>
+                        
                         <td>".$fila[6]."</td>
                         <td>".$fila[7]."</td>
                         <td>".$fila[8]."</td>

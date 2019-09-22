@@ -7,7 +7,7 @@ $sql="INSERT INTO `asistencia`.`curso` VALUES(null,'$descr',1);";
 
         $rs=$mysqli->query($sql);         
    
-$sql="select * from asistencia.curso order by idCurso desc limit 1;";
+$sql="select * from curso order by idCurso desc limit 1;";
 
         $rs=$mysqli->query($sql);         
    while ($row = $rs ->fetch_array()) {
@@ -27,7 +27,7 @@ $sql="select idAnioAcademico from anioacademico where est=1;";
 } 
 $rs -> close();
 
-$sql="INSERT INTO `asistencia`.`asignaciondoc` (`idCurso`, `idDocente`, `idAnioAcademico`) VALUES ('$idcurso', '$iddoc', ' $idauni');";
+$sql="INSERT INTO `asignaciondoc` (`idCurso`, `idDocente`, `idAnioAcademico`) VALUES ('$idcurso', '$iddoc', ' $idauni');";
 
         $rs=$mysqli->query($sql);  
         $mysqli->close();

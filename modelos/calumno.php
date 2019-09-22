@@ -12,7 +12,7 @@ $accion = $_POST['baccion'];
           $thue = $_POST['thue'];
           $test = $_POST['test'];
           
-        $sql="INSERT INTO `asistencia`.`alumno` (`codAlu`, `nomAlu`, `apepaAlu`, `apemaAlu`, `idhuella`, `est`) VALUES ('$tcod', '$tnom', '$tapepa', '$tapema', '$thue', '$test');";
+        $sql="INSERT INTO `alumno` (`codAlu`, `nomAlu`, `apepaAlu`, `apemaAlu`, `idhuella`, `est`) VALUES ('$tcod', '$tnom', '$tapepa', '$tapema', '$thue', '$test');";
         echo $sql;
   $rs=$mysqli->query($sql);
       
@@ -27,7 +27,7 @@ $accion = $_POST['baccion'];
          $tapema = $_POST['tapema'];
           $thue = $_POST['thue'];
           $test = $_POST['test'];
-     $sql="UPDATE `asistencia`.`alumno` SET `nomAlu`='$tnom', `apepaAlu`='$tapepa', `apemaAlu`='$tapema', `idhuella`='$thue', `est`='$test' WHERE `codAlu`='$tcod';";
+     $sql="UPDATE `alumno` SET `nomAlu`='$tnom', `apepaAlu`='$tapepa', `apemaAlu`='$tapema', `idhuella`='$thue', `est`='$test' WHERE `codAlu`='$tcod';";
         echo $sql;
      $rs=$mysqli->query($sql);
       header("Location: ../alumno.php?tconf=true");

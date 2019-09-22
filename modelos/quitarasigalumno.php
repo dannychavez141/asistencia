@@ -6,7 +6,7 @@ require 'conexion.php';
  $anio = $_GET['anio']; 
  $alu = $_GET['alu'];
           
-        $sql="UPDATE `asistencia`.`asignacionalu` SET `est`='$est' WHERE `idasig`='$cod';";
+        $sql="UPDATE `asignacionalu` SET `est`='$est' WHERE `idasig`='$cod';";
         echo $sql;
   $rs=$mysqli->query($sql);
       

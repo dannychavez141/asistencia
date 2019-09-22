@@ -6,7 +6,7 @@ require 'conexion.php';
  $cur = $_POST['cur']; 
 
           
-        $sql="INSERT INTO `asistencia`.`asignaciondoc` (`idCurso`, `idDocente`, `idAnioAcademico`, `est`) VALUES ('$cur', '$doc', '$anio', '1');";
+        $sql="INSERT INTO `asignaciondoc` (`idCurso`, `idDocente`, `idAnioAcademico`, `est`) VALUES ('$cur', '$doc', '$anio', '1');";
         echo $sql;
   $rs=$mysqli->query($sql);
       

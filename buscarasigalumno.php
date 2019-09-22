@@ -8,11 +8,11 @@
 
     $salida = "";
 
-    $query = "SELECT * FROM asistencia.alumno a join estados e on a.est=e.idestados where concat(a.codAlu,a.nomAlu,a.apepaAlu,a.apemaAlu) like '%%';";
+    $query = "SELECT * FROM alumno a join estados e on a.est=e.idestados where concat(a.codAlu,a.nomAlu,a.apepaAlu,a.apemaAlu) like '%%';";
 
     if (isset($_POST['consulta'])) {
         $q = $conn->real_escape_string($_POST['consulta']);
-        $query = "SELECT * FROM asistencia.alumno a join estados e on a.est=e.idestados where concat(a.codAlu,a.nomAlu,a.apepaAlu,a.apemaAlu) like '%$q%';";
+        $query = "SELECT * FROM alumno a join estados e on a.est=e.idestados where concat(a.codAlu,a.nomAlu,a.apepaAlu,a.apemaAlu) like '%$q%';";
     }
 
     $resultado = $conn->query($query);

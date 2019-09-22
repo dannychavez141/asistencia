@@ -9,7 +9,7 @@ $accion = $_POST['baccion'];
         $tfec = $_POST['tfec'];
           $thor = $_POST['thor'];
        $test = $_POST['test'];
-     $sql="UPDATE `asistencia`.`clase` SET `fechaClas`='$tfec', `horClas`='$thor', `est`='$test' WHERE `idClase`='$tcod';";
+     $sql="UPDATE `clase` SET `fechaClas`='$tfec', `horClas`='$thor', `est`='$test' WHERE `idClase`='$tcod';";
         echo $sql;
       $rs=$mysqli->query($sql);
        header("Location: ../clase.php?tconf=true");

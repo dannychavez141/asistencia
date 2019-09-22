@@ -6,8 +6,7 @@ session_start();
 if (isset($_SESSION['usuario'])) {
 	header("Location: index.php");
 	exit();
-	header("Location: login.php");
-	exit();
+	
 }
 $usuario=$_SESSION['usuario'];
 $idusuario=$_SESSION['idUsuario'];

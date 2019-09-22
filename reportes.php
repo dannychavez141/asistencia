@@ -21,7 +21,7 @@ require 'conexion.php';
 <table border="1"> 
 <form action="reportes.php"   method="post" >
 <tr><td bgcolor="#81C784"><h1>SELECCIONE AÑO ACADEMICO:</h1></td><td bgcolor="#F1F8E9"> <h1><select name="anio">
-<?php $url="SELECT * FROM asistencia.anioacademico order by idAnioAcademico desc;";
+<?php $url="SELECT * FROM anioacademico order by idAnioAcademico desc;";
                      $clase= $mysqli->query($url);
 
   while ($fila = $clase->fetch_array()) {
@@ -36,7 +36,7 @@ require 'conexion.php';
 <?php if ($anio!=null) {
 ?>
 
-<?php $url="SELECT * FROM asistencia.anioacademico where idAnioAcademico='$anio'";
+<?php $url="SELECT * FROM anioacademico where idAnioAcademico='$anio'";
                      $aniouni= $mysqli->query($url);
 
   while ($fila = $aniouni->fetch_array()) {
@@ -49,7 +49,7 @@ require 'conexion.php';
   "><h1>SELECCIONE CURSO A ASIGNAR:</h1></td><td bgcolor="#E1BEE7"> 
 	<h1><select name="cur">
 <?php $cont=0;
-$url="SELECT distinct c.idCurso,c.descr from asistencia.asignaciondoc ad join curso c on ad.idCurso=c.idCurso where ad.est=1 and ad.idAnioAcademico='$anio' ;";
+$url="SELECT distinct c.idCurso,c.descr from asignaciondoc ad join curso c on ad.idCurso=c.idCurso where ad.est=1 and ad.idAnioAcademico='$anio' ;";
                      $clase= $mysqli->query($url);
 
   while ($fila = $clase->fetch_array()) {

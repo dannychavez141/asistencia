@@ -6,7 +6,7 @@ require 'conexion.php';
  $anio = $_GET['anio']; 
  $doc = $_GET['doc'];
           
-        $sql="UPDATE `asistencia`.`asignaciondoc` SET `est`='$est' WHERE `idAsignacionDoc`='$cod';";
+        $sql="UPDATE `asignaciondoc` SET `est`='$est' WHERE `idAsignacionDoc`='$cod';";
         echo $sql;
   $rs=$mysqli->query($sql);
       

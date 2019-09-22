@@ -8,11 +8,11 @@
 
     $salida = "";
 
-    $query = "SELECT * FROM asistencia.docente where concat(idDocente,nomDoc,apepaDoc,apemaDoc,dni) like '%%';";
+    $query = "SELECT * FROM docente where concat(idDocente,nomDoc,apepaDoc,apemaDoc,dni) like '%%';";
 
     if (isset($_POST['consulta'])) {
         $q = $conn->real_escape_string($_POST['consulta']);
-        $query = "SELECT * FROM asistencia.docente where concat(idDocente,nomDoc,apepaDoc,apemaDoc,dni) like '%$q%';";
+        $query = "SELECT * FROM docente where concat(idDocente,nomDoc,apepaDoc,apemaDoc,dni) like '%$q%';";
     }
 
     $resultado = $conn->query($query);

@@ -11,7 +11,7 @@ if (empty($usuario) | empty($pass))
 	exit();
 	}
 //VALIDANDO EXISTENCIA DEL USUARIO
-$sql = $mysqli->query("SELECT * FROM `asistencia`.`usuario` where Login = '$usuario' and Pass = '$pass' ");
+$sql = $mysqli->query("SELECT * FROM `usuario` where Login = '$usuario' and Pass = '$pass' ");
 
 if ($row = $sql->fetch_array()) 
 		{

@@ -8,11 +8,11 @@
 
     $salida = "";
 
-    $query = "SELECT * FROM asistencia.docente where concat(idDocente,nomDoc,apepaDoc,apemaDoc,dni) like '%%';";
+    $query = "SELECT * FROM docente where concat(idDocente,nomDoc,apepaDoc,apemaDoc,dni) like '%%';";
 
     if (isset($_POST['consulta'])) {
         $q = $conn->real_escape_string($_POST['consulta']);
-        $query = "SELECT * FROM asistencia.docente where concat(idDocente,nomDoc,apepaDoc,apemaDoc,dni) like '%$q%';";
+        $query = "SELECT * FROM docente where concat(idDocente,nomDoc,apepaDoc,apemaDoc,dni) like '%$q%';";
     }
 
     $resultado = $conn->query($query);
@@ -28,6 +28,7 @@
                         <td>Apellidos y Nombres</td>
                         <td>DNI</td>
                         <td>Estado</td>
+                        <td>Cursos Asignados</td>
                         <td>Editar</td>
                     </tr>
 
@@ -46,6 +47,7 @@
                         <td>".$fila[2]." ".$fila[3]." ".$fila[1]."</td>
                         <td>".$fila[4]."</td>
                         <td>".$estado."</td>
+                        <td><a href='cursosasignados.php?cod=".$fila[0]."' ><img src='images/lista.png' width='40' height='40'></a></td>
                         <td><a href='moddocente.php?cod=".$fila[0]."' ><img src='images/edit.jpg' width='40' height='40'></a></td></tr>";
 
         }

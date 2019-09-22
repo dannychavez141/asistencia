@@ -29,7 +29,7 @@ require 'conexion.php';?>
                 <div class="col-lg-6 contact-right-wthree-info login">
                     <h5 class="text-center mb-4"></h5>
                     <form action="modelos/cclase.php" method="post">
-                       <?php $url="SELECT c.idClase,c.idAsignacionDoc,cu.descr as curso,d.nomDoc,d.apepaDoc,d.apemaDoc,aa.descr as auni,c.fechaClas,c.horClas,c.est,e.descr as estado FROM asistencia.clase c 
+                       <?php $url="SELECT c.idClase,c.idAsignacionDoc,cu.descr as curso,d.nomDoc,d.apepaDoc,d.apemaDoc,aa.descr as auni,c.fechaClas,c.horClas,c.est,e.descr as estado FROM clase c 
 join asignaciondoc ad on c.idAsignacionDoc=ad.idAsignacionDoc 
 join curso cu on ad.idCurso=cu.idCurso
 join docente d on ad.idDocente=d.idDocente

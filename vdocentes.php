@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);
  include_once'./conexion.php'; 
-$sql="SELECT * FROM asistencia.docente;";
+$sql="SELECT * FROM docente;";
 
         $rs=$mysqli->query($sql);         
    while ($row = $rs ->fetch_array()) {

@@ -6,7 +6,7 @@ error_reporting(0);
  $nom = $_POST['nom'];
  $apepa= $_POST['apepa'];
   $apema = $_POST['apema'];
-$sql="INSERT INTO `asistencia`.`alumno` VALUES ('$coduni','$nom','$apepa','$apema','$huella','1');";
+$sql="INSERT INTO `alumno` VALUES ('$coduni','$nom','$apepa','$apema','$huella','1');";
 echo $sql;
         $rs=$mysqli->query($sql);         
         $mysqli->close();

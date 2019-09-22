@@ -4,7 +4,7 @@ error_reporting(0);
  $cod = $_POST['cod'];
  $descr = $_POST['desr'];
  $est = $_POST['idest'];
-$sql="UPDATE `asistencia`.`curso` SET `descr` = '$descr', `est` = $est WHERE `idCurso` = $cod";
+$sql="UPDATE `curso` SET `descr` = '$descr', `est` = $est WHERE `idCurso` = $cod";
 
         $rs=$mysqli->query($sql);         
         $mysqli->close();

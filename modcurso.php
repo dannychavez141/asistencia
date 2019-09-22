@@ -29,7 +29,7 @@ require 'conexion.php';?>
                 <div class="col-lg-6 contact-right-wthree-info login">
                     <h5 class="text-center mb-4"></h5>
                     <form action="modelos/ccurso.php" method="post">
-                       <?php $url="SELECT * FROM asistencia.curso c join estados e on  c.est=e.idestados where idCurso=$id;";
+                       <?php $url="SELECT * FROM curso c join estados e on  c.est=e.idestados where idCurso=$id;";
                      $docente= $mysqli->query($url);
 
   while ($fila = $docente->fetch_array()) {
