@@ -8,7 +8,7 @@ join asignaciondoc ad on c.idAsignacionDoc=ad.idAsignacionDoc
 join curso cu on ad.idCurso=cu.idCurso
 join docente d on ad.idDocente=d.idDocente
 join anioacademico aa on ad.idAnioAcademico=aa.idAnioAcademico
-join estados e on c.est=e.idestados  where d.idDocente=$iddoc and concat(cu.descr,d.nomDoc,d.apepaDoc,d.apemaDoc,c.fechaClas,c.horClas) like '%".$cod."%'";
+join estados e on c.est=e.idestados  where d.idDocente=$iddoc and concat(cu.descr,d.nomDoc,d.apepaDoc,d.apemaDoc,c.fechaClas,c.horClas) like '%".$cod."%' order by c.fechaClas desc";
 
         $rs=$mysqli->query($sql);         
    while ($row = $rs ->fetch_array()) {

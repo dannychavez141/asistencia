@@ -1,4 +1,4 @@
-#include <SPI.h>      // incluye libreria bus SPI
++#include <SPI.h>      // incluye libreria bus SPI
 #include <Adafruit_Fingerprint.h>
 #include <SoftwareSerial.h> //puertos de comunicacion
 #include <LiquidCrystal_I2C.h>
