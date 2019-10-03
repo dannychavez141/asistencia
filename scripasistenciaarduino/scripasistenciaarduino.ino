@@ -152,7 +152,7 @@ void error() {
     lcd.print("  HUELLA NO ");
     lcd.setCursor(0, 1);
     lcd.print("  REGISTRADA");
-   Serial.println("huella no registrada");
+ //  Serial.println("huella no registrada");
 }
 void confregalumno() {
    t = 0;
@@ -161,7 +161,7 @@ void confregalumno() {
     lcd.print("HUELLA");
     lcd.setCursor(0, 1);
     lcd.print("REGISTRADA");
-    Serial.println("huella registrada");
+    //Serial.println("huella registrada");
     delay(1000);
 }
 void confasistencia() {
@@ -171,7 +171,7 @@ void confasistencia() {
     lcd.print("CORRECTAMENTE");
     lcd.setCursor(0, 1);
     lcd.print("IDENTIFICADO");
-    Serial.println("correctamente identificado");
+  //  Serial.println("correctamente identificado");
     delay(1000);
 
 }
