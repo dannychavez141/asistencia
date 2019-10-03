@@ -25,7 +25,7 @@ void setup() {
   lcd.backlight();
  pinMode(led, OUTPUT);
   pinMode(res,OUTPUT );
-  digitalWrite(res, HIGH);
+  digitalWrite(res, LOW);
 }
 uint8_t readnumber(void) {
   uint8_t num = 0;
@@ -125,6 +125,7 @@ void esperacodigo() {
    lcd.clear();
     lcd.setCursor(0, 0);
     lcd.print("ESPERANDO CODIGO");
+    Serial.println("ESPERANDO CODIGO PARA REGISTRAR");
     lcd.setCursor(0, 1);
     lcd.print("PARA REGISTRAR");
     delay(500);
@@ -135,6 +136,7 @@ void removerdedo() {
     lcd.print("  QUITE EL ");
     lcd.setCursor(0, 1);
     lcd.print("  DEDO");
+     Serial.println("QUITE EL DEDO");
 }
 void ponerdedo() {
    lcd.clear();
@@ -150,6 +152,7 @@ void error() {
     lcd.print("  HUELLA NO ");
     lcd.setCursor(0, 1);
     lcd.print("  REGISTRADA");
+   Serial.println("huella no registrada");
 }
 void confregalumno() {
    t = 0;
@@ -158,6 +161,7 @@ void confregalumno() {
     lcd.print("HUELLA");
     lcd.setCursor(0, 1);
     lcd.print("REGISTRADA");
+    Serial.println("huella registrada");
     delay(1000);
 }
 void confasistencia() {
@@ -167,6 +171,7 @@ void confasistencia() {
     lcd.print("CORRECTAMENTE");
     lcd.setCursor(0, 1);
     lcd.print("IDENTIFICADO");
+    Serial.println("correctamente identificado");
     delay(1000);
 
 }
@@ -270,7 +275,7 @@ int getFingerprintIDez() {
    sonerr();
    cont++;
   if(cont>=2){cont=0;
-  digitalWrite(res, LOW);
+  digitalWrite(res, HIGH);
   }
     return -1;}
   
@@ -482,7 +487,7 @@ uint8_t getFingerprintEnroll() {
    confregalumno();
    p=-1;
    delay(1000);
-     digitalWrite(res, LOW);
+     digitalWrite(res, HIGH);
   return p;
   } else if (p == FINGERPRINT_PACKETRECIEVEERR) {
     Serial.println("Communication error");
