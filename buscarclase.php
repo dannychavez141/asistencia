@@ -13,7 +13,7 @@ join asignaciondoc ad on c.idAsignacionDoc=ad.idAsignacionDoc
 join curso cu on ad.idCurso=cu.idCurso
 join docente d on ad.idDocente=d.idDocente
 join anioacademico aa on ad.idAnioAcademico=aa.idAnioAcademico
-join estados e on c.est=e.idestados  where concat(cu.descr,d.nomDoc,d.apepaDoc,d.apemaDoc,c.fechaClas,c.horClas) like '%%' ORDER BY c.idClase Desc";
+join estados e on c.est=e.idestados  where concat(cu.descr,d.nomDoc,d.apepaDoc,d.apemaDoc,c.fechaClas,c.horClas) like '%%' order by c.fechaClas desc";
 
     if (isset($_POST['consulta'])) {
         $q = $conn->real_escape_string($_POST['consulta']);
@@ -22,7 +22,7 @@ join asignaciondoc ad on c.idAsignacionDoc=ad.idAsignacionDoc
 join curso cu on ad.idCurso=cu.idCurso
 join docente d on ad.idDocente=d.idDocente
 join anioacademico aa on ad.idAnioAcademico=aa.idAnioAcademico
-join estados e on c.est=e.idestados  where concat(cu.descr,d.nomDoc,d.apepaDoc,d.apemaDoc,c.fechaClas,c.horClas) like '%$q%' ORDER BY c.idClase Desc;";
+join estados e on c.est=e.idestados  where concat(cu.descr,d.nomDoc,d.apepaDoc,d.apemaDoc,c.fechaClas,c.horClas) like '%$q%' order by c.fechaClas desc;";
     }
 
     $resultado = $conn->query($query);
