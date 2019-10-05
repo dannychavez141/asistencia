@@ -5,7 +5,7 @@ $accion = $_POST['baccion'];
     echo "go?".$accion;
     switch ($accion) {
      case 'R':
-         $nom = $_POST['tnom'];
+         $nom = strtoupper($_POST['tnom']);
         $test = $_POST['test'];
           
         $sql="INSERT INTO `curso` (`descr`, `est`) VALUES ('$nom', '$test');";
@@ -17,7 +17,7 @@ $accion = $_POST['baccion'];
             break;
     	case 'M':
        $tcod = $_POST['tcod'];
-        $tnom = $_POST['tnom'];
+        $tnom = strtoupper($_POST['tnom']);
           $test = $_POST['test'];
      $sql="UPDATE `curso` SET `descr`='$tnom', `est`='$test' WHERE `idCurso`='$tcod';
 ";
