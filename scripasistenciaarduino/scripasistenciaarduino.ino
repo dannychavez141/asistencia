@@ -69,7 +69,8 @@ void leerbt()
 {
   if (BT.available() > 0)
   { modo = (char)BT.read();
-    Serial.println(modo);
+    Serial.print(modo);
+    Serial.println("#");
   }
 }
 //mensaje bienvenida en lcd
@@ -226,7 +227,7 @@ void leerhuella2() {
   if (v == 0)
   { finger.begin(57600);
     if (finger.verifyPassword()) {
-      Serial.println("Found fingerprint sensor!");
+    ////  Serial.println("Found fingerprint sensor!");
     } else {
       Serial.println("Did not find fingerprint sensor :(");
       while (1) {
@@ -236,7 +237,7 @@ void leerhuella2() {
 
     finger.getTemplateCount();
     // Serial.print("Sensor contains ");
-    Serial.print(finger.templateCount); //Serial.println(" templates");
+  //Serial.print(finger.templateCount); //Serial.println(" templates");
     //Serial.println("Waiting for valid finger...");
     v = 1;
     esperaalumno();
@@ -248,9 +249,9 @@ void leerhuella() {
   if (v == 0)
   { finger.begin(57600);
     if (finger.verifyPassword()) {
-      Serial.println("Found fingerprint sensor!");
+     // Serial.println("Found fingerprint sensor!");
     } else {
-      Serial.println("Did not find fingerprint sensor :(");
+    //  Serial.println("Did not find fingerprint sensor :(");
       while (1) {
         delay(1);
       }
@@ -258,7 +259,7 @@ void leerhuella() {
 
     finger.getTemplateCount();
     // Serial.print("Sensor contains ");
-    Serial.print(finger.templateCount); //Serial.println(" templates");
+   // Serial.print(finger.templateCount); //Serial.println(" templates");
     //Serial.println("Waiting for valid finger...");
     v = 1;
     esperaalumno();
