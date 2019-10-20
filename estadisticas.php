@@ -30,7 +30,30 @@
                 <div class="col-lg-10 contact-right-wthree-info login">
                    
                    <table>
-                       <tr><td><a href=""><button class="btn btn-success">Cantidad de clases por curso</button></a></td><td><a href=""><button class="btn btn-success">Cantidad de clases por curso</button></a></td><td><a href=""><button class="btn btn-success">Cantidad de clases por curso</button></a></td></tr>
+                     <tr>
+                        <?php $url="SELECT * FROM docente where idDocente='$cod';";
+                     $clase= $mysqli->query($url);
+
+  while ($fila = $clase->fetch_array()) {
+$docente=$fila[2].' '.$fila[3].' '.$fila[1];
+    ?>
+
+    <tr><td bgcolor="#81C784"><h1>DOCENTE:</h1></td><td colspan="2" bgcolor="#F1F8E9"><h1><?php echo $docente; ?></h1></td></tr>
+
+<?php } ?>
+                       <td><select class="form-control"><option></option></select></td>
+                        <td><select class="form-control"><option></option></select></td>
+                        <td><a href=""><button class="btn btn-success">Cantidad de clases por curso</button></a></td>
+                    </tr>
+                    <tr>
+                         <td><select class="form-control"><option></option></select></td>
+                          <td><select class="form-control"><option></option></select></td>
+                         <td><a href=""><button class="btn btn-success">Cantidad de alumnos por curso</button></a></td>
+                     </tr>
+                    <tr> 
+                         <td><select class="form-control"><option></option></select></td>
+                         <td><a href=""><button class="btn btn-success">Promedio de asistencias por curso</button></a></td>
+                     </tr>
                    </table>
 
              
