@@ -6,18 +6,28 @@ $curso=$_POST['curso'];
 $cantidad=0;
  include_once'./conexion.php'; 
 
- $url="SELECT * FROM asignaciondoc a 
-join curso c on a.idCurso=c.idCurso where a.idAnioAcademico='$anio';";
+ $url="SELECT a.codAlu,concat(al.nomAlu,' ',al.apepaAlu,' ',al.apemaAlu) as alumno,cu.descr FROM asistencia  a 
+join clase c on a.idClase=c.idClase
+join asignaciondoc ad on c.idAsignacionDoc=ad.idAsignacionDoc
+join curso cu on ad.idCurso=cu.idCurso
+join alumno al on a.codAlu=al.codAlu
+where cu.idCurso='$curso' and ad.idAnioAcademico='$anio'";
                          $clase= $mysqli->query($url);
                         while ($fila = $clase->fetch_array()) {
-                         $cursos[]=$fila[6];
+                         $cursos[]=$fila[1];
                          $cantidad++;
                          $id[]=$fila[0];
+                         $cur=$fila[2];
                     }
 
                     foreach ($id as $ids) {
                     	//echo $ids;
-   $url="SELECT count(idClase) FROM clase where idAsignacionDoc='$ids';";
+   $url="SELECT count(a.idClase) as alumno FROM asistencia  a 
+join clase c on a.idClase=c.idClase
+join asignaciondoc ad on c.idAsignacionDoc=ad.idAsignacionDoc
+join curso cu on ad.idCurso=cu.idCurso
+join alumno al on a.codAlu=al.codAlu
+where cu.idCurso='$curso' and ad.idAnioAcademico='$anio' and a.codAlu='$ids';";
                          $clase= $mysqli->query($url);
                         while ($fila = $clase->fetch_array()) {
                          $contado[]=$fila[0];
@@ -33,13 +43,13 @@ join curso c on a.idCurso=c.idCurso where a.idAnioAcademico='$anio';";
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Grafico Estastico 1</title>
+	<title>Grafico Estastico 2</title>
 	<link rel="stylesheet" type="text/css" href="./jschar/samples/style.css">
 	<script src="./jschar/Chart.min.js"></script>
 	<script src="./jschar/samples/utils.js"></script>
 </head>
 <body>
-	<center><h1>GRAFICO ESTADISTICO DE CANTIDAD DE CLASES REGISTRADAS EN EL CICLO</h1></center>
+	<center><h1>GRAFICO ESTADISTICO DE CANTIDAD DE ASISTENCIA DE ALUMNOS POR CURSO</h1></center>
 	<div class="content">
 
 		<div class="wrapper"><canvas id="chart-0"></canvas></div>
@@ -47,9 +57,10 @@ join curso c on a.idCurso=c.idCurso where a.idAnioAcademico='$anio';";
 			
 		</div><table border="1" style="position:absolute;top:100px;left:15px;" >
 			<tr><td colspan="2" align="center">LEYENDA</td></tr>
+			<tr><td colspan="2" align="center"><?php echo $cur ?></td></tr>
 				<tr>
-					<td align="center">CURSO</td>
-					<td>N° DE CLASES</td>
+					<td align="center">ALUMNOS</td>
+					<td>N° DE ASISTENCIAS</td>
 				</tr>
 				<?php for ($i=0; $i < count($cursos) ; $i++) { 
 					

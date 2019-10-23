@@ -82,7 +82,7 @@
                     </select>
                     </td>
                         
-                        <td><button class="btn btn-success" type="submit">Asistencia por alumno a curso</button></td>
+                        <td><button class="btn btn-success" type="submit">Asistencia de alumno a curso</button></td>
                     </tr>
                 </form>
                  <form action="grafico3.php" method="post" target="_blank">
