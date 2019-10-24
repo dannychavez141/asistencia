@@ -31,6 +31,7 @@
                 <div class="col-lg-10 contact-right-wthree-info login">
                    
                    <table>
+                    <?php /* ?>
                     <form action="grafico1.php" method="post" target="_blank">
                      <tr>
                       <td colspan="2">  
@@ -51,7 +52,7 @@
                         <td><button class="btn btn-success" type="submit">Cantidad de clases por curso</button></td>
                     </tr>
                 </form>
-                
+                <?php */ ?>
                     
                     <form action="grafico2.php" method="post" target="_blank">
                      <tr>
@@ -85,26 +86,26 @@
                         <td><button class="btn btn-success" type="submit">Asistencia de alumno a curso</button></td>
                     </tr>
                 </form>
-                 <form action="grafico3.php" method="post" target="_blank">
+             <!-- //nav    <form action="grafico3.php" method="post" target="_blank">
                      <tr>
                       <td colspan="2">  
                         <select class="form-control" name="anio">
                             <option>Seleccione Año</option>
-                        <?php $url="SELECT * FROM anioacademico where est=1 order by idAnioAcademico desc ;";
+                        <?php /*$url="SELECT * FROM anioacademico where est=1 order by idAnioAcademico desc ;";
                          $clase= $mysqli->query($url);
                         while ($fila = $clase->fetch_array()) {
                         $anio=$fila[1];
                         ?>
                           <option value="<?php echo $fila[0]; ?>"><?php echo $anio; ?></option> 
 
-                        <?php } ?>
+                        <?php } */?>
                     </select>
                     </td>
                        
                         
                         <td><button class="btn btn-success" type="submit">Cantidad de alumnos por curso</button></td>
                     </tr>
-                </form>
+                </form>--> 
                    </table>
 
              
