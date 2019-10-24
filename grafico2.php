@@ -56,11 +56,11 @@ where cu.idCurso='$curso' and ad.idAnioAcademico='$anio' and a.codAlu='$ids';";
 		<div class="toolbar">
 			
 		</div><table border="1" style="position:absolute;top:100px;left:15px;" >
-			<tr><td colspan="2" align="center">LEYENDA</td></tr>
-			<tr><td colspan="2" align="center"><?php echo $cur ?></td></tr>
+			<tr><td colspan="2" align="center" style="font-size:10px;">LEYENDA</td></tr>
+			<tr><td colspan="2" align="center" style="font-size:10px;"><?php echo $cur ?></td></tr>
 				<tr>
-					<td align="center">ALUMNOS</td>
-					<td>N° DE ASISTENCIAS</td>
+					<td align="center" style="font-size:10px;">ALUMNOS</td>
+					<td style="font-size:10px;">N° DE ASISTENCIAS</td>
 				</tr>
 				<?php for ($i=0; $i < count($cursos) ; $i++) { 
 					
