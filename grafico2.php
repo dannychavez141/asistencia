@@ -67,7 +67,7 @@ where cu.idCurso='$curso' and ad.idAnioAcademico='$anio' and a.codAlu='$ids';";
 				 ?>
 				<tr>
 					<td align="center" style="font-size:10px;"><?php echo $cursos[$i] ?></td>
-					<td align="center"><?php echo $contado[$i] ?></td>
+					<td align="center" style="font-size:10px;"><?php echo $contado[$i] ?></td>
 				</tr>
 			<?php } ?>
 			</table>
