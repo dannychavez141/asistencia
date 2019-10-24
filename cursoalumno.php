@@ -43,6 +43,7 @@ $alumno=$fila[2].' '.$fila[3].' '.$fila[1];
 	
 </select></h1>
 </td><td><h1><button >VISUALIZAR</button></h1></td>
+<td><a href="asigalumno.php"><button type="button">ATRAS</button></a></td>
 </tr>
 </form>
 <?php if ($anio!=null) {
