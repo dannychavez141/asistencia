@@ -11,7 +11,7 @@ join clase c on a.idClase=c.idClase
 join asignaciondoc ad on c.idAsignacionDoc=ad.idAsignacionDoc
 join curso cu on ad.idCurso=cu.idCurso
 join alumno al on a.codAlu=al.codAlu
-where cu.idCurso='$curso' and ad.idAnioAcademico='$anio'";
+where cu.idCurso='$curso' and ad.idAnioAcademico='$anio' GROUP BY a.codAlu";
                          $clase= $mysqli->query($url);
                         while ($fila = $clase->fetch_array()) {
                          $cursos[]=$fila[1];
