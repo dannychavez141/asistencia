@@ -8,7 +8,8 @@ $sql="SELECT * FROM docente;";
 
                   $curso[]=array_map('utf8_encode',$row);
 
-}  echo json_encode($curso);
+} header('Content-type=application/json; charset=utf-8');
+ echo json_encode($curso);
         
         $rs -> close();
     
