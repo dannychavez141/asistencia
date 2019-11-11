@@ -1,8 +1,8 @@
-
-
 <!DOCTYPE html>
-<html lang="zxx">
-<?php error_reporting(0);
+<html lang="zxx"> 
+<?php 
+ob_start();
+   
  include_once'./cabezera.php';  ?>
 <body>
    

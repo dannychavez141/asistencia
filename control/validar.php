@@ -1,5 +1,8 @@
 <?php
-include('conexion.php');
+ob_start();
+	
+session_start();
+include_once('conexion.php');
 if (isset($_POST['login'])) {
 	//VARIABLES DEL USUARIO
 $usuario = $_POST['txtusuario'];
@@ -12,10 +15,9 @@ if (empty($usuario) | empty($pass))
 	}
 //VALIDANDO EXISTENCIA DEL USUARIO
 $sql = $mysqli->query("SELECT * FROM `usuario` where Login = '$usuario' and Pass = '$pass' ");
-
 if ($row = $sql->fetch_array()) 
 		{
-		session_start();
+		
 		$_SESSION['usuario'] = $row[2].' '.$row[3].' '.$row[1];
 		$_SESSION['idUsuario'] = $row[0];
 		header("Location: ../index.php");
@@ -24,5 +26,5 @@ if ($row = $sql->fetch_array())
 			header("Location: ../login.php?msj=true");
 			exit();
 		}
-}
+}ob_end_flush();
 ?>
