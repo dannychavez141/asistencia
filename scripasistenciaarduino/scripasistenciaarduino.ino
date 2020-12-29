@@ -13,7 +13,7 @@ const int led = 6;
 const int res = 8;
 int cont = 0;
 String codigo = "";
-SoftwareSerial BT(0, 1);
+SoftwareSerial BT(10, 11);
 void setup() {
   BT.begin(9600);
   Serial.begin(9600);     // inicializa comunicacion por monitor serie a 9600 bps
