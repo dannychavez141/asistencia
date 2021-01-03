@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <html lang="zxx">
-<?php error_reporting(0);
+<?php //error_reporting(0);
  
  include_once'./cabezera2.php'; 
 $conf=$_GET['tconf'];
