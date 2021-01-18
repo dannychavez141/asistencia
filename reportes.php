@@ -64,12 +64,8 @@ $url="SELECT distinct c.idCurso,c.descr from asignaciondoc ad join curso c on ad
 <?php } ?>
 </tr>
 </form>
-
 <?php }  ?>
-
 </table>
-  
-
 </body>
 
 </html>
