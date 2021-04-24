@@ -2,9 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
+        <group/>
+=======
         <group>
-            <file>file:/F:/Desarrollo/pagoonline/index.html</file>
-            <file>file:/F:/Desarrollo/pagoonline/vue/app.js</file>
+            <file>file:/D:/Desarrollo/asistencia/apis/asistenciaApi.php</file>
+            <file>file:/D:/Desarrollo/asistencia/control/cAlumno.php</file>
+            <file>file:/D:/Desarrollo/asistencia/control/conexion.php</file>
+            <file>file:/D:/Desarrollo/asistencia/control/cUsuario.php</file>
         </group>
+>>>>>>> 062a3717dc42986b25c03a0749106fe7c4297cef
     </open-files>
 </project-private>
