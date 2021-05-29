@@ -10,6 +10,8 @@
         <link href="css/estilos.css" rel="stylesheet" type="text/css"/>
         <script src="js/axios.js" type="text/javascript"></script>
         <script src="js/vue.js" type="text/javascript"></script>
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
     </head>
     <body class="is-preload">
 
@@ -49,17 +51,14 @@
                                 <div class="contenedor">
                                     <div class="contenedor-cards">   
                                         <div v-for="curso in cursos"> 
-                                        <div class="contenedor-card-item">
-                                            <div class="contenedor-card-item-wrapper">
-                                                <img src="images/unu.png" alt="">
-                                                <div class="contenedor-info">
-                                                    <div class="info">
+                                        
+                                            
                                                         <p class="titulo">{{curso[6]}}</p>
                                                         <span class="categoria">{{curso[16]}}</span>
                                                     </div>
-                                                    <div class="fondo"></div>
-                                                </div>
+                                                 
                                             </div>
+                                            
                                         </div>
                                         
                                         </div>
