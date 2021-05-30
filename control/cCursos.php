@@ -13,14 +13,14 @@
  */
 class cCursos {
 
-    function verAlumnosCurso($curso, $anio) {
+    function verAlumnosCurso($curso) {
 
         $conexion = new cConexion();
         $sql = " SELECT * FROM asignacionalu  aa
 inner join alumno a on aa.codAlu=a.codAlu
 inner join curso c on aa.idCurso=c.idCurso
 inner join anioacademico aac on aa.idAnioAcademico=aac.idAnioAcademico
-where aa.idCurso='$curso' and aa.idAnioAcademico='$anio';";
+where aa.idCurso='$curso' and aa.est='1';";
         //  echo $sql;
         $bd = $conexion->getBd();
         $rs = $bd->query($sql);
@@ -31,13 +31,13 @@ where aa.idCurso='$curso' and aa.idAnioAcademico='$anio';";
         return $datos;
     }
 
-    function verUno($cod, $anio) {
+    function verUno($cod) {
         $conexion = new cConexion();
         $sql = "SELECT * FROM asignaciondoc  ad
 inner join curso c on ad.idCurso=c.idCurso
 inner join docente d on ad.idDocente=d.idDocente
 inner join anioacademico aa on ad.idAnioAcademico=aa.idAnioAcademico
-where ad.idDocente='$cod' and ad.idAnioAcademico='$anio';";
+where ad.idDocente='$cod' and aa.est='1';";
         //  echo $sql;
         $bd = $conexion->getBd();
         $rs = $bd->query($sql);

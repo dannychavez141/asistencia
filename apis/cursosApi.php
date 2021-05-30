@@ -17,16 +17,14 @@ if (isset($_POST['ac']) && $control == null) {
 switch ($control) {
     case 'todos':
         $curso = $_GET["cod"];
-        $anio = $_GET["anio"];
         $modelo = new cCursos;
-        $datos = $modelo->verAlumnosCurso($curso, $anio);
+        $datos = $modelo->verAlumnosCurso($curso);
         print_r(json_encode($datos));
         break;
     case 'buno':
         $cod = $_GET["cod"];
-        $anio = $_GET["anio"];
         $modelo = new cCursos;
-        $datos = $modelo->verUno($cod, $anio);
+        $datos = $modelo->verUno($cod);
         print_r(json_encode($datos));
         break;
     case 'reg':

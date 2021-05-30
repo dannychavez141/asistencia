@@ -39,5 +39,8 @@ class cAlumno {
     function Eliminar($cod) {
         
     }
+    function AlumnosCurso($curso,$anio) {
+        
+    }
 
 }
