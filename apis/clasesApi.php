@@ -21,7 +21,6 @@ switch ($control) {
         $datos = $modelo->verClasesDocente($cod);
         print_r(json_encode($datos));
         break;
-        break;
     case 'buno':
         $cod = $_GET["cod"];
         $modelo = new cClase();

@@ -20,7 +20,7 @@ class cClase {
 left join asignaciondoc ad on c.idAsignacionDoc=ad.idAsignacionDoc
 left join docente d on ad.idDocente=d.idDocente
 left join curso cu on ad.idCurso=cu.idCurso
-left join aula a on c.idAula =a.idAula where ad.idDocente='$id'";
+left join aula a on c.idAula =a.idAula where ad.idCurso='$id' order by c.fechaClas desc";
         //  echo $sql;
         $bd = $conexion->getBd();
         $rs = $bd->query($sql);

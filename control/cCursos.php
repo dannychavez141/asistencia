@@ -20,7 +20,7 @@ class cCursos {
 inner join alumno a on aa.codAlu=a.codAlu
 inner join curso c on aa.idCurso=c.idCurso
 inner join anioacademico aac on aa.idAnioAcademico=aac.idAnioAcademico
-where aa.idCurso='$curso' and aa.est='1';";
+where aa.idCurso='$curso' and aa.est='1' order by a.apepaAlu;";
         //  echo $sql;
         $bd = $conexion->getBd();
         $rs = $bd->query($sql);
