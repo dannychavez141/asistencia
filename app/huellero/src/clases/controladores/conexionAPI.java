@@ -11,6 +11,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Vector;
@@ -24,16 +25,16 @@ public class conexionAPI {
 
     private String direccionUsu;
     private String direccionAlum;
-    private String urlFid;
     private String consulta;
     private String urlRec;
 
-    public conexionAPI(String direccionUsu, String direccionAlum, String urlFid, String consulta, String urlRec) {
+    public conexionAPI() {
+
         this.direccionUsu = direccionUsu;
         this.direccionAlum = direccionAlum;
-        this.urlFid = urlFid;
         this.consulta = consulta;
         this.urlRec = urlRec;
+
     }
 
     public String getUrlRec() {
@@ -44,10 +45,9 @@ public class conexionAPI {
         this.urlRec = urlRec;
     }
 
-    public conexionAPI(String direccionUsu, String direccionAlum, String urlFid, String consulta) {
+    public conexionAPI(String direccionUsu, String direccionAlum, String consulta) {
         this.direccionUsu = direccionUsu;
         this.direccionAlum = direccionAlum;
-        this.urlFid = urlFid;
         this.consulta = consulta;
     }
 
@@ -65,14 +65,6 @@ public class conexionAPI {
 
     public void setDireccionAlum(String direccionAlum) {
         this.direccionAlum = direccionAlum;
-    }
-
-    public String getUrlFid() {
-        return urlFid;
-    }
-
-    public void setUrlFid(String urlFid) {
-        this.urlFid = urlFid;
     }
 
     public String getConsulta() {
@@ -106,8 +98,8 @@ public class conexionAPI {
             String datos = gsonObj.get("nomb").getAsString() + " " + gsonObj.get("apepa").getAsString() + " " + gsonObj.get("apema").getAsString();
             String login = gsonObj.get("dni").getAsString();
             String pass = gsonObj.get("pass").getAsString();
-            mtrabajador trabajador = new mtrabajador(id, dni, datos, login, pass);
-            Trabajadores.add(trabajador);
+            // mtrabajador trabajador = new mtrabajador(id, dni, datos, login, pass);
+            // Trabajadores.add(trabajador);
         }
 
         return Trabajadores;
@@ -145,7 +137,7 @@ public class conexionAPI {
         mAlumno alumno = null;
         String respuesta = "";
         try {
-            String url=consulta+rfidc;
+            String url = consulta + rfidc;
             System.out.println(url);
             respuesta = peticionHttpGet(url);
             //  System.out.println("La respuesta es:\n" + respuesta);
@@ -198,16 +190,51 @@ public class conexionAPI {
         return resultado.toString();
     }
 
+    public static String peticionHttpPost(String urlParaVisitar, String[] datos) throws Exception {
+        // Esto es lo que vamos a devolver
+        StringBuilder resultado = new StringBuilder();
+        // Crear un objeto de tipo URL
+        URL url = new URL(urlParaVisitar);
+
+        // Abrir la conexión e indicar que será de tipo GET
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setDoOutput(true);
+        con.setDoInput(true);
+        con.setRequestProperty("Content-Type", "application/json");
+        con.setRequestProperty("Accept", "application/json");
+        con.setRequestMethod("POST");
+        JsonObject params = new JsonObject();
+        for (int i = 0; i < datos.length; i++) {
+            params.addProperty("" + i, datos[i]);
+        }
+        OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+        wr.write(params.toString());
+        wr.flush();
+
+        // Búferes para leer
+        BufferedReader rd = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String linea;
+        // Mientras el BufferedReader se pueda leer, agregar contenido a resultado
+        while ((linea = rd.readLine()) != null) {
+            resultado.append(linea);
+        }
+        // Cerrar el BufferedReader
+        rd.close();
+        // Regresar resultado, pero como cadena, no como StringBuilder
+        return resultado.toString();
+    }
+
     public void cambiarRfid(String id, String rfid, String Usuario) throws Exception {
 
-        String url = urlFid + "key=acm1ptbt&id=" + id + "&targeta=" + rfid + "&usuario=" + Usuario;
+        /*String url = urlFid + "key=acm1ptbt&id=" + id + "&targeta=" + rfid + "&usuario=" + Usuario;
         System.out.println(url);
         String respuesta = peticionHttpGet(url);
-        JOptionPane.showMessageDialog(null, respuesta);
+        JOptionPane.showMessageDialog(null, respuesta);*/
     }
-    public void recarga(String id,String Usuario,String  recarga, String saldo) throws Exception {
 
-        String url = urlRec + "key=acm1ptbt&id=" + id  + "&usuario=" + Usuario+ "&monto=" + recarga+ "&saldo=" + saldo;
+    public void recarga(String id, String Usuario, String recarga, String saldo) throws Exception {
+
+        String url = urlRec + "key=acm1ptbt&id=" + id + "&usuario=" + Usuario + "&monto=" + recarga + "&saldo=" + saldo;
         System.out.println(url);
         String respuesta = peticionHttpGet(url);
         JOptionPane.showMessageDialog(null, respuesta);
