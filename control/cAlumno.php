@@ -28,8 +28,15 @@ class cAlumno {
         return $datos;   
     }
 
-    function Crear($datos) {
+    function Crear($id,$huella1,$huella2,$codhuella1,$codehuella2) {
         
+        $conexion = new cConexion();
+        $sql = "";
+        //echo $sql;
+        $bd = $conexion->getBd();
+       if($bd->query($sql)){
+           
+       }
     }
 
     function Editar($datos) {
@@ -42,5 +49,20 @@ class cAlumno {
     function AlumnosCurso($curso,$anio) {
         
     }
-
+ function AgregarHuellas($id,$huella1,$huella2,$codhuella1,$codehuella2) {
+        
+        $conexion = new cConexion();
+        $sql = "UPDATE `alumno` SET `huella1` = '$huella1', `huella2` = '$huella2', `imghuella1` = '$codhuella1', `imghuella2` = '$codehuella2' WHERE (`codAlu` = '$id');";
+        //echo $sql;
+        $bd = $conexion->getBd();
+        $resp=array();
+        if($bd->query($sql)){
+          $resp['est']="ok";
+          $resp['msj']="Todo good";
+       }else{
+           $resp['est']="error";
+          $resp['msj']= $bd->error;;
+       }
+       return $resp;
+    }
 }

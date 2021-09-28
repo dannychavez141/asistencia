@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/desarrollo/asistencia/docentes/clases.html</file>
-            <file>file:/E:/desarrollo/asistencia/docentes/app/clases.js</file>
+            <file>file:/D:/desarrollo/asistencia/control/cAsistencia.php</file>
+            <file>file:/D:/desarrollo/asistencia/apis/asistenciaApi.php</file>
+            <file>file:/D:/desarrollo/asistencia/control/cAlumno.php</file>
+            <file>file:/D:/desarrollo/asistencia/apis/alumnosApi.php</file>
         </group>
     </open-files>
 </project-private>

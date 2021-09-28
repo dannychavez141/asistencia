@@ -22,13 +22,20 @@ switch ($control) {
         print_r(json_encode($datos));
         break;
     case 'buno':
- $busq = $_GET["cod"];
+        $busq = $_GET["cod"];
         $modelo = new cAlumno();
         $datos = $modelo->verUno($busq);
         print_r(json_encode($datos));
         break;
     case 'reg':
-
+        $id = $_POST['id'];
+        $huella1 = $_POST['h1'];
+        $huella2 = $_POST['h2'];
+        $codhuella1 = $_POST['ih1'];
+        $codehuella2 = $_POST['ih2'];
+        $modelo = new cAlumno();
+        $datos = $modelo->AgregarHuellas($id, $huella1, $huella2, $codhuella1, $codehuella2);
+        print_r(json_encode($datos));
         break;
 
     case 'mod':
