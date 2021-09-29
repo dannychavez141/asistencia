@@ -5,6 +5,7 @@
  */
 package clases;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -17,23 +18,18 @@ import java.net.URL;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 
+
 /**
  *
  * @author dahelap
  */
 public class conexionAPI {
 
-    private String direccionUsu;
-    private String direccionAlum;
-    private String consulta;
     private String urlRec;
 
     public conexionAPI() {
 
-        this.direccionUsu = direccionUsu;
-        this.direccionAlum = direccionAlum;
-        this.consulta = consulta;
-        this.urlRec = urlRec;
+        this.urlRec = "http://192.168.1.189/asistencia/apis";
 
     }
 
@@ -45,72 +41,11 @@ public class conexionAPI {
         this.urlRec = urlRec;
     }
 
-    public conexionAPI(String direccionUsu, String direccionAlum, String consulta) {
-        this.direccionUsu = direccionUsu;
-        this.direccionAlum = direccionAlum;
-        this.consulta = consulta;
-    }
-
-    public String getDireccionUsu() {
-        return direccionUsu;
-    }
-
-    public void setDireccionUsu(String direccionUsu) {
-        this.direccionUsu = direccionUsu;
-    }
-
-    public String getDireccionAlum() {
-        return direccionAlum;
-    }
-
-    public void setDireccionAlum(String direccionAlum) {
-        this.direccionAlum = direccionAlum;
-    }
-
-    public String getConsulta() {
-        return consulta;
-    }
-
-    public void setConsulta(String consulta) {
-        this.consulta = consulta;
-    }
-
-    public Vector datosTrabajadores() {
-        Vector Trabajadores = new Vector();
-        String respuesta = "";
-        try {
-            respuesta = peticionHttpGet(direccionUsu);
-            //  System.out.println("La respuesta es:\n" + respuesta);
-        } catch (Exception e) {
-            // Manejar excepción
-            e.printStackTrace();
-        }
-        JsonParser parser = new JsonParser();
-        JsonArray gsonArr = parser.parse(respuesta).getAsJsonArray();
-        for (JsonElement obj : gsonArr) {
-
-            // Object of array
-            JsonObject gsonObj = obj.getAsJsonObject();
-
-            // Primitives elements of object
-            String id = gsonObj.get("idUsuario").getAsString();
-            String dni = gsonObj.get("dni").getAsString();
-            String datos = gsonObj.get("nomb").getAsString() + " " + gsonObj.get("apepa").getAsString() + " " + gsonObj.get("apema").getAsString();
-            String login = gsonObj.get("dni").getAsString();
-            String pass = gsonObj.get("pass").getAsString();
-            // mtrabajador trabajador = new mtrabajador(id, dni, datos, login, pass);
-            // Trabajadores.add(trabajador);
-        }
-
-        return Trabajadores;
-
-    }
-
     public Vector datosAlumnos(String bus) {
         Vector Alumnos = new Vector();
         String respuesta = "";
         try {
-            respuesta = peticionHttpGet(direccionAlum + bus);
+            respuesta = peticionHttpGet(this.urlRec + "/alumnosApi.php?ac=todos&busq=" + bus);
             //  System.out.println("La respuesta es:\n" + respuesta);
         } catch (Exception e) {
             // Manejar excepción
@@ -137,23 +72,26 @@ public class conexionAPI {
         return Alumnos;
     }
 
-    public mAlumno buscarAlumno(String rfidc) {
+    public mAlumno buscarAlumno(String id) {
         mAlumno alumno = null;
         String respuesta = "";
         try {
-            String url = consulta + rfidc;
+            String url = this.urlRec + "/alumnosApi.php?ac=buno&cod=" + id;
             System.out.println(url);
             respuesta = peticionHttpGet(url);
-            //  System.out.println("La respuesta es:\n" + respuesta);
+              System.out.println("La respuesta es:\n" + respuesta);
         } catch (Exception e) {
             // Manejar excepción
             e.printStackTrace();
         }
-        JsonParser parser = new JsonParser();
+        
         try {
-            JsonArray gsonArr = parser.parse(respuesta).getAsJsonArray();
-            for (JsonElement obj : gsonArr) {
-
+            JsonParser parser = new JsonParser();    
+            JsonArray json = (JsonArray) parser.parse(respuesta); 
+            System.out.println(json);
+          
+           for (JsonElement obj : json) {
+               System.out.println(obj);
                 // Object of array
                 JsonObject gsonObj = obj.getAsJsonObject();
 
@@ -171,6 +109,7 @@ public class conexionAPI {
 
             }
         } catch (Exception e) {
+            e.printStackTrace(); 
         }
 
         return alumno;
@@ -232,23 +171,7 @@ public class conexionAPI {
         return resultado.toString();
     }
 
-    public void cambiarRfid(String id, String rfid, String Usuario) throws Exception {
-
-        /*String url = urlFid + "key=acm1ptbt&id=" + id + "&targeta=" + rfid + "&usuario=" + Usuario;
-        System.out.println(url);
-        String respuesta = peticionHttpGet(url);
-        JOptionPane.showMessageDialog(null, respuesta);*/
-    }
-
-    public void recarga(String id, String Usuario, String recarga, String saldo) throws Exception {
-
-        String url = urlRec + "key=acm1ptbt&id=" + id + "&usuario=" + Usuario + "&monto=" + recarga + "&saldo=" + saldo;
-        System.out.println(url);
-        String respuesta = peticionHttpGet(url);
-        JOptionPane.showMessageDialog(null, respuesta);
-    }
-
-    public void consultar() throws Exception {
+    public void consultar(String consulta) throws Exception {
         String respuesta = peticionHttpGet(consulta);
         JOptionPane.showMessageDialog(null, respuesta);
     }

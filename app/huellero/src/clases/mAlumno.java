@@ -105,5 +105,10 @@ public class mAlumno {
         this.imghuella2 = imghuella2;
     }
 
+    @Override
+    public String toString() {
+        return "mAlumno{" + "codigo=" + codigo + ", nombres=" + nombres + ", apepa=" + apepa + ", apema=" + apema + ", est=" + est + ", huella1=" + huella1 + ", huella2=" + huella2 + ", imghuella1=" + imghuella1 + ", imghuella2=" + imghuella2 + '}';
+    }
+
 
 }

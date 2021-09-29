@@ -7,6 +7,8 @@ package huellero;
 
 import SecuGen.FDxSDKPro.jni.*;
 import clases.cHuella;
+import clases.conexionAPI;
+import clases.mAlumno;
 import java.awt.*;
 import java.awt.image.*;
 import javax.swing.*;
@@ -37,6 +39,9 @@ public class huellero extends javax.swing.JFrame {
     private static int MINIMUM_NUM_MINUTIAE = 20;  //User defined
     private static int MAXIMUM_NFIQ = 2;
     public cHuella cHuella = new cHuella();
+    conexionAPI api=new conexionAPI();
+    mAlumno alumno= null;
+    mAlumno[] alumnos=null;
 //User defined
 
     /**
@@ -110,12 +115,13 @@ public class huellero extends javax.swing.JFrame {
         jProgressBarR2 = new javax.swing.JProgressBar();
         jProgressBarV1 = new javax.swing.JProgressBar();
         jButtonInit = new javax.swing.JButton();
-        jComboBoxUSBPort = new javax.swing.JComboBox();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jSliderQuality = new javax.swing.JSlider();
         jLabel3 = new javax.swing.JLabel();
         jSliderSeconds = new javax.swing.JSlider();
+        jLabelSecurityLevel1 = new javax.swing.JLabel();
+        txtbuscar = new javax.swing.JTextField();
+        btnbuscar = new javax.swing.JButton();
         jComboBoxDeviceName = new javax.swing.JComboBox();
         jLabelDeviceName = new javax.swing.JLabel();
         jLabelSpacer1 = new javax.swing.JLabel();
@@ -135,17 +141,17 @@ public class huellero extends javax.swing.JFrame {
 
         jPanelRegisterVerify.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabelSecurityLevel.setBorder(javax.swing.BorderFactory.createTitledBorder("Nivel de Seguridad"));
-        jPanelRegisterVerify.add(jLabelSecurityLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 350, 50));
+        jLabelSecurityLevel.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Alumno"));
+        jPanelRegisterVerify.add(jLabelSecurityLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 350, 50));
 
         jLabelRegistration.setText("Registration");
-        jPanelRegisterVerify.add(jLabelRegistration, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 34, -1, -1));
+        jPanelRegisterVerify.add(jLabelRegistration, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, -1, -1));
 
         jLabelVerification.setText("Verification");
-        jPanelRegisterVerify.add(jLabelVerification, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, -1, -1));
+        jPanelRegisterVerify.add(jLabelVerification, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, -1, -1));
 
         jComboBoxRegisterSecurityLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "LOWEST", "LOWER", "LOW", "BELOW_NORMAL", "NORMAL", "ABOVE_NORMAL", "HIGH", "HIGHER", "HIGHEST" }));
-        jPanelRegisterVerify.add(jComboBoxRegisterSecurityLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 70, -1));
+        jPanelRegisterVerify.add(jComboBoxRegisterSecurityLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 80, 90, -1));
 
         jComboBoxVerifySecurityLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "LOWEST", "LOWER", "LOW", "BELOW_NORMAL", "NORMAL", "ABOVE_NORMAL", "HIGH", "HIGHER", "HIGHEST" }));
         jComboBoxVerifySecurityLevel.addActionListener(new java.awt.event.ActionListener() {
@@ -153,7 +159,7 @@ public class huellero extends javax.swing.JFrame {
                 jComboBoxVerifySecurityLevelActionPerformed(evt);
             }
         });
-        jPanelRegisterVerify.add(jComboBoxVerifySecurityLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 90, -1));
+        jPanelRegisterVerify.add(jComboBoxVerifySecurityLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 130, 90, -1));
 
         jLabelRegistrationBox.setBorder(javax.swing.BorderFactory.createTitledBorder("Registration"));
         jPanelRegisterVerify.add(jLabelRegistrationBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 290, 190));
@@ -255,16 +261,7 @@ public class huellero extends javax.swing.JFrame {
                 jButtonInitActionPerformed(evt);
             }
         });
-        jPanelRegisterVerify.add(jButtonInit, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, 100, 30));
-
-        jComboBoxUSBPort.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AUTO_DETECT", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
-        jComboBoxUSBPort.setMaximumSize(new java.awt.Dimension(170, 27));
-        jComboBoxUSBPort.setMinimumSize(new java.awt.Dimension(170, 27));
-        jComboBoxUSBPort.setPreferredSize(new java.awt.Dimension(170, 27));
-        jPanelRegisterVerify.add(jComboBoxUSBPort, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, 170, 27));
-
-        jLabel1.setText("USB Device");
-        jPanelRegisterVerify.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 110, -1, -1));
+        jPanelRegisterVerify.add(jButtonInit, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 40, 100, 30));
 
         jLabel2.setText("Image Quality");
         jPanelRegisterVerify.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 170, -1, -1));
@@ -288,9 +285,21 @@ public class huellero extends javax.swing.JFrame {
         jSliderSeconds.setValue(5);
         jPanelRegisterVerify.add(jSliderSeconds, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 270, 220, -1));
 
+        jLabelSecurityLevel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Nivel de Seguridad"));
+        jPanelRegisterVerify.add(jLabelSecurityLevel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, 150, 130));
+        jPanelRegisterVerify.add(txtbuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 320, -1));
+
+        btnbuscar.setText("Buscar Alumno");
+        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbuscarActionPerformed(evt);
+            }
+        });
+        jPanelRegisterVerify.add(btnbuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, -1, 30));
+
         jTabbedPane1.addTab("REGISTRAR Y VERIFICAR", jPanelRegisterVerify);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 35, 710, 420));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 35, 810, 420));
 
         jComboBoxDeviceName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AUTO", "HU20-AP", "HU20-A", "HU10-AP", "HU10", "HUPX", "HU20", "HSDU04P", "HSDU03P", "HFDU02" }));
         jComboBoxDeviceName.setMinimumSize(new java.awt.Dimension(350, 10));
@@ -347,7 +356,7 @@ public class huellero extends javax.swing.JFrame {
                     nfiqvalue = fplib.ComputeNFIQ(imageBuffer1, deviceInfo.imageWidth, deviceInfo.imageHeight);
                     ret2 = fplib.GetNumOfMinutiae(SGFDxTemplateFormat.TEMPLATE_FORMAT_SG400, regMin2, numOfMinutiae);
                     if ((quality[0] >= MINIMUM_QUALITY) && (nfiqvalue <= MAXIMUM_NFIQ) && (numOfMinutiae[0] >= MINIMUM_NUM_MINUTIAE)) {
-                       cHuella.crearImagen(imgRegistration2, regMin2, 2);
+                        cHuella.crearImagen(imgRegistration2, regMin2, 2);
                         this.jLabelStatus.setText("Reg. Capture 2 PASS QC. Qual[" + quality[0] + "] NFIQ[" + nfiqvalue + "] Minutiae[" + numOfMinutiae[0] + "]");
                         r2Captured = true;
                         this.enableRegisterAndVerifyControls();
@@ -375,15 +384,15 @@ public class huellero extends javax.swing.JFrame {
 
         iError = fplib.MatchTemplate(regMin1, vrfMin, secuLevel, matched);
         System.out.println(regMin1.toString());
-                
-                System.out.println(vrfMin.toString());
+
+        System.out.println(vrfMin.toString());
         if (iError == SGFDxErrorCode.SGFDX_ERROR_NONE) {
             if (matched[0]) {
                 this.jLabelStatus.setText("Verification Success (1st template)");
             } else {
-                
+
                 System.out.println(regMin2.toString());
-                
+
                 System.out.println(vrfMin.toString());
                 iError = fplib.MatchTemplate(regMin2, vrfMin, secuLevel, matched);
                 if (iError == SGFDxErrorCode.SGFDX_ERROR_NONE) {
@@ -410,7 +419,7 @@ public class huellero extends javax.swing.JFrame {
         matched[0] = false;
 
         iError = fplib.MatchTemplate(regMin1, regMin2, secuLevel, matched);
-        
+
         if (iError == SGFDxErrorCode.SGFDX_ERROR_NONE) {
             matchScore[0] = 0;
             iError = fplib.GetMatchingScore(regMin1, regMin2, matchScore);
@@ -460,7 +469,7 @@ public class huellero extends javax.swing.JFrame {
                     ret2 = fplib.GetNumOfMinutiae(SGFDxTemplateFormat.TEMPLATE_FORMAT_SG400, vrfMin, numOfMinutiae);
 
                     if ((quality[0] >= MINIMUM_QUALITY) && (nfiqvalue <= MAXIMUM_NFIQ) && (numOfMinutiae[0] >= MINIMUM_NUM_MINUTIAE)) {
-                       cHuella.crearImagen(imgVerification, vrfMin, 3);
+                        cHuella.crearImagen(imgVerification, vrfMin, 3);
                         this.jLabelStatus.setText("Verification Capture PASS QC. Quality[" + quality[0] + "] NFIQ[" + nfiqvalue + "] Minutiae[" + numOfMinutiae[0] + "]");
                         v1Captured = true;
                         this.enableRegisterAndVerifyControls();
@@ -585,44 +594,51 @@ public class huellero extends javax.swing.JFrame {
         if ((fplib != null) && (ret == SGFDxErrorCode.SGFDX_ERROR_NONE)) {
             this.jLabelStatus.setText("JSGFPLib Initialization Success");
             this.devicePort = SGPPPortAddr.AUTO_DETECT;
-            switch (this.jComboBoxUSBPort.getSelectedIndex()) {
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-                case 5:
-                case 6:
-                case 7:
-                case 8:
-                case 9:
-                case 10:
-                    this.devicePort = this.jComboBoxUSBPort.getSelectedIndex() - 1;
-                    break;
-            }
-            ret = fplib.OpenDevice(this.devicePort);
-            if (ret == SGFDxErrorCode.SGFDX_ERROR_NONE) {
-                this.jLabelStatus.setText("OpenDevice() Success [" + ret + "]");
-                ret = fplib.GetDeviceInfo(deviceInfo);
+            
+            boolean conetado = false;
+            int puerto = 0;
+            while (conetado == false) {
+                this.devicePort = puerto;
+                ret = fplib.OpenDevice(this.devicePort);
                 if (ret == SGFDxErrorCode.SGFDX_ERROR_NONE) {
-                    imgRegistration1 = new BufferedImage(deviceInfo.imageWidth, deviceInfo.imageHeight, BufferedImage.TYPE_BYTE_GRAY);
-                    imgRegistration2 = new BufferedImage(deviceInfo.imageWidth, deviceInfo.imageHeight, BufferedImage.TYPE_BYTE_GRAY);
-                    imgVerification = new BufferedImage(deviceInfo.imageWidth, deviceInfo.imageHeight, BufferedImage.TYPE_BYTE_GRAY);
-                    this.enableControls();
+                    conetado=true;
+                    this.jLabelStatus.setText("OpenDevice() Success [" + ret + "]");
+                    ret = fplib.GetDeviceInfo(deviceInfo);
+                    if (ret == SGFDxErrorCode.SGFDX_ERROR_NONE) {
+                        imgRegistration1 = new BufferedImage(deviceInfo.imageWidth, deviceInfo.imageHeight, BufferedImage.TYPE_BYTE_GRAY);
+                        imgRegistration2 = new BufferedImage(deviceInfo.imageWidth, deviceInfo.imageHeight, BufferedImage.TYPE_BYTE_GRAY);
+                        imgVerification = new BufferedImage(deviceInfo.imageWidth, deviceInfo.imageHeight, BufferedImage.TYPE_BYTE_GRAY);
+                        this.enableControls();
+                    } else {
+                        this.jLabelStatus.setText("GetDeviceInfo() Error [" + ret + "]");
+
+                    }
                 } else {
-                    this.jLabelStatus.setText("GetDeviceInfo() Error [" + ret + "]");
-                }
-            } else {
-                this.jLabelStatus.setText("OpenDevice() Error [" + ret + "]");
+                    this.jLabelStatus.setText("OpenDevice() Error [" + ret + "]");
+                } 
+                puerto++;
             }
-        } else {
+            }else {
             this.jLabelStatus.setText("JSGFPLib Initialization Failed");
         }
-
+           
     }//GEN-LAST:event_jButtonInitActionPerformed
 
     private void jComboBoxVerifySecurityLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxVerifySecurityLevelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxVerifySecurityLevelActionPerformed
+
+    private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
+       String buscar= txtbuscar.getText();
+         alumno = api.buscarAlumno(buscar);
+        try {
+             System.out.println(alumno.toString());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(this, "No se encontro Alumno");
+        }
+        
+    }//GEN-LAST:event_btnbuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -633,6 +649,7 @@ public class huellero extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnbuscar;
     private javax.swing.JButton jButtonCaptureR1;
     private javax.swing.JButton jButtonCaptureR2;
     private javax.swing.JButton jButtonCaptureV1;
@@ -641,9 +658,7 @@ public class huellero extends javax.swing.JFrame {
     private javax.swing.JButton jButtonVerify;
     private javax.swing.JComboBox jComboBoxDeviceName;
     private javax.swing.JComboBox jComboBoxRegisterSecurityLevel;
-    private javax.swing.JComboBox jComboBoxUSBPort;
     private javax.swing.JComboBox jComboBoxVerifySecurityLevel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelDeviceName;
@@ -652,6 +667,7 @@ public class huellero extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelRegistration;
     private javax.swing.JLabel jLabelRegistrationBox;
     private javax.swing.JLabel jLabelSecurityLevel;
+    private javax.swing.JLabel jLabelSecurityLevel1;
     private javax.swing.JLabel jLabelSpacer1;
     private javax.swing.JLabel jLabelSpacer2;
     private javax.swing.JLabel jLabelStatus;
@@ -665,6 +681,7 @@ public class huellero extends javax.swing.JFrame {
     private javax.swing.JSlider jSliderQuality;
     private javax.swing.JSlider jSliderSeconds;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextField txtbuscar;
     // End of variables declaration//GEN-END:variables
 
 }
