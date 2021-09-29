@@ -39,9 +39,9 @@ public class huellero extends javax.swing.JFrame {
     private static int MINIMUM_NUM_MINUTIAE = 20;  //User defined
     private static int MAXIMUM_NFIQ = 2;
     public cHuella cHuella = new cHuella();
-    conexionAPI api=new conexionAPI();
-    mAlumno alumno= null;
-    mAlumno[] alumnos=null;
+    conexionAPI api = new conexionAPI();
+    mAlumno alumno = null;
+    mAlumno[] alumnos = null;
 //User defined
 
     /**
@@ -54,6 +54,7 @@ public class huellero extends javax.swing.JFrame {
         disableControls();
         this.jComboBoxRegisterSecurityLevel.setSelectedIndex(4);
         this.jComboBoxVerifySecurityLevel.setSelectedIndex(4);
+        this.setLocationRelativeTo(null);
     }
 
     private void disableControls() {
@@ -96,7 +97,7 @@ public class huellero extends javax.swing.JFrame {
         jLabelStatus = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanelRegisterVerify = new javax.swing.JPanel();
-        jLabelSecurityLevel = new javax.swing.JLabel();
+        lbuscar = new javax.swing.JLabel();
         jLabelRegistration = new javax.swing.JLabel();
         jLabelVerification = new javax.swing.JLabel();
         jComboBoxRegisterSecurityLevel = new javax.swing.JComboBox();
@@ -122,6 +123,10 @@ public class huellero extends javax.swing.JFrame {
         jLabelSecurityLevel1 = new javax.swing.JLabel();
         txtbuscar = new javax.swing.JTextField();
         btnbuscar = new javax.swing.JButton();
+        lCodigo = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lnombres = new javax.swing.JLabel();
         jComboBoxDeviceName = new javax.swing.JComboBox();
         jLabelDeviceName = new javax.swing.JLabel();
         jLabelSpacer1 = new javax.swing.JLabel();
@@ -137,21 +142,21 @@ public class huellero extends javax.swing.JFrame {
 
         jLabelStatus.setText("Click Initialize Button ...");
         jLabelStatus.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        getContentPane().add(jLabelStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 490, 30));
+        getContentPane().add(jLabelStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 570, 490, 30));
 
         jPanelRegisterVerify.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabelSecurityLevel.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Alumno"));
-        jPanelRegisterVerify.add(jLabelSecurityLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 350, 50));
+        lbuscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Alumno"));
+        jPanelRegisterVerify.add(lbuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 350, 50));
 
-        jLabelRegistration.setText("Registration");
-        jPanelRegisterVerify.add(jLabelRegistration, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, -1, -1));
+        jLabelRegistration.setText("Registracion");
+        jPanelRegisterVerify.add(jLabelRegistration, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 130, -1, -1));
 
-        jLabelVerification.setText("Verification");
-        jPanelRegisterVerify.add(jLabelVerification, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, -1, -1));
+        jLabelVerification.setText("Verificacion");
+        jPanelRegisterVerify.add(jLabelVerification, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 180, -1, -1));
 
         jComboBoxRegisterSecurityLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "LOWEST", "LOWER", "LOW", "BELOW_NORMAL", "NORMAL", "ABOVE_NORMAL", "HIGH", "HIGHER", "HIGHEST" }));
-        jPanelRegisterVerify.add(jComboBoxRegisterSecurityLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 80, 90, -1));
+        jPanelRegisterVerify.add(jComboBoxRegisterSecurityLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 150, 90, -1));
 
         jComboBoxVerifySecurityLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "LOWEST", "LOWER", "LOW", "BELOW_NORMAL", "NORMAL", "ABOVE_NORMAL", "HIGH", "HIGHER", "HIGHEST" }));
         jComboBoxVerifySecurityLevel.addActionListener(new java.awt.event.ActionListener() {
@@ -159,28 +164,28 @@ public class huellero extends javax.swing.JFrame {
                 jComboBoxVerifySecurityLevelActionPerformed(evt);
             }
         });
-        jPanelRegisterVerify.add(jComboBoxVerifySecurityLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 130, 90, -1));
+        jPanelRegisterVerify.add(jComboBoxVerifySecurityLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 200, 90, -1));
 
         jLabelRegistrationBox.setBorder(javax.swing.BorderFactory.createTitledBorder("Registration"));
-        jPanelRegisterVerify.add(jLabelRegistrationBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 290, 190));
+        jPanelRegisterVerify.add(jLabelRegistrationBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 290, 190));
 
         jLabelRegisterImage1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jLabelRegisterImage1.setMinimumSize(new java.awt.Dimension(130, 150));
         jLabelRegisterImage1.setPreferredSize(new java.awt.Dimension(130, 150));
-        jPanelRegisterVerify.add(jLabelRegisterImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+        jPanelRegisterVerify.add(jLabelRegisterImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
 
         jLabelRegisterImage2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jLabelRegisterImage2.setMinimumSize(new java.awt.Dimension(130, 150));
         jLabelRegisterImage2.setPreferredSize(new java.awt.Dimension(130, 150));
-        jPanelRegisterVerify.add(jLabelRegisterImage2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, -1, -1));
+        jPanelRegisterVerify.add(jLabelRegisterImage2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, -1, -1));
 
         jLabelVerificationBox.setBorder(javax.swing.BorderFactory.createTitledBorder("Verification"));
-        jPanelRegisterVerify.add(jLabelVerificationBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 80, 150, 190));
+        jPanelRegisterVerify.add(jLabelVerificationBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 160, 150, 190));
 
         jLabelVerifyImage.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jLabelVerifyImage.setMinimumSize(new java.awt.Dimension(130, 150));
         jLabelVerifyImage.setPreferredSize(new java.awt.Dimension(130, 150));
-        jPanelRegisterVerify.add(jLabelVerifyImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, -1, -1));
+        jPanelRegisterVerify.add(jLabelVerifyImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 180, -1, -1));
 
         jButtonCaptureR1.setText("Captura 1");
         jButtonCaptureR1.setActionCommand("jButton1");
@@ -192,7 +197,7 @@ public class huellero extends javax.swing.JFrame {
                 jButtonCaptureR1ActionPerformed(evt);
             }
         });
-        jPanelRegisterVerify.add(jButtonCaptureR1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 130, 30));
+        jPanelRegisterVerify.add(jButtonCaptureR1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 130, 30));
 
         jButtonCaptureV1.setText("Captura Verificar");
         jButtonCaptureV1.setActionCommand("jButton1");
@@ -204,7 +209,7 @@ public class huellero extends javax.swing.JFrame {
                 jButtonCaptureV1ActionPerformed(evt);
             }
         });
-        jPanelRegisterVerify.add(jButtonCaptureV1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, 130, 30));
+        jPanelRegisterVerify.add(jButtonCaptureV1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 360, 130, 30));
 
         jButtonRegister.setText("Asignar Huellas al Alumno");
         jButtonRegister.setActionCommand("jButton1");
@@ -216,7 +221,7 @@ public class huellero extends javax.swing.JFrame {
                 jButtonRegisterActionPerformed(evt);
             }
         });
-        jPanelRegisterVerify.add(jButtonRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 270, 30));
+        jPanelRegisterVerify.add(jButtonRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 270, 30));
 
         jButtonVerify.setText("Verficar");
         jButtonVerify.setActionCommand("jButton1");
@@ -228,7 +233,7 @@ public class huellero extends javax.swing.JFrame {
                 jButtonVerifyActionPerformed(evt);
             }
         });
-        jPanelRegisterVerify.add(jButtonVerify, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, 130, 30));
+        jPanelRegisterVerify.add(jButtonVerify, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 420, 130, 30));
 
         jButtonCaptureR2.setText("Captura 2");
         jButtonCaptureR2.setActionCommand("jButton1");
@@ -240,16 +245,16 @@ public class huellero extends javax.swing.JFrame {
                 jButtonCaptureR2ActionPerformed(evt);
             }
         });
-        jPanelRegisterVerify.add(jButtonCaptureR2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 130, 30));
+        jPanelRegisterVerify.add(jButtonCaptureR2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 360, 130, 30));
 
         jProgressBarR1.setForeground(new java.awt.Color(0, 51, 153));
-        jPanelRegisterVerify.add(jProgressBarR1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 130, -1));
+        jPanelRegisterVerify.add(jProgressBarR1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 130, -1));
 
         jProgressBarR2.setForeground(new java.awt.Color(0, 51, 153));
-        jPanelRegisterVerify.add(jProgressBarR2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 130, -1));
+        jPanelRegisterVerify.add(jProgressBarR2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 130, -1));
 
         jProgressBarV1.setForeground(new java.awt.Color(0, 51, 153));
-        jPanelRegisterVerify.add(jProgressBarV1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 250, 130, -1));
+        jPanelRegisterVerify.add(jProgressBarV1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 330, 130, -1));
 
         jButtonInit.setText("CONECTAR");
         jButtonInit.setMaximumSize(new java.awt.Dimension(100, 30));
@@ -261,10 +266,10 @@ public class huellero extends javax.swing.JFrame {
                 jButtonInitActionPerformed(evt);
             }
         });
-        jPanelRegisterVerify.add(jButtonInit, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 40, 100, 30));
+        jPanelRegisterVerify.add(jButtonInit, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 120, 100, 30));
 
         jLabel2.setText("Image Quality");
-        jPanelRegisterVerify.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 170, -1, -1));
+        jPanelRegisterVerify.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 250, -1, -1));
 
         jSliderQuality.setMajorTickSpacing(10);
         jSliderQuality.setMinorTickSpacing(5);
@@ -272,10 +277,10 @@ public class huellero extends javax.swing.JFrame {
         jSliderQuality.setPaintTicks(true);
         jSliderQuality.setName(""); // NOI18N
         jSliderQuality.setOpaque(false);
-        jPanelRegisterVerify.add(jSliderQuality, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 190, 220, -1));
+        jPanelRegisterVerify.add(jSliderQuality, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 270, 220, -1));
 
         jLabel3.setText("Timeout (seconds)");
-        jPanelRegisterVerify.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 250, -1, -1));
+        jPanelRegisterVerify.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 330, -1, -1));
 
         jSliderSeconds.setMajorTickSpacing(1);
         jSliderSeconds.setMaximum(10);
@@ -283,10 +288,10 @@ public class huellero extends javax.swing.JFrame {
         jSliderSeconds.setPaintLabels(true);
         jSliderSeconds.setPaintTicks(true);
         jSliderSeconds.setValue(5);
-        jPanelRegisterVerify.add(jSliderSeconds, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 270, 220, -1));
+        jPanelRegisterVerify.add(jSliderSeconds, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 350, 220, -1));
 
         jLabelSecurityLevel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Nivel de Seguridad"));
-        jPanelRegisterVerify.add(jLabelSecurityLevel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, 150, 130));
+        jPanelRegisterVerify.add(jLabelSecurityLevel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, 150, 130));
         jPanelRegisterVerify.add(txtbuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 320, -1));
 
         btnbuscar.setText("Buscar Alumno");
@@ -297,9 +302,21 @@ public class huellero extends javax.swing.JFrame {
         });
         jPanelRegisterVerify.add(btnbuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, -1, 30));
 
+        lCodigo.setText("--------------------------------------------------------");
+        jPanelRegisterVerify.add(lCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 400, -1));
+
+        jLabel4.setText("Codigo Universitario:");
+        jPanelRegisterVerify.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 130, -1));
+
+        jLabel5.setText("Apellidos y Nombres:");
+        jPanelRegisterVerify.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 400, -1));
+
+        lnombres.setText("--------------------------------------------------------");
+        jPanelRegisterVerify.add(lnombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 400, -1));
+
         jTabbedPane1.addTab("REGISTRAR Y VERIFICAR", jPanelRegisterVerify);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 35, 810, 420));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 35, 810, 500));
 
         jComboBoxDeviceName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AUTO", "HU20-AP", "HU20-A", "HU10-AP", "HU10", "HUPX", "HU20", "HSDU04P", "HSDU03P", "HFDU02" }));
         jComboBoxDeviceName.setMinimumSize(new java.awt.Dimension(350, 10));
@@ -412,31 +429,35 @@ public class huellero extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonVerifyActionPerformed
 
     private void jButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegisterActionPerformed
-        int[] matchScore = new int[1];
-        boolean[] matched = new boolean[1];
-        long iError;
-        long secuLevel = (long) (this.jComboBoxRegisterSecurityLevel.getSelectedIndex() + 1);
-        matched[0] = false;
 
-        iError = fplib.MatchTemplate(regMin1, regMin2, secuLevel, matched);
+        if (alumno != null) {
+            String h1byte = "";
 
-        if (iError == SGFDxErrorCode.SGFDX_ERROR_NONE) {
-            matchScore[0] = 0;
-            iError = fplib.GetMatchingScore(regMin1, regMin2, matchScore);
-
-            if (iError == SGFDxErrorCode.SGFDX_ERROR_NONE) {
-                if (matched[0]) {
-                    this.jLabelStatus.setText("Registration Success, Matching Score: " + matchScore[0]);
-                } else {
-                    this.jLabelStatus.setText("Registration Fail, Matching Score: " + matchScore[0]);
-                }
-
-            } else {
-                this.jLabelStatus.setText("Registration Fail, GetMatchingScore() Error : " + iError);
+            for (int i = 0; i < regMin1.length; i++) {
+                h1byte += regMin1[i];
             }
+            alumno.setHuella1(h1byte);
+            alumno.setImghuella1(cHuella.imagen64("huella1.png"));
+            String h2byte = "";
+            for (int i = 0; i < regMin2.length; i++) {
+                h2byte += regMin2[i];
+            }
+            alumno.setImghuella2(cHuella.imagen64("huella2.png"));
+            alumno.setHuella2(h2byte);
+            String[] paramtros = new String[6];
+            paramtros[0] = "reg";
+            paramtros[1] = alumno.getCodigo();
+            paramtros[2] = alumno.getHuella1();
+            paramtros[3] = alumno.getHuella2();
+            paramtros[4] = alumno.getImghuella1();
+            paramtros[5] = alumno.getImghuella1();
+            
+api.peticionHttpPost(h2byte, paramtros)
+            //System.out.println(alumno.toString());
         } else {
-            this.jLabelStatus.setText("Registration Fail, MatchTemplate() Error : " + iError);
+            JOptionPane.showMessageDialog(this, "No se selecciono ningun alumno");
         }
+
     }//GEN-LAST:event_jButtonRegisterActionPerformed
 
     private void jButtonCaptureV1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCaptureV1ActionPerformed
@@ -594,14 +615,14 @@ public class huellero extends javax.swing.JFrame {
         if ((fplib != null) && (ret == SGFDxErrorCode.SGFDX_ERROR_NONE)) {
             this.jLabelStatus.setText("JSGFPLib Initialization Success");
             this.devicePort = SGPPPortAddr.AUTO_DETECT;
-            
+
             boolean conetado = false;
             int puerto = 0;
             while (conetado == false) {
                 this.devicePort = puerto;
                 ret = fplib.OpenDevice(this.devicePort);
                 if (ret == SGFDxErrorCode.SGFDX_ERROR_NONE) {
-                    conetado=true;
+                    conetado = true;
                     this.jLabelStatus.setText("OpenDevice() Success [" + ret + "]");
                     ret = fplib.GetDeviceInfo(deviceInfo);
                     if (ret == SGFDxErrorCode.SGFDX_ERROR_NONE) {
@@ -615,13 +636,13 @@ public class huellero extends javax.swing.JFrame {
                     }
                 } else {
                     this.jLabelStatus.setText("OpenDevice() Error [" + ret + "]");
-                } 
+                }
                 puerto++;
             }
-            }else {
+        } else {
             this.jLabelStatus.setText("JSGFPLib Initialization Failed");
         }
-           
+
     }//GEN-LAST:event_jButtonInitActionPerformed
 
     private void jComboBoxVerifySecurityLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxVerifySecurityLevelActionPerformed
@@ -629,16 +650,23 @@ public class huellero extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxVerifySecurityLevelActionPerformed
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
-       String buscar= txtbuscar.getText();
-         alumno = api.buscarAlumno(buscar);
+        String buscar = txtbuscar.getText();
+        alumno = api.buscarAlumno(buscar);
         try {
-             System.out.println(alumno.toString());
+            lCodigo.setText(alumno.getCodigo());
+            lnombres.setText(alumno.getApepa() + " " + alumno.getApema() + " " + alumno.getNombres());
+            System.out.println(alumno.toString());
         } catch (Exception e) {
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(this, "No se encontro Alumno");
+            limpiar();
         }
-        
+        txtbuscar.setText("");
     }//GEN-LAST:event_btnbuscarActionPerformed
+    public void limpiar() {
+        lCodigo.setText("-------");
+        lnombres.setText("------------------");
+    }
 
     /**
      * @param args the command line arguments
@@ -661,12 +689,13 @@ public class huellero extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBoxVerifySecurityLevel;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelDeviceName;
     private javax.swing.JLabel jLabelRegisterImage1;
     private javax.swing.JLabel jLabelRegisterImage2;
     private javax.swing.JLabel jLabelRegistration;
     private javax.swing.JLabel jLabelRegistrationBox;
-    private javax.swing.JLabel jLabelSecurityLevel;
     private javax.swing.JLabel jLabelSecurityLevel1;
     private javax.swing.JLabel jLabelSpacer1;
     private javax.swing.JLabel jLabelSpacer2;
@@ -681,6 +710,9 @@ public class huellero extends javax.swing.JFrame {
     private javax.swing.JSlider jSliderQuality;
     private javax.swing.JSlider jSliderSeconds;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lCodigo;
+    private javax.swing.JLabel lbuscar;
+    private javax.swing.JLabel lnombres;
     private javax.swing.JTextField txtbuscar;
     // End of variables declaration//GEN-END:variables
 

@@ -7,10 +7,13 @@ package clases;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.Base64;
 import javax.imageio.ImageIO;
+import sun.misc.IOUtils;
 
 /**
  *
@@ -18,23 +21,38 @@ import javax.imageio.ImageIO;
  */
 public class cHuella {
 
-    public void crearImagen(BufferedImage huella,byte [] binhuella,int id) {
+    public void crearImagen(BufferedImage huella, byte[] binhuella, int id) {
         try {
             Path path = FileSystems.getDefault().getPath("");
-            String directoryName = path.toAbsolutePath().toString() + "\\src\\img\\huella"+id+".png";
+            String directoryName = path.toAbsolutePath().toString() + "\\src\\img\\huella" + id + ".png";
             System.out.println("Current Working Directory is = " + directoryName);
             // Con este código se agregan los bytes al archivo.
             File outputfile = new File(directoryName);
             ImageIO.write(huella, "png", outputfile);
-            String code=Base64.getEncoder().encodeToString(binhuella);
+            String code = Base64.getEncoder().encodeToString(binhuella);
             for (int i = 0; i < binhuella.length; i++) {
-                  System.out.print(binhuella[i]);
+                System.out.print(binhuella[i]);
             }
-          
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    public String imagen64(String nhuella) {
+        String base64 = "";
+        try {
+            Path path = FileSystems.getDefault().getPath("");
+            String directoryName = path.toAbsolutePath().toString() + "\\src\\img\\" + nhuella;
+            File file = new File(directoryName);
+            FileInputStream fileInputStreamReader = new FileInputStream(file);
+            byte[] bytes = new byte[(int) file.length()];
+            fileInputStreamReader.read(bytes);
+            base64 = Base64.getEncoder().encodeToString(bytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return base64;
     }
 }

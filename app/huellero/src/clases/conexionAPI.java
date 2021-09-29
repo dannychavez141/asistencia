@@ -25,11 +25,11 @@ import javax.swing.JOptionPane;
  */
 public class conexionAPI {
 
-    private String urlRec;
+    private static String urlRec;
 
     public conexionAPI() {
 
-        this.urlRec = "http://192.168.1.189/asistencia/apis";
+        this.urlRec = "http://localhost/asistencia/apis";
 
     }
 
@@ -141,7 +141,7 @@ public class conexionAPI {
         // Esto es lo que vamos a devolver
         StringBuilder resultado = new StringBuilder();
         // Crear un objeto de tipo URL
-        URL url = new URL(urlParaVisitar);
+        URL url = new URL(urlRec+urlParaVisitar);
 
         // Abrir la conexión e indicar que será de tipo GET
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
