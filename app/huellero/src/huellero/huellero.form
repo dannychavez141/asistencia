@@ -2,7 +2,7 @@
 
 <Form version="1.2" maxVersion="1.2" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="title" type="java.lang.String" value="JSGD Java Sample"/>
+    <Property name="title" type="java.lang.String" value="Asistencia UNU"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -17,6 +17,7 @@
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
@@ -54,8 +55,8 @@
         <Container class="javax.swing.JPanel" name="jPanelRegisterVerify">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Register/Verify">
-                <Property name="tabTitle" type="java.lang.String" value="Register/Verify"/>
+              <JTabbedPaneConstraints tabName="REGISTRAR Y VERIFICAR">
+                <Property name="tabTitle" type="java.lang.String" value="REGISTRAR Y VERIFICAR"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -68,7 +69,7 @@
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Security Level"/>
+                    <TitledBorder title="Nivel de Seguridad"/>
                   </Border>
                 </Property>
               </Properties>
@@ -235,7 +236,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButtonCaptureR1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Capture R1"/>
+                <Property name="text" type="java.lang.String" value="Captura 1"/>
                 <Property name="actionCommand" type="java.lang.String" value="jButton1"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[130, 30]"/>
@@ -258,7 +259,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButtonCaptureV1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Capture V1"/>
+                <Property name="text" type="java.lang.String" value="Captura Verificar"/>
                 <Property name="actionCommand" type="java.lang.String" value="jButton1"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[130, 30]"/>
@@ -281,7 +282,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButtonRegister">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Register"/>
+                <Property name="text" type="java.lang.String" value="Asignar Huellas al Alumno"/>
                 <Property name="actionCommand" type="java.lang.String" value="jButton1"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[270, 30]"/>
@@ -304,7 +305,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButtonVerify">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Verify"/>
+                <Property name="text" type="java.lang.String" value="Verficar"/>
                 <Property name="actionCommand" type="java.lang.String" value="jButton1"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[130, 30]"/>
@@ -327,7 +328,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButtonCaptureR2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Capture R2"/>
+                <Property name="text" type="java.lang.String" value="Captura 2"/>
                 <Property name="actionCommand" type="java.lang.String" value="jButton1"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[130, 30]"/>

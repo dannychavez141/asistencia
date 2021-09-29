@@ -121,7 +121,7 @@ public class huellero extends javax.swing.JFrame {
         jLabelSpacer1 = new javax.swing.JLabel();
         jLabelSpacer2 = new javax.swing.JLabel();
 
-        setTitle("JSGD Java Sample");
+        setTitle("Asistencia UNU");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 exitForm(evt);
@@ -135,7 +135,7 @@ public class huellero extends javax.swing.JFrame {
 
         jPanelRegisterVerify.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabelSecurityLevel.setBorder(javax.swing.BorderFactory.createTitledBorder("Security Level"));
+        jLabelSecurityLevel.setBorder(javax.swing.BorderFactory.createTitledBorder("Nivel de Seguridad"));
         jPanelRegisterVerify.add(jLabelSecurityLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 350, 50));
 
         jLabelRegistration.setText("Registration");
@@ -176,7 +176,7 @@ public class huellero extends javax.swing.JFrame {
         jLabelVerifyImage.setPreferredSize(new java.awt.Dimension(130, 150));
         jPanelRegisterVerify.add(jLabelVerifyImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, -1, -1));
 
-        jButtonCaptureR1.setText("Capture R1");
+        jButtonCaptureR1.setText("Captura 1");
         jButtonCaptureR1.setActionCommand("jButton1");
         jButtonCaptureR1.setMaximumSize(new java.awt.Dimension(130, 30));
         jButtonCaptureR1.setMinimumSize(new java.awt.Dimension(130, 30));
@@ -188,7 +188,7 @@ public class huellero extends javax.swing.JFrame {
         });
         jPanelRegisterVerify.add(jButtonCaptureR1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 130, 30));
 
-        jButtonCaptureV1.setText("Capture V1");
+        jButtonCaptureV1.setText("Captura Verificar");
         jButtonCaptureV1.setActionCommand("jButton1");
         jButtonCaptureV1.setMaximumSize(new java.awt.Dimension(130, 30));
         jButtonCaptureV1.setMinimumSize(new java.awt.Dimension(130, 30));
@@ -200,7 +200,7 @@ public class huellero extends javax.swing.JFrame {
         });
         jPanelRegisterVerify.add(jButtonCaptureV1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, 130, 30));
 
-        jButtonRegister.setText("Register");
+        jButtonRegister.setText("Asignar Huellas al Alumno");
         jButtonRegister.setActionCommand("jButton1");
         jButtonRegister.setMaximumSize(new java.awt.Dimension(270, 30));
         jButtonRegister.setMinimumSize(new java.awt.Dimension(270, 30));
@@ -212,7 +212,7 @@ public class huellero extends javax.swing.JFrame {
         });
         jPanelRegisterVerify.add(jButtonRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 270, 30));
 
-        jButtonVerify.setText("Verify");
+        jButtonVerify.setText("Verficar");
         jButtonVerify.setActionCommand("jButton1");
         jButtonVerify.setMaximumSize(new java.awt.Dimension(130, 30));
         jButtonVerify.setMinimumSize(new java.awt.Dimension(130, 30));
@@ -224,7 +224,7 @@ public class huellero extends javax.swing.JFrame {
         });
         jPanelRegisterVerify.add(jButtonVerify, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, 130, 30));
 
-        jButtonCaptureR2.setText("Capture R2");
+        jButtonCaptureR2.setText("Captura 2");
         jButtonCaptureR2.setActionCommand("jButton1");
         jButtonCaptureR2.setMaximumSize(new java.awt.Dimension(130, 30));
         jButtonCaptureR2.setMinimumSize(new java.awt.Dimension(130, 30));
@@ -288,7 +288,7 @@ public class huellero extends javax.swing.JFrame {
         jSliderSeconds.setValue(5);
         jPanelRegisterVerify.add(jSliderSeconds, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 270, 220, -1));
 
-        jTabbedPane1.addTab("Register/Verify", jPanelRegisterVerify);
+        jTabbedPane1.addTab("REGISTRAR Y VERIFICAR", jPanelRegisterVerify);
 
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 35, 710, 420));
 
@@ -374,10 +374,17 @@ public class huellero extends javax.swing.JFrame {
         matched[0] = false;
 
         iError = fplib.MatchTemplate(regMin1, vrfMin, secuLevel, matched);
+        System.out.println(regMin1.toString());
+                
+                System.out.println(vrfMin.toString());
         if (iError == SGFDxErrorCode.SGFDX_ERROR_NONE) {
             if (matched[0]) {
                 this.jLabelStatus.setText("Verification Success (1st template)");
             } else {
+                
+                System.out.println(regMin2.toString());
+                
+                System.out.println(vrfMin.toString());
                 iError = fplib.MatchTemplate(regMin2, vrfMin, secuLevel, matched);
                 if (iError == SGFDxErrorCode.SGFDX_ERROR_NONE) {
                     if (matched[0]) {
@@ -403,6 +410,7 @@ public class huellero extends javax.swing.JFrame {
         matched[0] = false;
 
         iError = fplib.MatchTemplate(regMin1, regMin2, secuLevel, matched);
+        
         if (iError == SGFDxErrorCode.SGFDX_ERROR_NONE) {
             matchScore[0] = 0;
             iError = fplib.GetMatchingScore(regMin1, regMin2, matchScore);
@@ -596,15 +604,6 @@ public class huellero extends javax.swing.JFrame {
                 this.jLabelStatus.setText("OpenDevice() Success [" + ret + "]");
                 ret = fplib.GetDeviceInfo(deviceInfo);
                 if (ret == SGFDxErrorCode.SGFDX_ERROR_NONE) {
-                    /*  this.jTextFieldSerialNumber.setText(new String(deviceInfo.deviceSN()));
-                    this.jTextFieldBrightness.setText(new String(Integer.toString(deviceInfo.brightness)));
-                    this.jTextFieldContrast.setText(new String(Integer.toString((int)deviceInfo.contrast)));
-                    this.jTextFieldDeviceID.setText(new String(Integer.toString(deviceInfo.deviceID)));
-                    this.jTextFieldFWVersion.setText(new String(Integer.toHexString(deviceInfo.FWVersion)));
-                    this.jTextFieldGain.setText(new String(Integer.toString(deviceInfo.gain)));
-                    this.jTextFieldImageDPI.setText(new String(Integer.toString(deviceInfo.imageDPI)));
-                    this.jTextFieldImageHeight.setText(new String(Integer.toString(deviceInfo.imageHeight)));
-                    this.jTextFieldImageWidth.setText(new String(Integer.toString(deviceInfo.imageWidth)));*/
                     imgRegistration1 = new BufferedImage(deviceInfo.imageWidth, deviceInfo.imageHeight, BufferedImage.TYPE_BYTE_GRAY);
                     imgRegistration2 = new BufferedImage(deviceInfo.imageWidth, deviceInfo.imageHeight, BufferedImage.TYPE_BYTE_GRAY);
                     imgVerification = new BufferedImage(deviceInfo.imageWidth, deviceInfo.imageHeight, BufferedImage.TYPE_BYTE_GRAY);
