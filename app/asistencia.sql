@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 28-09-2021 a las 20:51:56
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.4.19
+-- Tiempo de generación: 29-09-2021 a las 21:23:10
+-- Versión del servidor: 5.7.24
+-- Versión de PHP: 7.4.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -37,10 +37,10 @@ CREATE TABLE `alumno` (
   `apemaAlu` varchar(45) DEFAULT NULL,
   `idhuella` int(11) DEFAULT NULL,
   `est` varchar(11) DEFAULT '1',
-  `huella1` longtext DEFAULT NULL,
-  `huella2` longtext DEFAULT NULL,
-  `imghuella1` longtext DEFAULT NULL,
-  `imghuella2` longtext DEFAULT NULL
+  `huella1` longtext,
+  `huella2` longtext,
+  `imghuella1` longtext,
+  `imghuella2` longtext
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -48,69 +48,69 @@ CREATE TABLE `alumno` (
 --
 
 INSERT INTO `alumno` (`codAlu`, `nomAlu`, `apepaAlu`, `apemaAlu`, `idhuella`, `est`, `huella1`, `huella2`, `imghuella1`, `imghuella2`) VALUES
-('0002040105', 'GINO ANDERSON', 'GARCIA', 'ACOSTA', 19, '1', NULL, NULL, NULL, NULL),
-('0002060199', 'WALTER', 'VASQUEZ', 'RIOS', 57, '1', NULL, NULL, NULL, NULL),
-('0002070240', 'IVAN', 'HUAMANTICO', 'ALARCON', 26, '1', NULL, NULL, NULL, NULL),
-('0002070287', 'LUIGGI PIERRE', 'SAUCEDO', 'LOPEZ', 48, '1', NULL, NULL, NULL, NULL),
-('0002080632', 'CARLOS IGNACIO', 'CHAVEZ', 'RAMIREZ', 6, '1', NULL, NULL, NULL, NULL),
-('0002090806', 'JOSE LENIN', 'LOZADA', 'FLORES', 32, '1', NULL, NULL, NULL, NULL),
-('0002100924', 'HECTOR VILLASON', 'HUAPULA', 'VILLAFANA', 27, '1', NULL, NULL, NULL, NULL),
-('0002100941', 'ANDY', 'PAREDES', 'CRIOLLO', 37, '1', NULL, NULL, NULL, NULL),
-('0002100955', 'MANUEL ALEXANDER', 'SILVA', 'LURITA', 49, '1', NULL, NULL, NULL, NULL),
-('0002100960', 'JACK JUNIOR', 'TORRES', 'REATEGUI', 51, '1', NULL, NULL, NULL, NULL),
-('0002110644', 'RENZO ANDRE', 'ALVARADO', 'LA TORRE', 1, '1', NULL, NULL, NULL, NULL),
-('0002110651', 'LUBER DANIEL', 'BASILIO', 'DA SILVA', 3, '1', NULL, NULL, NULL, NULL),
-('0002110662', 'KEVIN ARNOL', 'FERNANDEZ', 'MALCA', 13, '1', NULL, NULL, NULL, NULL),
-('0002110670', 'ZENKI', 'KATAYAMA', 'MORAN', 29, '1', NULL, NULL, NULL, NULL),
-('0002110711', 'JOHN ANDRES', 'WAGNER', 'MENDOZA', 60, '1', NULL, NULL, NULL, NULL),
-('0002120803', 'GIL MELVIS', 'CONDORCAHUANA', 'TEXEIRA', 8, '1', NULL, NULL, NULL, NULL),
-('0002120810', 'SERGIO ORLANDO ', 'FUNG', 'VARGAS', 16, '1', NULL, NULL, NULL, NULL),
-('0002120854', 'LUISIN WANDERLEY', 'ZUMAETA', 'TORRES', 62, '1', NULL, NULL, NULL, NULL),
-('0002130313', 'VICTOR ANTHONY', 'CASTRO', 'LA TORRE', 5, '1', NULL, NULL, NULL, NULL),
-('0002130314', 'DANNY MANUEL', 'CHAVEZ', 'HERRERA', 63, '1', NULL, NULL, NULL, NULL),
-('0002130324', 'GARLLI', 'GARCIA', 'ROCHA', 18, '1', NULL, NULL, NULL, NULL),
-('0002130332', 'JUAN JEAN PIERRE', 'HIDALGO', 'MANCILLA', 22, '1', NULL, NULL, NULL, NULL),
-('0002130333', 'JOSE JAIRO ', 'HUAMAN', 'MACHUCA', 25, '1', NULL, NULL, NULL, NULL),
-('0002130340', 'JOSUE DANIEL', 'MAS', 'DELGADO', 34, '1', NULL, NULL, NULL, NULL),
-('0002130351', 'CHRISTIAN KENY', 'PINEDO', 'ACHO', 40, '1', NULL, NULL, NULL, NULL),
-('0002130369', 'MAYKOL', 'SANTOS', 'LUYCHO', 47, '1', NULL, NULL, NULL, NULL),
-('0002130380', 'GIANFRANCO', 'VASQUEZ', 'CORDOVA', 55, '1', NULL, NULL, NULL, NULL),
-('0002130383', 'TONY JORMAN', 'VELA', 'MONSALVE', 58, '1', NULL, NULL, NULL, NULL),
-('0002131004', 'JHON FRANK', 'MORENO', 'PEREZ', 35, '1', NULL, NULL, NULL, NULL),
-('0002140325', 'MARCELINO JUNIOR', 'CARTAGENA', 'FARFAN', 4, '1', NULL, NULL, NULL, NULL),
-('0002140328', 'FRANCO JONAIKER', 'CORTEZ', 'VALVERDE', 9, '1', NULL, NULL, NULL, NULL),
-('0002140329', 'ABNER JUAN', 'DAZA', 'MORALES', 10, '1', NULL, NULL, NULL, NULL),
-('0002140332', 'CESAR LUIS', 'ESTRELLA', 'ABANTO', 12, '1', NULL, NULL, NULL, NULL),
-('0002140334', 'MONICA', 'FERNANDEZ', 'NAVARRO', 14, '1', NULL, NULL, NULL, NULL),
-('0002140339', 'NERIO MAVERING', 'GOMEZ', 'PEREYRA', 20, '1', NULL, NULL, NULL, NULL),
-('0002140343', 'ELIO DAVID', 'HOYOS', 'BARBA', 23, '1', NULL, NULL, NULL, NULL),
-('0002140344', 'EMILY MELISSA', 'LOPEZ', 'IBERICO', 31, '1', NULL, NULL, NULL, NULL),
-('0002140352', 'LUIS ARTURO', 'MAQUERA', 'RIVAS', 33, '1', NULL, NULL, NULL, NULL),
-('0002140362', 'AUGUSTO JUNIOR', 'PASQUEL', 'DEL AGUILA', 38, '1', NULL, NULL, NULL, NULL),
-('0002140364', 'PIERO BRAYAN', 'PEZO', 'MARIN', 39, '1', NULL, NULL, NULL, NULL),
-('0002140368', 'PABLO FELIPE', 'RAMIREZ', 'NAVARRO', 41, '1', NULL, NULL, NULL, NULL),
-('0002140370', 'FRANK ANTONIO', 'RAMOS', 'DEL AGUILA', 42, '1', NULL, NULL, NULL, NULL),
-('0002140394', 'ARNALDO', 'VASQUEZ', 'RUIZ', 56, '1', NULL, NULL, NULL, NULL),
-('0002140397', 'RICARDO', 'VILLACORTA', 'DIAZ', 59, '1', NULL, NULL, NULL, NULL),
-('0002150315', 'EDWIN LUIS', 'BARBOZA', 'PINEDO', 2, '1', NULL, NULL, NULL, NULL),
-('0002150322', 'LUIS OSWALDO', 'COLLADO', 'TORRES', 7, '1', NULL, NULL, NULL, NULL),
-('0002150323', 'DANIEL ITALO ROMANO', 'DEGREGORI', 'DONAYRE', 11, '1', NULL, NULL, NULL, NULL),
-('0002150329', 'JEAN RICKY', 'FLORES', 'ALVAREZ', 15, '1', NULL, NULL, NULL, NULL),
-('0002150330', 'JUMPIER CESAR', 'GARCIA', 'CHAVEZ', 17, '1', NULL, NULL, NULL, NULL),
-('0002150336', 'ERICA CLAUDIA', 'HERRERA', 'HUARAC', 21, '1', NULL, NULL, NULL, NULL),
-('0002150339', 'HERLIN', 'HUAMAN', 'GUZMAN', 24, '1', NULL, NULL, NULL, NULL),
-('0002150340', 'ISAIAS', 'IBARRA', 'ONOFRE', 28, '1', NULL, NULL, NULL, NULL),
-('0002150342', 'KEVIN LINDSEY', 'LEON', 'TIPTO', 30, '1', NULL, NULL, NULL, NULL),
-('0002150350', 'EDWAR ENRIQUE', 'NU?EZ', 'MERMAO', 36, '1', NULL, NULL, NULL, NULL),
-('0002150358', 'PATRICK JEREMY', 'RODRIGUEZ', 'SANDOVAL', 43, '1', NULL, NULL, NULL, NULL),
-('0002150360', 'NICOLAS FABRICIO', 'ROMERO', 'MORALES', 44, '1', NULL, NULL, NULL, NULL),
-('0002150362', 'LEIDY DIANA', 'SANCHEZ', 'QUINCHUBIA', 45, '1', NULL, NULL, NULL, NULL),
-('0002150363', 'ROMMEL JARED', 'SANGAMA', 'DAVILA', 46, '1', NULL, NULL, NULL, NULL),
-('0002150365', 'ISAAC', 'SORIANO', 'AQUISE', 50, '1', NULL, NULL, NULL, NULL),
-('0002150366', 'LUIS ALFREDO', 'VALENZUELA', 'D?VILA', 52, '1', NULL, NULL, NULL, NULL),
-('0002150367', 'HUGO JUNIOR', 'VALVERDE', 'CHUMBE', 53, '1', NULL, NULL, NULL, NULL),
-('0002150368', 'PERLA ESPERANZA ', 'VARGAS', 'ROMAINA', 54, '1', NULL, NULL, NULL, NULL),
-('0002150373', 'CARLO ANDONI', 'ZARZOSA', 'GARC?A', 61, '1', NULL, NULL, NULL, NULL);
+('0002040105', 'GINO ANDERSON', 'GARCIA', 'ACOSTA', 19, '1', ' ', ' ', ' ', ' '),
+('0002060199', 'WALTER', 'VASQUEZ', 'RIOS', 57, '1', ' ', ' ', ' ', ' '),
+('0002070240', 'IVAN', 'HUAMANTICO', 'ALARCON', 26, '1', ' ', ' ', ' ', ' '),
+('0002070287', 'LUIGGI PIERRE', 'SAUCEDO', 'LOPEZ', 48, '1', ' ', ' ', ' ', ' '),
+('0002080632', 'CARLOS IGNACIO', 'CHAVEZ', 'RAMIREZ', 6, '1', ' ', ' ', ' ', ' '),
+('0002090806', 'JOSE LENIN', 'LOZADA', 'FLORES', 32, '1', ' ', ' ', ' ', ' '),
+('0002100924', 'HECTOR VILLASON', 'HUAPULA', 'VILLAFANA', 27, '1', ' ', ' ', ' ', ' '),
+('0002100941', 'ANDY', 'PAREDES', 'CRIOLLO', 37, '1', ' ', ' ', ' ', ' '),
+('0002100955', 'MANUEL ALEXANDER', 'SILVA', 'LURITA', 49, '1', ' ', ' ', ' ', ' '),
+('0002100960', 'JACK JUNIOR', 'TORRES', 'REATEGUI', 51, '1', ' ', ' ', ' ', ' '),
+('0002110644', 'RENZO ANDRE', 'ALVARADO', 'LA TORRE', 1, '1', ' ', ' ', ' ', ' '),
+('0002110651', 'LUBER DANIEL', 'BASILIO', 'DA SILVA', 3, '1', ' ', ' ', ' ', ' '),
+('0002110662', 'KEVIN ARNOL', 'FERNANDEZ', 'MALCA', 13, '1', ' ', ' ', ' ', ' '),
+('0002110670', 'ZENKI', 'KATAYAMA', 'MORAN', 29, '1', ' ', ' ', ' ', ' '),
+('0002110711', 'JOHN ANDRES', 'WAGNER', 'MENDOZA', 60, '1', ' ', ' ', ' ', ' '),
+('0002120803', 'GIL MELVIS', 'CONDORCAHUANA', 'TEXEIRA', 8, '1', ' ', ' ', ' ', ' '),
+('0002120810', 'SERGIO ORLANDO ', 'FUNG', 'VARGAS', 16, '1', ' ', ' ', ' ', ' '),
+('0002120854', 'LUISIN WANDERLEY', 'ZUMAETA', 'TORRES', 62, '1', ' ', ' ', ' ', ' '),
+('0002130313', 'VICTOR ANTHONY', 'CASTRO', 'LA TORRE', 5, '1', ' ', ' ', ' ', ' '),
+('0002130314', 'DANNY MANUEL', 'CHAVEZ', 'HERRERA', 63, '1', ' ', ' ', ' ', ' '),
+('0002130324', 'GARLLI', 'GARCIA', 'ROCHA', 18, '1', ' ', ' ', ' ', ' '),
+('0002130332', 'JUAN JEAN PIERRE', 'HIDALGO', 'MANCILLA', 22, '1', ' ', ' ', ' ', ' '),
+('0002130333', 'JOSE JAIRO ', 'HUAMAN', 'MACHUCA', 25, '1', ' ', ' ', ' ', ' '),
+('0002130340', 'JOSUE DANIEL', 'MAS', 'DELGADO', 34, '1', ' ', ' ', ' ', ' '),
+('0002130351', 'CHRISTIAN KENY', 'PINEDO', 'ACHO', 40, '1', ' ', ' ', ' ', ' '),
+('0002130369', 'MAYKOL', 'SANTOS', 'LUYCHO', 47, '1', ' ', ' ', ' ', ' '),
+('0002130380', 'GIANFRANCO', 'VASQUEZ', 'CORDOVA', 55, '1', ' ', ' ', ' ', ' '),
+('0002130383', 'TONY JORMAN', 'VELA', 'MONSALVE', 58, '1', ' ', ' ', ' ', ' '),
+('0002131004', 'JHON FRANK', 'MORENO', 'PEREZ', 35, '1', ' ', ' ', ' ', ' '),
+('0002140325', 'MARCELINO JUNIOR', 'CARTAGENA', 'FARFAN', 4, '1', ' ', ' ', ' ', ' '),
+('0002140328', 'FRANCO JONAIKER', 'CORTEZ', 'VALVERDE', 9, '1', ' ', ' ', ' ', ' '),
+('0002140329', 'ABNER JUAN', 'DAZA', 'MORALES', 10, '1', ' ', ' ', ' ', ' '),
+('0002140332', 'CESAR LUIS', 'ESTRELLA', 'ABANTO', 12, '1', ' ', ' ', ' ', ' '),
+('0002140334', 'MONICA', 'FERNANDEZ', 'NAVARRO', 14, '1', ' ', ' ', ' ', ' '),
+('0002140339', 'NERIO MAVERING', 'GOMEZ', 'PEREYRA', 20, '1', ' ', ' ', ' ', ' '),
+('0002140343', 'ELIO DAVID', 'HOYOS', 'BARBA', 23, '1', ' ', ' ', ' ', ' '),
+('0002140344', 'EMILY MELISSA', 'LOPEZ', 'IBERICO', 31, '1', ' ', ' ', ' ', ' '),
+('0002140352', 'LUIS ARTURO', 'MAQUERA', 'RIVAS', 33, '1', ' ', ' ', ' ', ' '),
+('0002140362', 'AUGUSTO JUNIOR', 'PASQUEL', 'DEL AGUILA', 38, '1', ' ', ' ', ' ', ' '),
+('0002140364', 'PIERO BRAYAN', 'PEZO', 'MARIN', 39, '1', ' ', ' ', ' ', ' '),
+('0002140368', 'PABLO FELIPE', 'RAMIREZ', 'NAVARRO', 41, '1', ' ', ' ', ' ', ' '),
+('0002140370', 'FRANK ANTONIO', 'RAMOS', 'DEL AGUILA', 42, '1', ' ', ' ', ' ', ' '),
+('0002140394', 'ARNALDO', 'VASQUEZ', 'RUIZ', 56, '1', ' ', ' ', ' ', ' '),
+('0002140397', 'RICARDO', 'VILLACORTA', 'DIAZ', 59, '1', ' ', ' ', ' ', ' '),
+('0002150315', 'EDWIN LUIS', 'BARBOZA', 'PINEDO', 2, '1', ' ', ' ', ' ', ' '),
+('0002150322', 'LUIS OSWALDO', 'COLLADO', 'TORRES', 7, '1', ' ', ' ', ' ', ' '),
+('0002150323', 'DANIEL ITALO ROMANO', 'DEGREGORI', 'DONAYRE', 11, '1', ' ', ' ', ' ', ' '),
+('0002150329', 'JEAN RICKY', 'FLORES', 'ALVAREZ', 15, '1', ' ', ' ', ' ', ' '),
+('0002150330', 'JUMPIER CESAR', 'GARCIA', 'CHAVEZ', 17, '1', ' ', ' ', ' ', ' '),
+('0002150336', 'ERICA CLAUDIA', 'HERRERA', 'HUARAC', 21, '1', ' ', ' ', ' ', ' '),
+('0002150339', 'HERLIN', 'HUAMAN', 'GUZMAN', 24, '1', ' ', ' ', ' ', ' '),
+('0002150340', 'ISAIAS', 'IBARRA', 'ONOFRE', 28, '1', ' ', ' ', ' ', ' '),
+('0002150342', 'KEVIN LINDSEY', 'LEON', 'TIPTO', 30, '1', ' ', ' ', ' ', ' '),
+('0002150350', 'EDWAR ENRIQUE', 'NU?EZ', 'MERMAO', 36, '1', ' ', ' ', ' ', ' '),
+('0002150358', 'PATRICK JEREMY', 'RODRIGUEZ', 'SANDOVAL', 43, '1', ' ', ' ', ' ', ' '),
+('0002150360', 'NICOLAS FABRICIO', 'ROMERO', 'MORALES', 44, '1', ' ', ' ', ' ', ' '),
+('0002150362', 'LEIDY DIANA', 'SANCHEZ', 'QUINCHUBIA', 45, '1', ' ', ' ', ' ', ' '),
+('0002150363', 'ROMMEL JARED', 'SANGAMA', 'DAVILA', 46, '1', ' ', ' ', ' ', ' '),
+('0002150365', 'ISAAC', 'SORIANO', 'AQUISE', 50, '1', ' ', ' ', ' ', ' '),
+('0002150366', 'LUIS ALFREDO', 'VALENZUELA', 'D?VILA', 52, '1', ' ', ' ', ' ', ' '),
+('0002150367', 'HUGO JUNIOR', 'VALVERDE', 'CHUMBE', 53, '1', ' ', ' ', ' ', ' '),
+('0002150368', 'PERLA ESPERANZA ', 'VARGAS', 'ROMAINA', 54, '1', ' ', ' ', ' ', ' '),
+('0002150373', 'CARLO ANDONI', 'ZARZOSA', 'GARC?A', 61, '1', ' ', ' ', ' ', ' ');
 
 -- --------------------------------------------------------
 
@@ -122,7 +122,7 @@ DROP TABLE IF EXISTS `anioacademico`;
 CREATE TABLE `anioacademico` (
   `idAnioAcademico` int(11) NOT NULL,
   `descr` varchar(45) DEFAULT NULL,
-  `est` int(11) DEFAULT 1
+  `est` int(11) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -185,7 +185,7 @@ CREATE TABLE `asignaciondoc` (
   `idCurso` int(11) NOT NULL,
   `idDocente` int(11) NOT NULL,
   `idAnioAcademico` int(11) NOT NULL,
-  `est` int(11) DEFAULT 1
+  `est` int(11) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -262,7 +262,7 @@ CREATE TABLE `clase` (
   `idAsignacionDoc` int(11) NOT NULL,
   `fechaClas` date DEFAULT NULL,
   `horClas` time DEFAULT NULL,
-  `est` int(11) DEFAULT 1
+  `est` int(11) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -291,7 +291,7 @@ DROP TABLE IF EXISTS `curso`;
 CREATE TABLE `curso` (
   `idCurso` int(11) NOT NULL,
   `descr` varchar(100) DEFAULT NULL,
-  `est` int(11) DEFAULT 1
+  `est` int(11) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -328,7 +328,7 @@ CREATE TABLE `docente` (
   `apemaDoc` varchar(45) DEFAULT NULL,
   `dni` varchar(8) DEFAULT NULL,
   `pass` varchar(45) DEFAULT NULL,
-  `est` int(11) DEFAULT 1
+  `est` int(11) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
