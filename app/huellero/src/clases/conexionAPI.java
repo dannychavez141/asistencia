@@ -121,12 +121,16 @@ public class conexionAPI {
         for (JsonElement obj : gsonArr) {
             // Object of array
             JsonObject gsonObj = obj.getAsJsonObject();
-            String id = gsonObj.get("idAlumnos").getAsString();
-            String dni = gsonObj.get("dni").getAsString();
-            String datos = gsonObj.get("alu").getAsString();
-            String rfid = gsonObj.get("targeta").getAsString();
-            String saldo = gsonObj.get("saldo").getAsString();
-            mAlumno alumno = new mAlumno(id, dni, datos, rfid, saldo);
+            String codigo = gsonObj.get("codAlu").getAsString();
+            String nombres = gsonObj.get("nomAlu").getAsString();
+            String apepa = gsonObj.get("apepaAlu").getAsString();
+            String apema = gsonObj.get("apemaAlu").getAsString();
+            String est = gsonObj.get("est").getAsString();
+            String huella1 = gsonObj.get("huella1").getAsString();
+            String huella2 = gsonObj.get("huella2").getAsString();
+            String imgh1 = gsonObj.get("imghuella1").getAsString();
+            String imgh2 = gsonObj.get("imghuella2").getAsString();
+            mAlumno alumno = new mAlumno(codigo, nombres, apepa, apema, est, huella1, huella2, imgh1, imgh2);
             Alumnos.add(alumno);
         }
 
@@ -154,12 +158,16 @@ public class conexionAPI {
                 JsonObject gsonObj = obj.getAsJsonObject();
 
                 // Primitives elements of object
-                String id = gsonObj.get("idAlumnos").getAsString();
-                String dni = gsonObj.get("dni").getAsString();
-                String datos = gsonObj.get("alu").getAsString();
-                String rfid = gsonObj.get("targeta").getAsString();
-                String saldo = gsonObj.get("saldo").getAsString();
-                alumno = new mAlumno(id, dni, datos, rfid, saldo);
+                String codigo = gsonObj.get("codAlu").getAsString();
+                String nombres = gsonObj.get("nomAlu").getAsString();
+                String apepa = gsonObj.get("apepaAlu").getAsString();
+                String apema = gsonObj.get("apemaAlu").getAsString();
+                String est = gsonObj.get("est").getAsString();
+                String huella1 = gsonObj.get("huella1").getAsString();
+                String huella2 = gsonObj.get("huella2").getAsString();
+                String imgh1 = gsonObj.get("imghuella1").getAsString();
+                String imgh2 = gsonObj.get("imghuella2").getAsString();
+                alumno = new mAlumno(codigo, nombres, apepa, apema, est, huella1, huella2, imgh1, imgh2);
 
             }
         } catch (Exception e) {

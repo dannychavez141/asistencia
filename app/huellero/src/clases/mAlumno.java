@@ -10,66 +10,100 @@ package clases;
  * @author dahelap
  */
 public class mAlumno {
-    private String id;
-     private String dni;
-      private String datos;
-       private String rfid;
-       private String saldo;
 
-    public String getSaldo() {
-        return saldo;
+    private String codigo;
+    private String nombres;
+    private String apepa;
+    private String apema;
+    private String est;
+    private String huella1;
+    private String huella2;
+    private String imghuella1;
+    private String imghuella2;
+
+    public mAlumno(String codigo, String nombres, String apepa, String apema, String est, String huella1, String huella2, String imghuella1, String imghuella2) {
+        this.codigo = codigo;
+        this.nombres = nombres;
+        this.apepa = apepa;
+        this.apema = apema;
+        this.est = est;
+        this.huella1 = huella1;
+        this.huella2 = huella2;
+        this.imghuella1 = imghuella1;
+        this.imghuella2 = imghuella2;
     }
 
-    public void setSaldo(String saldo) {
-        this.saldo = saldo;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public mAlumno(String id, String dni, String datos, String rfid, String saldo) {
-        this.id = id;
-        this.dni = dni;
-        this.datos = datos;
-        this.rfid = rfid;
-        this.saldo = saldo;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
-    public mAlumno(String id, String dni, String datos, String rfid) {
-        this.id = id;
-        this.dni = dni;
-        this.datos = datos;
-        this.rfid = rfid;
+    public String getNombres() {
+        return nombres;
     }
 
-    public String getId() {
-        return id;
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getApepa() {
+        return apepa;
     }
 
-    public String getDni() {
-        return dni;
+    public void setApepa(String apepa) {
+        this.apepa = apepa;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
+    public String getApema() {
+        return apema;
     }
 
-    public String getDatos() {
-        return datos;
+    public void setApema(String apema) {
+        this.apema = apema;
     }
 
-    public void setDatos(String datos) {
-        this.datos = datos;
+    public String getEst() {
+        return est;
     }
 
-    public String getRfid() {
-        return rfid;
+    public void setEst(String est) {
+        this.est = est;
     }
 
-    public void setRfid(String rfid) {
-        this.rfid = rfid;
+    public String getHuella1() {
+        return huella1;
     }
-       
-    
+
+    public void setHuella1(String huella1) {
+        this.huella1 = huella1;
+    }
+
+    public String getHuella2() {
+        return huella2;
+    }
+
+    public void setHuella2(String huella2) {
+        this.huella2 = huella2;
+    }
+
+    public String getImghuella1() {
+        return imghuella1;
+    }
+
+    public void setImghuella1(String imghuella1) {
+        this.imghuella1 = imghuella1;
+    }
+
+    public String getImghuella2() {
+        return imghuella2;
+    }
+
+    public void setImghuella2(String imghuella2) {
+        this.imghuella2 = imghuella2;
+    }
+
+
 }
