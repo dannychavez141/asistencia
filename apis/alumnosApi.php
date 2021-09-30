@@ -7,11 +7,18 @@ header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Origin,Accep
 include_once '../control/cConexion.php';
 include_once '../control/cAlumno.php';
 $control = null;
-$metodo = "";
+
+
+$datos = json_decode(file_get_contents('php://input'), true);
+
+
+//print_r($_POST['ac']);
 if (isset($_POST['ac']) && $control == null) {
     $control = $_POST['ac'];
 } else if (isset($_GET['ac']) && $control == null) {
     $control = $_GET['ac'];
+} else if (isset($datos['ac']) && $control == null) {
+    $control = $datos['ac'];
 }
 
 switch ($control) {
@@ -27,12 +34,12 @@ switch ($control) {
         $datos = $modelo->verUno($busq);
         print_r(json_encode($datos));
         break;
-    case 'reg':
-        $id = $_POST['id'];
-        $huella1 = $_POST['h1'];
-        $huella2 = $_POST['h2'];
-        $codhuella1 = $_POST['ih1'];
-        $codehuella2 = $_POST['ih2'];
+    case 'rec':
+        $id = $datos['0'];
+        $huella1 = $datos['1'];
+        $huella2 = $datos['2'];
+        $codhuella1 = $datos['3'];
+        $codehuella2 = $datos['4'];
         $modelo = new cAlumno();
         $datos = $modelo->AgregarHuellas($id, $huella1, $huella2, $codhuella1, $codehuella2);
         print_r(json_encode($datos));

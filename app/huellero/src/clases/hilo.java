@@ -27,7 +27,8 @@ public class hilo extends Thread{
         hilo.dispose = dispose;
     }
 public void run()
-{
+{ 
+
     while (dispose) {        
         try {
             darhora();

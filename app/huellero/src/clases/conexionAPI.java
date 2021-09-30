@@ -18,7 +18,6 @@ import java.net.URL;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author dahelap
@@ -66,6 +65,7 @@ public class conexionAPI {
             String imgh1 = gsonObj.get("imghuella1").getAsString();
             String imgh2 = gsonObj.get("imghuella2").getAsString();
             mAlumno alumno = new mAlumno(codigo, nombres, apepa, apema, est, huella1, huella2, imgh1, imgh2);
+            System.out.println(alumno.toString());
             Alumnos.add(alumno);
         }
 
@@ -79,19 +79,19 @@ public class conexionAPI {
             String url = this.urlRec + "/alumnosApi.php?ac=buno&cod=" + id;
             System.out.println(url);
             respuesta = peticionHttpGet(url);
-              System.out.println("La respuesta es:\n" + respuesta);
+            System.out.println("La respuesta es:\n" + respuesta);
         } catch (Exception e) {
             // Manejar excepción
             e.printStackTrace();
         }
-        
+
         try {
-            JsonParser parser = new JsonParser();    
-            JsonArray json = (JsonArray) parser.parse(respuesta); 
+            JsonParser parser = new JsonParser();
+            JsonArray json = (JsonArray) parser.parse(respuesta);
             System.out.println(json);
-          
-           for (JsonElement obj : json) {
-               System.out.println(obj);
+
+            for (JsonElement obj : json) {
+                System.out.println(obj);
                 // Object of array
                 JsonObject gsonObj = obj.getAsJsonObject();
 
@@ -109,7 +109,7 @@ public class conexionAPI {
 
             }
         } catch (Exception e) {
-            e.printStackTrace(); 
+            e.printStackTrace();
         }
 
         return alumno;
@@ -137,27 +137,31 @@ public class conexionAPI {
         return resultado.toString();
     }
 
-    public static String peticionHttpPost(String urlParaVisitar, String[] datos) throws Exception {
+    public static String peticionHttpPost(String urlParaVisitar, String[] datos, String metodo) throws Exception {
         // Esto es lo que vamos a devolver
         StringBuilder resultado = new StringBuilder();
         // Crear un objeto de tipo URL
-        URL url = new URL(urlRec+urlParaVisitar);
+        URL url = new URL(urlRec + urlParaVisitar);
 
         // Abrir la conexión e indicar que será de tipo GET
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setDoOutput(true);
         con.setDoInput(true);
-        con.setRequestProperty("Content-Type", "application/json");
+        con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
         con.setRequestProperty("Accept", "application/json");
         con.setRequestMethod("POST");
+        con.connect();
         JsonObject params = new JsonObject();
+
+        params.addProperty("ac", metodo);
         for (int i = 0; i < datos.length; i++) {
             params.addProperty("" + i, datos[i]);
         }
+        System.out.println(params.toString());
         OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
         wr.write(params.toString());
         wr.flush();
-
+        wr.close();
         // Búferes para leer
         BufferedReader rd = new BufferedReader(new InputStreamReader(con.getInputStream()));
         String linea;

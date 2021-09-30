@@ -11,6 +11,10 @@ import clases.conexionAPI;
 import clases.mAlumno;
 import java.awt.*;
 import java.awt.image.*;
+import java.util.Base64;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -41,14 +45,14 @@ public class huellero extends javax.swing.JFrame {
     public cHuella cHuella = new cHuella();
     conexionAPI api = new conexionAPI();
     mAlumno alumno = null;
-    mAlumno[] alumnos = null;
+     Vector alumnos = null;
 //User defined
 
     /**
      * Creates new form JSGD
      */
     public huellero() {
-
+traerAlumnos();
         bLEDOn = false;
         initComponents();
         disableControls();
@@ -445,15 +449,19 @@ public class huellero extends javax.swing.JFrame {
             alumno.setImghuella2(cHuella.imagen64("huella2.png"));
             alumno.setHuella2(h2byte);
             String[] paramtros = new String[6];
-            paramtros[0] = "reg";
-            paramtros[1] = alumno.getCodigo();
-            paramtros[2] = alumno.getHuella1();
-            paramtros[3] = alumno.getHuella2();
+            paramtros[0] = alumno.getCodigo();
+            paramtros[1] = alumno.getHuella1();
+            paramtros[2] = alumno.getHuella2();
+            paramtros[3] = alumno.getImghuella1();
             paramtros[4] = alumno.getImghuella1();
-            paramtros[5] = alumno.getImghuella1();
-            
-api.peticionHttpPost(h2byte, paramtros)
-            //System.out.println(alumno.toString());
+
+            try {
+                String resp = api.peticionHttpPost("/alumnosApi.php", paramtros, "rec");
+                System.out.println(alumno.toString());
+                System.out.println(resp);
+            } catch (Exception ex) {
+                Logger.getLogger(huellero.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "No se selecciono ningun alumno");
         }
@@ -461,11 +469,19 @@ api.peticionHttpPost(h2byte, paramtros)
     }//GEN-LAST:event_jButtonRegisterActionPerformed
 
     private void jButtonCaptureV1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCaptureV1ActionPerformed
+        System.out.println("aca toy");
+       
+         System.out.println(alumnos.size());
+        for (int i = 0; i < alumnos.size(); i++) {
+            
+            byte[] bf1=  Base64.getDecoder().decode(alumnos[]) ; ;
+            
+          
+        } 
         int[] quality = new int[1];
         int[] numOfMinutiae = new int[1];
         byte[] imageBuffer1 = ((java.awt.image.DataBufferByte) imgVerification.getRaster().getDataBuffer()).getData();
         long iError = SGFDxErrorCode.SGFDX_ERROR_NONE;
-
         iError = fplib.GetImageEx(imageBuffer1, jSliderSeconds.getValue() * 1000, 0, jSliderQuality.getValue());
         fplib.GetImageQuality(deviceInfo.imageWidth, deviceInfo.imageHeight, imageBuffer1, quality);
         this.jProgressBarV1.setValue(quality[0]);
@@ -505,7 +521,9 @@ api.peticionHttpPost(h2byte, paramtros)
         } else {
             this.jLabelStatus.setText("GetImageEx() Error : " + iError);
         }
-
+      
+       
+        
     }//GEN-LAST:event_jButtonCaptureV1ActionPerformed
 
     private void jButtonCaptureR1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCaptureR1ActionPerformed
@@ -666,6 +684,10 @@ api.peticionHttpPost(h2byte, paramtros)
     public void limpiar() {
         lCodigo.setText("-------");
         lnombres.setText("------------------");
+    }
+    public void traerAlumnos(){
+     alumnos = api.datosAlumnos("");
+    
     }
 
     /**
