@@ -36,13 +36,15 @@
         <tbody>";
 
         while ($fila = $resultado->fetch_array()) {
-              
-
-            $salida.="<tr>
+      if($fila['imghuella1']!=1){        
+$foto="<img src='data:image/jpeg;base64,".$fila['imghuella1']."' width='60' height='90' alt='base64 test'>";
+      }else{
+          $foto="Sin huella registrada";
+      }  $salida.="<tr>
                         <td>".$fila[0]."</td>
                         <td>".$fila[2]." ".$fila[3]." ".$fila[1]."</td>
                        
-                        <td>".$fila[7]."</td>
+                        <td>".$foto."</td>
                         <td><a href='modalumno.php?cod=".$fila[0]."' ><img src='images/edit.jpg' width='40' height='40'></a></td></tr>";
 
         }

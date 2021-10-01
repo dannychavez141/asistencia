@@ -7,6 +7,8 @@
 package clases;
 
 
+import huellero.verificador;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
@@ -34,11 +36,13 @@ public void run()
             darhora();
         } catch (InterruptedException ex) {
             Logger.getLogger(hilo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(hilo.class.getName()).log(Level.SEVERE, null, ex);
         }
 ;
     }
 }
-public void darhora() throws InterruptedException{
+public void darhora() throws InterruptedException, SQLException{
    Calendar calendario= new GregorianCalendar();
   int hora, minutos, segundos,dia,mes, anio;
     String msj="";
@@ -48,13 +52,7 @@ segundos = calendario.get(Calendar.SECOND);
 dia =calendario.get(Calendar.DAY_OF_MONTH);
 mes = calendario.get(Calendar.MONTH)+1;
 anio = calendario.get(Calendar.YEAR);
-//   // System.out.println("Hora:"+hora+":"+minutos+":"+segundos+" Fecha:"+dia+"/"+mes+"/"+anio);
-//   if(pantalla.conectado==true){
-//        msj=" || Estado-CONECTADO";
-//   }else{
-//    msj=" || Estado-DESCONECTADO";
-//   }
-// pantalla.txthora.setText("Hora:"+hora+":"+minutos+":"+segundos+"  Fecha:"+dia+"/"+mes+"/"+anio+msj); 
+verificador.leerHuella();
  Thread.sleep(1000);
 }
 }
