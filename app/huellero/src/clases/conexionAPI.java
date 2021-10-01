@@ -15,6 +15,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.Blob;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 
@@ -60,18 +64,40 @@ public class conexionAPI {
             String apepa = gsonObj.get("apepaAlu").getAsString();
             String apema = gsonObj.get("apemaAlu").getAsString();
             String est = gsonObj.get("est").getAsString();
-            String huella1 = gsonObj.get("huella1").getAsString();
-            String huella2 = gsonObj.get("huella2").getAsString();
             String imgh1 = gsonObj.get("imghuella1").getAsString();
             String imgh2 = gsonObj.get("imghuella2").getAsString();
-            mAlumno alumno = new mAlumno(codigo, nombres, apepa, apema, est, huella1, huella2, imgh1, imgh2);
+            mAlumno alumno = new mAlumno(codigo, nombres, apepa, apema, est, imgh1, imgh2);
             System.out.println(alumno.toString());
             Alumnos.add(alumno);
         }
 
         return Alumnos;
     }
+  public Vector obtenertodos() throws ClassNotFoundException, SQLException {
+        conexionSQL bd = new conexionSQL();
+        String sql = "SELECT * FROM alumno";
+        Statement stmt = bd.conexion.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        Vector Alumnos = new Vector();
+        while (rs.next()) {
+            String codigo = rs.getString("codAlu");
+            String nombres = rs.getString("nomAlu");
+            String apepa = rs.getString("apepaAlu");
+            String apema = rs.getString("apemaAlu");
+            String est = rs.getString("est");
+            String imgh1 = rs.getString("imghuella1");
+            String imgh2 = rs.getString("imghuella2");
+            Blob b1 = rs.getBlob("bhuella1");
+            Blob b2 = rs.getBlob("bhuella2");
+            mAlumno alumno = new mAlumno(codigo, nombres, apepa, apema, est, imgh1, imgh2, b1, b2);
+           // System.out.println(alumno.toString());
+            Alumnos.add(alumno);
+        }
 
+        rs.close();
+        stmt.close();
+        return Alumnos;
+    }
     public mAlumno buscarAlumno(String id) {
         mAlumno alumno = null;
         String respuesta = "";
@@ -101,11 +127,9 @@ public class conexionAPI {
                 String apepa = gsonObj.get("apepaAlu").getAsString();
                 String apema = gsonObj.get("apemaAlu").getAsString();
                 String est = gsonObj.get("est").getAsString();
-                String huella1 = gsonObj.get("huella1").getAsString();
-                String huella2 = gsonObj.get("huella2").getAsString();
                 String imgh1 = gsonObj.get("imghuella1").getAsString();
                 String imgh2 = gsonObj.get("imghuella2").getAsString();
-                alumno = new mAlumno(codigo, nombres, apepa, apema, est, huella1, huella2, imgh1, imgh2);
+                alumno = new mAlumno(codigo, nombres, apepa, apema, est, imgh1, imgh2);
 
             }
         } catch (Exception e) {

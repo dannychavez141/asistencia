@@ -5,6 +5,13 @@
  */
 package clases;
 
+import java.sql.Blob;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Vector;
+
 /**
  *
  * @author dahelap
@@ -16,19 +23,45 @@ public class mAlumno {
     private String apepa;
     private String apema;
     private String est;
-    private String huella1;
-    private String huella2;
     private String imghuella1;
     private String imghuella2;
+    private Blob bhuella1;
+    private Blob bhuella2;
 
-    public mAlumno(String codigo, String nombres, String apepa, String apema, String est, String huella1, String huella2, String imghuella1, String imghuella2) {
+    public Blob getBhuella1() {
+        return bhuella1;
+    }
+
+    public void setBhuella1(Blob bhuella1) {
+        this.bhuella1 = bhuella1;
+    }
+
+    public Blob getBhuella2() {
+        return bhuella2;
+    }
+
+    public void setBhuella2(Blob bhuella2) {
+        this.bhuella2 = bhuella2;
+    }
+
+    public mAlumno(String codigo, String nombres, String apepa, String apema, String est, String imghuella1, String imghuella2, Blob bhuella1, Blob bhuella2) {
         this.codigo = codigo;
         this.nombres = nombres;
         this.apepa = apepa;
         this.apema = apema;
         this.est = est;
-        this.huella1 = huella1;
-        this.huella2 = huella2;
+        this.imghuella1 = imghuella1;
+        this.imghuella2 = imghuella2;
+        this.bhuella1 = bhuella1;
+        this.bhuella2 = bhuella2;
+    }
+
+    public mAlumno(String codigo, String nombres, String apepa, String apema, String est, String imghuella1, String imghuella2) {
+        this.codigo = codigo;
+        this.nombres = nombres;
+        this.apepa = apepa;
+        this.apema = apema;
+        this.est = est;
         this.imghuella1 = imghuella1;
         this.imghuella2 = imghuella2;
     }
@@ -73,22 +106,6 @@ public class mAlumno {
         this.est = est;
     }
 
-    public String getHuella1() {
-        return huella1;
-    }
-
-    public void setHuella1(String huella1) {
-        this.huella1 = huella1;
-    }
-
-    public String getHuella2() {
-        return huella2;
-    }
-
-    public void setHuella2(String huella2) {
-        this.huella2 = huella2;
-    }
-
     public String getImghuella1() {
         return imghuella1;
     }
@@ -105,10 +122,24 @@ public class mAlumno {
         this.imghuella2 = imghuella2;
     }
 
-    @Override
-    public String toString() {
-        return "mAlumno{" + "codigo=" + codigo + ", nombres=" + nombres + ", apepa=" + apepa + ", apema=" + apema + ", est=" + est + ", huella1=" + huella1 + ", huella2=" + huella2 + ", imghuella1=" + imghuella1 + ", imghuella2=" + imghuella2 + '}';
+    public void crear() throws ClassNotFoundException, SQLException {
+        conexionSQL bd = new conexionSQL();
+        String sql = "UPDATE `alumno`SET `imghuella1` = ?, `imghuella2` = ?, `bhuella1` = ?, `bhuella2` =? WHERE `codAlu` = ?;";
+        PreparedStatement ps = bd.conexion.prepareStatement(sql);
+        ps.setString(1, this.imghuella1);
+        ps.setString(2, this.imghuella2);
+        ps.setBlob(3, bhuella1);
+        ps.setBlob(4, bhuella2);
+        ps.setString(5, codigo);
+        ps.executeUpdate();
+        bd.conexion.close();
     }
 
+  
+
+    @Override
+    public String toString() {
+        return "mAlumno{" + "codigo=" + codigo + ", nombres=" + nombres + ", apepa=" + apepa + ", apema=" + apema + ", est=" + est + ", imghuella1=" + imghuella1 + ", imghuella2=" + imghuella2 + '}';
+    }
 
 }

@@ -11,10 +11,11 @@ import clases.conexionAPI;
 import clases.mAlumno;
 import java.awt.*;
 import java.awt.image.*;
-import java.util.Base64;
+import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sql.rowset.serial.SerialBlob;
 import javax.swing.*;
 
 /**
@@ -45,14 +46,14 @@ public class huellero extends javax.swing.JFrame {
     public cHuella cHuella = new cHuella();
     conexionAPI api = new conexionAPI();
     mAlumno alumno = null;
-     Vector alumnos = null;
+    Vector alumnos = null;
 //User defined
 
     /**
      * Creates new form JSGD
      */
-    public huellero() {
-traerAlumnos();
+    public huellero() throws ClassNotFoundException, SQLException {
+        traerAlumnos();
         bLEDOn = false;
         initComponents();
         disableControls();
@@ -398,68 +399,41 @@ traerAlumnos();
     }//GEN-LAST:event_jButtonCaptureR2ActionPerformed
 
     private void jButtonVerifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerifyActionPerformed
-        long iError;
-        long secuLevel = (long) (this.jComboBoxVerifySecurityLevel.getSelectedIndex() + 1);
-        boolean[] matched = new boolean[1];
-        matched[0] = false;
-
-        iError = fplib.MatchTemplate(regMin1, vrfMin, secuLevel, matched);
-        System.out.println(regMin1.toString());
-
-        System.out.println(vrfMin.toString());
-        if (iError == SGFDxErrorCode.SGFDX_ERROR_NONE) {
-            if (matched[0]) {
-                this.jLabelStatus.setText("Verification Success (1st template)");
-            } else {
-
-                System.out.println(regMin2.toString());
-
-                System.out.println(vrfMin.toString());
-                iError = fplib.MatchTemplate(regMin2, vrfMin, secuLevel, matched);
-                if (iError == SGFDxErrorCode.SGFDX_ERROR_NONE) {
-                    if (matched[0]) {
-                        this.jLabelStatus.setText("Verification Success (2nd template)");
-                    } else {
-                        this.jLabelStatus.setText("Verification Fail");
-                    }
-                } else {
-                    this.jLabelStatus.setText("Verification Attempt 2 Fail - MatchTemplate() Error : " + iError);
-                }
-
-            }
-        } else {
-            this.jLabelStatus.setText("Verification Attempt 1 Fail - MatchTemplate() Error : " + iError);
+        try {
+            verificar();
+        } catch (SQLException ex) {
+            Logger.getLogger(huellero.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }//GEN-LAST:event_jButtonVerifyActionPerformed
 
     private void jButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegisterActionPerformed
 
         if (alumno != null) {
-            String h1byte = "";
-
-            for (int i = 0; i < regMin1.length; i++) {
-                h1byte += regMin1[i];
-            }
-            alumno.setHuella1(h1byte);
-            alumno.setImghuella1(cHuella.imagen64("huella1.png"));
-            String h2byte = "";
-            for (int i = 0; i < regMin2.length; i++) {
-                h2byte += regMin2[i];
-            }
-            alumno.setImghuella2(cHuella.imagen64("huella2.png"));
-            alumno.setHuella2(h2byte);
-            String[] paramtros = new String[6];
-            paramtros[0] = alumno.getCodigo();
-            paramtros[1] = alumno.getHuella1();
-            paramtros[2] = alumno.getHuella2();
-            paramtros[3] = alumno.getImghuella1();
-            paramtros[4] = alumno.getImghuella1();
-
             try {
-                String resp = api.peticionHttpPost("/alumnosApi.php", paramtros, "rec");
-                System.out.println(alumno.toString());
-                System.out.println(resp);
-            } catch (Exception ex) {
+                alumno.setImghuella1(cHuella.imagen64("huella1.png"));
+                alumno.setImghuella2(cHuella.imagen64("huella2.png"));
+                alumno.setBhuella1(new SerialBlob(regMin1));
+                alumno.setBhuella2(new SerialBlob(regMin2));
+                try {
+                    alumno.crear();
+                    traerAlumnos();
+                    /*String[] paramtros = new String[6];
+                    paramtros[0] = alumno.getCodigo();
+                    paramtros[1] = alumno.getImghuella1();
+                    paramtros[2] = alumno.getImghuella1();
+                    
+                    try {
+                    String resp = api.peticionHttpPost("/alumnosApi.php", paramtros, "rec");
+                    System.out.println(alumno.toString());
+                    System.out.println(resp);
+                    } catch (Exception ex) {
+                    Logger.getLogger(huellero.class.getName()).log(Level.SEVERE, null, ex);
+                    }*/
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(huellero.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (SQLException ex) {
                 Logger.getLogger(huellero.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
@@ -469,15 +443,7 @@ traerAlumnos();
     }//GEN-LAST:event_jButtonRegisterActionPerformed
 
     private void jButtonCaptureV1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCaptureV1ActionPerformed
-        System.out.println("aca toy");
-       
-         System.out.println(alumnos.size());
-        for (int i = 0; i < alumnos.size(); i++) {
-            
-            byte[] bf1=  Base64.getDecoder().decode(alumnos[]) ; ;
-            
-          
-        } 
+
         int[] quality = new int[1];
         int[] numOfMinutiae = new int[1];
         byte[] imageBuffer1 = ((java.awt.image.DataBufferByte) imgVerification.getRaster().getDataBuffer()).getData();
@@ -509,10 +475,17 @@ traerAlumnos();
                         cHuella.crearImagen(imgVerification, vrfMin, 3);
                         this.jLabelStatus.setText("Verification Capture PASS QC. Quality[" + quality[0] + "] NFIQ[" + nfiqvalue + "] Minutiae[" + numOfMinutiae[0] + "]");
                         v1Captured = true;
+                        try {
+                            verificar();
+                        } catch (SQLException ex) {
+                            Logger.getLogger(huellero.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                         this.enableRegisterAndVerifyControls();
+
                     } else {
                         this.jLabelStatus.setText("Verification Capture FAIL QC. Quality[" + quality[0] + "] NFIQ[" + nfiqvalue + "] Minutiae[" + numOfMinutiae[0] + "]");
                         this.jButtonVerify.setEnabled(false);
+
                     }
                 } else {
                     this.jLabelStatus.setText("CreateTemplate() Error : " + iError);
@@ -521,11 +494,68 @@ traerAlumnos();
         } else {
             this.jLabelStatus.setText("GetImageEx() Error : " + iError);
         }
-      
-       
-        
-    }//GEN-LAST:event_jButtonCaptureV1ActionPerformed
 
+
+    }//GEN-LAST:event_jButtonCaptureV1ActionPerformed
+    public void verificar() throws SQLException {
+        long iError;
+        long secuLevel = (long) (this.jComboBoxVerifySecurityLevel.getSelectedIndex() + 1);
+        boolean[] matched = new boolean[1];
+        matched[0] = false;
+        byte[] bh1 = null;
+        byte[] bh2 = null;
+        //System.out.println(alumnos.size());
+        for (int i = 0; i < alumnos.size(); i++) {
+            mAlumno al = (mAlumno) alumnos.get(i);
+            int ver = 0;
+            try {
+              System.out.println(al.getImghuella1());  
+              
+                ver = Integer.parseInt(al.getImghuella1().replace(" ", ""));
+            } catch (Exception e) {
+                ver = 0;
+               
+            }
+            System.out.println(ver);
+            if (ver == 0) {
+                int myblobLength = (int) al.getBhuella1().length();
+                bh1 = al.getBhuella1().getBytes(1, myblobLength);
+                int myblobLength2 = (int) al.getBhuella2().length();
+                bh2 = al.getBhuella2().getBytes(1, myblobLength2);
+                iError = fplib.MatchTemplate(bh1, vrfMin, secuLevel, matched);
+                System.out.println(bh1.toString());
+                System.out.println(vrfMin.toString());
+                System.out.println(bh2.toString());
+                System.out.println(vrfMin.toString());
+                if (iError == SGFDxErrorCode.SGFDX_ERROR_NONE) {
+                    if (matched[0]) {
+                        this.jLabelStatus.setText("Verification Success (1st template)");
+                        JOptionPane.showMessageDialog(this, "Hola "+al.getNombres());
+                    } else {
+
+                        iError = fplib.MatchTemplate(bh2, vrfMin, secuLevel, matched);
+                        if (iError == SGFDxErrorCode.SGFDX_ERROR_NONE) {
+                            if (matched[0]) {
+                                this.jLabelStatus.setText("Verification Success (2nd template)");
+                                JOptionPane.showMessageDialog(this, "Hola "+al.getNombres());
+                            } else {
+                                this.jLabelStatus.setText("Verification Fail");
+                            }
+                        } else {
+                            this.jLabelStatus.setText("Verification Attempt 2 Fail - MatchTemplate() Error : " + iError);
+                        }
+
+                    }
+                } else {
+                    this.jLabelStatus.setText("Verification Attempt 1 Fail - MatchTemplate() Error : " + iError);
+                }
+
+            } else {
+                    System.out.println("Alumno sin huella registrada");
+            }
+
+        }
+    }
     private void jButtonCaptureR1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCaptureR1ActionPerformed
         int[] quality = new int[1];
         int[] numOfMinutiae = new int[1];
@@ -685,15 +715,16 @@ traerAlumnos();
         lCodigo.setText("-------");
         lnombres.setText("------------------");
     }
-    public void traerAlumnos(){
-     alumnos = api.datosAlumnos("");
-    
+
+    public void traerAlumnos() throws ClassNotFoundException, SQLException {
+        alumnos = api.obtenertodos();
+
     }
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws ClassNotFoundException, SQLException {
         new huellero().setVisible(true);
     }
 

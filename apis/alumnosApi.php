@@ -38,10 +38,9 @@ switch ($control) {
         $id = $datos['0'];
         $huella1 = $datos['1'];
         $huella2 = $datos['2'];
-        $codhuella1 = $datos['3'];
-        $codehuella2 = $datos['4'];
+       
         $modelo = new cAlumno();
-        $datos = $modelo->AgregarHuellas($id, $huella1, $huella2, $codhuella1, $codehuella2);
+        $datos = $modelo->AgregarHuellas($id, $huella1, $huella2);
         print_r(json_encode($datos));
         break;
 

@@ -6,6 +6,7 @@
 package clases;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -13,6 +14,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.Base64;
 import javax.imageio.ImageIO;
+import sun.misc.BASE64Decoder;
 import sun.misc.IOUtils;
 
 /**
@@ -20,7 +22,21 @@ import sun.misc.IOUtils;
  * @author dahe
  */
 public class cHuella {
-
+public static  BufferedImage decodificarhuella(String imageString) {
+ 
+        BufferedImage image = null;
+        byte[] imageByte = null;
+        try {
+            BASE64Decoder decoder = new BASE64Decoder();
+            imageByte = decoder.decodeBuffer(imageString);
+           ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+            image = ImageIO.read(bis);
+            bis.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
     public void crearImagen(BufferedImage huella, byte[] binhuella, int id) {
         try {
             Path path = FileSystems.getDefault().getPath("");
@@ -29,10 +45,10 @@ public class cHuella {
             // Con este código se agregan los bytes al archivo.
             File outputfile = new File(directoryName);
             ImageIO.write(huella, "png", outputfile);
-            String code = Base64.getEncoder().encodeToString(binhuella);
+          /*  String code = Base64.getEncoder().encodeToString(binhuella);
             for (int i = 0; i < binhuella.length; i++) {
-                System.out.print(binhuella[i]);
-            }
+              //  System.out.print(binhuella[i]);
+            }*/
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
