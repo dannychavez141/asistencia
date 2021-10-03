@@ -37,7 +37,7 @@ public class conexionSQL {
     public conexionSQL() throws ClassNotFoundException, SQLException {
      
             Class.forName(driver);
-            conexion = DriverManager.getConnection(url, username, password);
+           conexion = DriverManager.getConnection(url, username, password);
         
     }
    

@@ -53,7 +53,7 @@ public class huellero extends javax.swing.JFrame {
      * Creates new form JSGD
      */
     public huellero() throws ClassNotFoundException, SQLException {
-       // traerAlumnos();
+        traerAlumnos();
         bLEDOn = false;
         initComponents();
         disableControls();
@@ -417,7 +417,7 @@ public class huellero extends javax.swing.JFrame {
                 alumno.setBhuella2(new SerialBlob(regMin2));
                 try {
                     alumno.crear();
-                    //traerAlumnos();
+                    traerAlumnos();
                     /*String[] paramtros = new String[6];
                     paramtros[0] = alumno.getCodigo();
                     paramtros[1] = alumno.getImghuella1();
