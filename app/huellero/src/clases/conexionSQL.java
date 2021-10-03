@@ -30,10 +30,10 @@ public class conexionSQL {
     public String url = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?useSSL=false";
 
     // Nombre de usuario
-    public String username = "root";
+    public String username = "dahe";
 
     // Clave de usuario
-    public String password = "";
+    public String password = "123412341234";
     public conexionSQL() throws ClassNotFoundException, SQLException {
      
             Class.forName(driver);
