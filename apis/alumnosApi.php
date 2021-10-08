@@ -28,6 +28,12 @@ switch ($control) {
         $datos = $modelo->verTodos($busq);
         print_r(json_encode($datos));
         break;
+    case 'todosapp':
+        $busq = $_GET["busq"];
+        $modelo = new cAlumno();
+        $datos = $modelo->verTodosapp($busq);
+        print_r(json_encode($datos));
+        break;
     case 'buno':
         $busq = $_GET["cod"];
         $modelo = new cAlumno();

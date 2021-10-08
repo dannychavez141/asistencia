@@ -3,14 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/desarrollo/asistencia/clase.php</file>
-            <file>file:/D:/desarrollo/asistencia/modelos/calumno.php</file>
-            <file>file:/D:/desarrollo/asistencia/alumno.php</file>
-            <file>file:/D:/desarrollo/asistencia/buscaralumno.php</file>
-            <file>file:/D:/desarrollo/asistencia/js/balumno.js</file>
-            <file>file:/D:/desarrollo/asistencia/modelos/agregarasigdocente.php</file>
-            <file>file:/D:/desarrollo/asistencia/buscarclase.php</file>
-            <file>file:/D:/desarrollo/asistencia/cursodocente.php</file>
+            <file>file:/E:/desarrollo/asistencia/apis/alumnosApi.php</file>
+            <file>file:/E:/desarrollo/asistencia/control/cAlumno.php</file>
+            <file>file:/E:/desarrollo/asistencia/valumnos.php</file>
         </group>
     </open-files>
 </project-private>
