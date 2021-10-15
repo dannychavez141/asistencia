@@ -6,7 +6,7 @@ header('Access-Control-Allow-Methods: PUT, GET, POST, DELETE, OPTIONS');
 header("Access-Control-Allow-Headers: X-Requested-With");
 header('Content-Type: text/html; charset=utf-8');
 header('P3P: CP="IDC DSP COR CURa ADMa OUR IND PHY ONL COM STA"');
-include_once '../jwt/JWT.php';
+//include_once '../jwt/JWT.php';
 include_once '../control/cConexion.php';
 include_once '../control/cLogin.php';
 $control = null;
@@ -18,22 +18,19 @@ if (isset($_POST['ac']) && $control == null) {
 switch ($control) {
     case 'login':
         if (isset($_POST["user"]) && isset($_POST["pass"])) {
-            $datos["user"] = $_POST["user"];
-            $datos["pass"] = $_POST["pass"];
-
+            $datos['user'] = $_POST['user'];
+            $datos['pass'] = $_POST['pass'];
+         
             $modelo = new cLogin();
             $datosbd = $modelo->login($datos);
             if (count($datosbd) > 0) {
-                $token = $modelo->crearToken($datosbd);
-                $msj = array("error" => "IDENTIFICADO",
-                    "token" => $token);
-                print_r(json_encode($msj));
+                print_r(json_encode($datosbd));
             } else {
-                $msj = array("error" => "NO IDENTIFICADO");
+                $msj = array("est" => "NO IDENTIFICADO");
                 print_r(json_encode($msj));
             }
         } else {
-            $msj = array("error" => "NO IDENTIFICADO");
+            $msj = array("est" => "NO IDENTIFICADO");
             print_r(json_encode($msj));
         }
         break;
@@ -53,6 +50,7 @@ switch ($control) {
     case 'm':
 
         break;
+     
     default:
         echo "no se recibio las variables" . $control;
         break;

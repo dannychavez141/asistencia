@@ -3,21 +3,34 @@
 class cLogin {
 
     function login($datos) {
+        $dato = array();
         $conexion = new cConexion();
         $bd = $conexion->getBd();
-        $sql = "SELECT `docente`.`idDocente`,
-    `docente`.`nomDoc`,
-    `docente`.`apepaDoc`,
-    `docente`.`apemaDoc`,
-    `docente`.`dni`,
-    `docente`.`est`
+        $sql = "SELECT `idDocente`,
+    `nomDoc`,
+    `apepaDoc`,
+   `apemaDoc`,
+    `dni`,
+    `est`
 FROM `docente` where dni='{$datos['user']}' and pass='{$datos['pass']}'";
         $respuesta = $bd->query($sql);
         if (mysqli_num_rows($respuesta) > 0) {
             $dato = mysqli_fetch_array($respuesta);
-            //print_r($dato);
+            $dato['tipo']="DOCENTE";
+                  $dato['est']="ok";    
         } else {
-            $dato = array();
+            $sql = "SELECT `codAlu`,
+    `nomAlu`,`apepaAlu`,`apepaAlu`,`est` 
+    FROM alumno where codAlu='{$datos['user']}' and codAlu='{$datos['pass']}';";
+           // echo $sql;
+            $bd = $conexion->getBd();
+            $rs = $bd->query($sql);
+            if (mysqli_num_rows($rs) > 0) {
+                $dato = mysqli_fetch_array($rs);
+                $dato['tipo']="ALUMNO";
+                  $dato['est']="ok";      
+                //print_r($dato);
+            }
         }
         return $dato;
     }
@@ -27,7 +40,7 @@ FROM `docente` where dni='{$datos['user']}' and pass='{$datos['pass']}'";
         $tiempo = 1; // Horas
         $time = time();
         $encrypt = array('HS256');
-        $apellidos=$datos['apepaDoc'].' '.$datos['apemaDoc'];
+        $apellidos = $datos['apepaDoc'] . ' ' . $datos['apemaDoc'];
         $token = array(
             'exp' => $time + (3600 * $tiempo),
             'aud' => array(
