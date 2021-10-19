@@ -21,6 +21,20 @@ switch ($control) {
         $datos = $modelo->verAlumnosCurso($curso);
         print_r(json_encode($datos));
         break;
+    case 'todos':
+        $curso = $_GET["cod"];
+        $modelo = new cCursos;
+        $datos = $modelo->verAlumnosCurso($curso);
+        print_r(json_encode($datos));
+        break;
+    case 'cdoc':
+        $cod = $_GET["cod"];
+        $modelo = new cCursos;
+        
+        $datos = $modelo->verDocentesCurso($cod);
+        //print_r(count($datos));
+        echo (json_encode($datos));
+        break;
     case 'buno':
         $cod = $_GET["cod"];
         $modelo = new cCursos;
