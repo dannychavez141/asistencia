@@ -30,7 +30,7 @@ where aa.idCurso='$curso' and aa.est='1' order by a.apepaAlu;";
         }
         return $datos;
     }
-    function verDocentesCurso($doc) {
+    function verDocentesCurso($doc,$ncurso) {
 
         $conexion = new cConexion();
         $sql = "SELECT aa.*,d.*,c.*,aac.*,a.* FROM asignaciondoc aa
@@ -38,7 +38,7 @@ inner join docente d on aa.idDocente=d.idDocente
 inner join curso c on aa.idCurso=c.idCurso
 inner join anioacademico aac on aa.idAnioAcademico=aac.idAnioAcademico
 inner join aula a on aa.idAula=a.idAula
-where aa.idDocente='$doc' and aa.est='1' and aa.idAnioAcademico=(select max(idAnioAcademico)  from anioacademico where est=1) ;";
+where aa.idDocente='$doc'and c.descr like'%$ncurso%' and aa.est='1' and aa.idAnioAcademico=(select max(idAnioAcademico)  from anioacademico where est=1) ;";
         //  echo $sql;
         $bd = $conexion->getBd();
         $rs = $bd->query($sql);

@@ -29,9 +29,10 @@ switch ($control) {
         break;
     case 'cdoc':
         $cod = $_GET["cod"];
+         $ncurso = $_GET["ncur"];
         $modelo = new cCursos;
         
-        $datos = $modelo->verDocentesCurso($cod);
+        $datos = $modelo->verDocentesCurso($cod,$ncurso);
         //print_r(count($datos));
         echo (json_encode($datos));
         break;
