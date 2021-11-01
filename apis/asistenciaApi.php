@@ -18,8 +18,9 @@ switch ($control) {
     case 'todos':
          $cod = $_GET["cod"];
         $tipo= $_GET["tipo"];
+        $busq= $_GET["busq"];
         $modelo = new cAsistencia();
-        $datos = $modelo->verAsistiencia($tipo, $cod);
+        $datos = $modelo->verAsistiencia($tipo, $cod,$busq);
         print_r(json_encode($datos));
        
         break;
