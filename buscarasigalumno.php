@@ -42,7 +42,7 @@
                         <td>".$fila[0]."</td>
                         <td>".$fila[2]." ".$fila[3]." ".$fila[1]."</td>
                        
-                        <td>".$fila[7]."</td>
+                        <td>".$fila[11]."</td>
                         <td ><a href='cursoalumno.php?cod=".$fila[0]."' ><img src='images/edit.jpg' width='40' height='40'></a></td></tr>";
 
         }

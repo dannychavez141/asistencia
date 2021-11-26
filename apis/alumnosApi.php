@@ -8,9 +8,7 @@ include_once '../control/cConexion.php';
 include_once '../control/cAlumno.php';
 $control = null;
 
-
 $datos = json_decode(file_get_contents('php://input'), true);
-
 
 //print_r($_POST['ac']);
 if (isset($_POST['ac']) && $control == null) {
@@ -28,6 +26,15 @@ switch ($control) {
         $datos = $modelo->verTodos($busq);
         print_r(json_encode($datos));
         break;
+    case 'AAula':
+        $aula = $_GET["aula"];
+        $anio = $_GET["anio"];
+        $modelo = new cAlumno();
+        $datos = $modelo->verAluAula($aula, $anio);
+        //print_r($datos);
+        echo json_encode($datos);
+        //print_r(json_encode($datos));
+        break;
     case 'todosapp':
         $busq = $_GET["busq"];
         $modelo = new cAlumno();
@@ -44,7 +51,7 @@ switch ($control) {
         $id = $datos['0'];
         $huella1 = $datos['1'];
         $huella2 = $datos['2'];
-       
+
         $modelo = new cAlumno();
         $datos = $modelo->AgregarHuellas($id, $huella1, $huella2);
         print_r(json_encode($datos));

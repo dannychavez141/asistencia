@@ -86,5 +86,24 @@ class cAlumno {
         }
         return $resp;
     }
-
+function verAluAula($aula, $anio) {
+        $conexion = new cConexion();
+        $sql = "SELECT DISTINCT a.codAlu,concat(nomAlu,' ',apepaAlu,' ',apemaAlu) as alu,imghuella1,imghuella2 FROM alumno a
+left join asignacionalu aa on a.codAlu=aa.codAlu
+left join asignaciondoc ad on aa.idcurso=ad.idCurso where ad.idAula='$aula' and ad.idAnioAcademico='$anio';";
+        //echo $sql;
+        $bd = $conexion->getBd();
+        $rs = $bd->query($sql);
+        $datos = array();
+        while ($dato = $rs->fetch_array()) {
+            $alu=array();
+            $alu['codAlu']=$dato['codAlu'];
+            $alu['alu']=$dato['alu'];
+            $alu['imghuella1']= $dato['imghuella1'];
+            $alu['imghuella2']=$dato['imghuella2'];
+            $datos[] = $alu;
+            //print_r($alu);
+        }
+        return $datos;
+    }
 }
