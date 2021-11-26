@@ -21,7 +21,7 @@ public class conexionSQL {
     public String database = "asistencia";
 
     // Host
-    public String hostname = "192.168.1.44";
+    public String hostname = "192.168.1.135";
 
     // Puerto
     public String port = "3306";
@@ -30,10 +30,10 @@ public class conexionSQL {
     public String url = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?useSSL=false";
 
     // Nombre de usuario
-    public String username = "dahe";
+    public String username = "root";
 
     // Clave de usuario
-    public String password = "123412341234";
+    public String password = "";
     public conexionSQL() throws ClassNotFoundException, SQLException {
      
             Class.forName(driver);

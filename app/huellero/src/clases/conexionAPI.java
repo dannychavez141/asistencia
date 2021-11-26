@@ -90,7 +90,7 @@ public class conexionAPI {
             Blob b1 = rs.getBlob("bhuella1");
             Blob b2 = rs.getBlob("bhuella2");
             mAlumno alumno = new mAlumno(codigo, nombres, apepa, apema, est, imgh1, imgh2, b1, b2);
-           // System.out.println(alumno.toString());
+            System.out.println(alumno.toString());
             Alumnos.add(alumno);
         }
 
