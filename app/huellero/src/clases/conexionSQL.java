@@ -21,7 +21,7 @@ public class conexionSQL {
     public String database = "asistencia";
 
     // Host
-    public String hostname = "192.168.1.43";
+    public String hostname = "192.168.1.44";
 
     // Puerto
     public String port = "3306";
