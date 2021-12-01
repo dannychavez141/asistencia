@@ -56,7 +56,14 @@ switch ($control) {
         $datos = $modelo->AgregarHuellas($id, $huella1, $huella2);
         print_r(json_encode($datos));
         break;
-
+    case 'recapp':
+        $id = $_POST['0'];
+        $huella1 = $_POST['1'];
+        $huella2 = $_POST['2'];
+        $modelo = new cAlumno();
+        $datos = $modelo->AgregarHuellas($id, $huella1, $huella2);
+        print_r(json_encode($datos));
+        break;
     case 'mod':
 
         break;
