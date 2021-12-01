@@ -37,12 +37,19 @@
 
         while ($fila = $resultado->fetch_array()) {
               
+if($fila['foto']!=1){        
 
+          $foto="<img src='data:image/png;base64,".$fila['foto']."' width='100' height='100' alt='Foto Estudiante'>";
+          
+      }else{
+          $foto="Sin huella registrada";
+         
+      } 
             $salida.="<tr align='center'>
                         <td>".$fila[0]."</td>
                         <td>".$fila[2]." ".$fila[3]." ".$fila[1]."</td>
                        
-                        <td>".$fila[11]."</td>
+                        <td>".$foto."</td>
                         <td ><a href='cursoalumno.php?cod=".$fila[0]."' ><img src='images/edit.jpg' width='40' height='40'></a></td></tr>";
 
         }

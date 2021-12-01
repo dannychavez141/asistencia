@@ -27,6 +27,12 @@ switch ($control) {
         $datos = $modelo->verUnaClase($cod);
         print_r(json_encode($datos));
         break;
+    case 'bultimaclaseaula':
+        $cod = $_GET["cod"];
+        $modelo = new cClase();
+        $datos = $modelo->verUClaseAula($cod);
+        print_r(json_encode($datos));
+        break;
     case 'reg':
         $modelo['idAsignacionDoc'] = $_POST['idAsignacionDoc'];
         $modelo['idAula'] = $_POST['idAula'];

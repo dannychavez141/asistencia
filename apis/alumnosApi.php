@@ -28,9 +28,8 @@ switch ($control) {
         break;
     case 'AAula':
         $aula = $_GET["aula"];
-        $anio = $_GET["anio"];
         $modelo = new cAlumno();
-        $datos = $modelo->verAluAula($aula, $anio);
+        $datos = $modelo->verAluAula($aula);
         //print_r($datos);
         echo json_encode($datos);
         //print_r(json_encode($datos));

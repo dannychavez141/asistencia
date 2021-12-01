@@ -36,6 +36,22 @@ left join aula a on ad.idAula =a.idaula where c.idClase='$id'";
         }
         return $datos;
     }
+    function verUClaseAula($id) {
+
+        $conexion = new cConexion();
+        $sql = "SELECT * FROM  clase c
+left join asignaciondoc ad on c.idAsignacionDoc=ad.idAsignacionDoc
+left join docente d on ad.idDocente=d.idDocente
+left join curso cu on ad.idCurso=cu.idCurso
+left join aula a on ad.idAula =a.idaula where ad.idAula='$id' and c.est==1";
+        //  echo $sql;
+        $bd = $conexion->getBd();
+        $rs = $bd->query($sql);
+        while ($dato = $rs->fetch_array()) {
+            $datos[] = $dato;
+        }
+        return $datos;
+    }
 
     function registrar($modelo) {
 

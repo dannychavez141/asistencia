@@ -36,10 +36,13 @@
         <tbody>";
 
         while ($fila = $resultado->fetch_array()) {
-      if($fila['imghuella1']!=1){        
-$foto="<img src='data:image/jpeg;base64,".$fila['imghuella1']."' width='60' height='90' alt='base64 test'>";
+      if($fila['foto']!=1){        
+
+          $foto="<img src='data:image/png;base64,".$fila['foto']."' width='100' height='100' alt='Foto Estudiante'>";
+          
       }else{
           $foto="Sin huella registrada";
+         
       }  $salida.="<tr>
                         <td>".$fila[0]."</td>
                         <td>".$fila[2]." ".$fila[3]." ".$fila[1]."</td>

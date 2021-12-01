@@ -20,7 +20,7 @@ class cAlumno {
     function verTodosapp($busq) {
         $conexion = new cConexion();
         $sql = "SELECT `codAlu`,
-    `nomAlu`,`apepaAlu`,`apemaAlu`,`idhuella`,`est` 
+    `nomAlu`,`apepaAlu`,`apemaAlu`,`foto`,`est` 
     FROM alumno where concat(nomAlu,' ',apepaAlu,' ',apemaAlu) like '%$busq%';";
         //echo $sql;
         $bd = $conexion->getBd();
@@ -35,7 +35,7 @@ class cAlumno {
     function verUno($cod) {
         $conexion = new cConexion();
         $sql = "SELECT `codAlu`,
-    `nomAlu`,`apepaAlu`,`apemaAlu`,`idhuella`,`est`,`imghuella1`,`imghuella2`  FROM alumno where  codAlu='$cod';";
+    `nomAlu`,`apepaAlu`,`apemaAlu`,`foto`,`est`,`imghuella1`,`imghuella2`  FROM alumno where  codAlu='$cod';";
         //echo $sql;
         $bd = $conexion->getBd();
         $rs = $bd->query($sql);
@@ -86,11 +86,12 @@ class cAlumno {
         }
         return $resp;
     }
-function verAluAula($aula, $anio) {
+function verAluAula($aula) {
+    
         $conexion = new cConexion();
-        $sql = "SELECT DISTINCT a.codAlu,concat(nomAlu,' ',apepaAlu,' ',apemaAlu) as alu,imghuella1,imghuella2 FROM alumno a
+        $sql = "SELECT DISTINCT a.codAlu,concat(nomAlu,' ',apepaAlu,' ',apemaAlu) as alu,imghuella1,imghuella2,foto FROM alumno a
 left join asignacionalu aa on a.codAlu=aa.codAlu
-left join asignaciondoc ad on aa.idcurso=ad.idCurso where ad.idAula='$aula' and ad.idAnioAcademico='$anio';";
+left join asignaciondoc ad on aa.idcurso=ad.idCurso where ad.idAula='$aula' and ad.idAnioAcademico='{$this->ultimoAnio()}';";
         //echo $sql;
         $bd = $conexion->getBd();
         $rs = $bd->query($sql);
@@ -101,9 +102,24 @@ left join asignaciondoc ad on aa.idcurso=ad.idCurso where ad.idAula='$aula' and 
             $alu['alu']=$dato['alu'];
             $alu['imghuella1']= $dato['imghuella1'];
             $alu['imghuella2']=$dato['imghuella2'];
+                  $alu['foto']=$dato['foto'];
             $datos[] = $alu;
             //print_r($alu);
         }
         return $datos;
     }
+    function ultimoAnio() {
+    
+        $conexion = new cConexion();
+        $sql = "SELECT max(idAnioAcademico) as anio FROM anioacademico  where est=1;";
+        //echo $sql;
+        $bd = $conexion->getBd();
+        $rs = $bd->query($sql);
+        $datos = 0;
+        while ($dato = $rs->fetch_array()) {
+           
+            $datos =$dato['anio']; 
+        return $datos;
+    }
+}
 }
