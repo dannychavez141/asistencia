@@ -48,10 +48,9 @@ switch ($control) {
         print_r(json_encode($datos));
         break;
     case 'rec':
-        $id = $datos['0'];
-        $huella1 = $datos['1'];
-        $huella2 = $datos['2'];
-
+        $id = $_POST['0'];
+        $huella1 = $_POST['1'];
+        $huella2 = $_POST['2'];
         $modelo = new cAlumno();
         $datos = $modelo->AgregarHuellas($id, $huella1, $huella2);
         print_r(json_encode($datos));
