@@ -58,6 +58,7 @@ where aa.idDocente='$doc'and c.descr like'%$ncurso%' and aa.est='1' and aa.idAni
 inner join curso c on ad.idCurso=c.idCurso
 inner join docente d on ad.idDocente=d.idDocente
 inner join anioacademico aa on ad.idAnioAcademico=aa.idAnioAcademico
+inner join aula a on ad.idAula=a.idAula
 where ad.idAsignacionDoc='$cod' and aa.est='1';";
         //  echo $sql;
         $bd = $conexion->getBd();
