@@ -10,7 +10,7 @@ left join asignaciondoc ad on c.idAsignacionDoc=ad.idAsignacionDoc
 left join docente d on ad.idDocente=d.idDocente
 left join curso cu on ad.idCurso=cu.idCurso
 left join aula a on ad.idAula =a.idaula  where ad.idAsignacionDoc='$id' order by c.fechaClas desc";
-      //   echo $sql;
+        //   echo $sql;
         $bd = $conexion->getBd();
         $rs = $bd->query($sql);
         $datos = array();
@@ -36,6 +36,7 @@ left join aula a on ad.idAula =a.idaula where c.idClase='$id'";
         }
         return $datos;
     }
+
     function verUClaseAula($id) {
 
         $conexion = new cConexion();
@@ -43,7 +44,8 @@ left join aula a on ad.idAula =a.idaula where c.idClase='$id'";
 left join asignaciondoc ad on c.idAsignacionDoc=ad.idAsignacionDoc
 left join docente d on ad.idDocente=d.idDocente
 left join curso cu on ad.idCurso=cu.idCurso
-left join aula a on ad.idAula =a.idaula where ad.idAula='$id' and c.est==1";
+inner join anioacademico aac on ad.idAnioAcademico=aac.idAnioAcademico
+left join aula a on ad.idAula =a.idaula where ad.idAula='$id' and c.fechaClas=curdate()  and c.horClas < current_time() and cierre > current_time() and c.est=1";
         //  echo $sql;
         $bd = $conexion->getBd();
         $rs = $bd->query($sql);
@@ -57,13 +59,9 @@ left join aula a on ad.idAula =a.idaula where ad.idAula='$id' and c.est==1";
 
         $conexion = new cConexion();
         $sql = "INSERT INTO `clase`
-(`idAsignacionDoc`,`idAula`,`fechaClas`,`horClas`,`cierre`,`est`) VALUES 
-('{$modelo['idAsignacionDoc']}',
-'{$modelo['idAula']}',
-'{$modelo['fechaClas']}',
-'{$modelo['horClas']}',
-'{$modelo['cierre']}',
-'{$modelo['est']}');";
+(`idAsignacionDoc`,`fechaClas`,`horClas`,`cierre`,`est`) VALUES 
+('{$modelo['idAsignacionDoc']}','{$modelo['fechaClas']}','{$modelo['horClas']}','{$modelo['cierre']}','1');";
+//echo $sql;
         $msj = "";
         $bd = $conexion->getBd();
         if ($bd->query($sql)) {

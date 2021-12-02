@@ -35,11 +35,9 @@ switch ($control) {
         break;
     case 'reg':
         $modelo['idAsignacionDoc'] = $_POST['idAsignacionDoc'];
-        $modelo['idAula'] = $_POST['idAula'];
         $modelo['fechaClas'] = $_POST['fechaClas'];
         $modelo['horClas'] = $_POST['horClas'];
         $modelo['cierre'] = $_POST['cierre'];
-        $modelo['est'] = $_POST['cierre'];
         $control = new cClase();
         $datos = $control->registrar($modelo);
         print_r(json_encode($datos));
