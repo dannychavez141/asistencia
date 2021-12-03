@@ -30,14 +30,18 @@ left join aula a on ad.idAula =a.idaula ";
 
     function registrar($modelo) {
         $conexion = new cConexion();
+        
+$sql="SELECT * FROM `asistencia` where idClase='{$modelo['idClase']}' and codAlu='{$modelo['codAlu']}';";
+        
+        $bd = $conexion->getBd();
+        $rs = $bd->query($sql);
+        $est=0;
+       while ($dato = $rs->fetch_array()) {
+            $datos = $dato;
+        } 
+        
         $sql = "INSERT INTO `asistencia`
-(`idClase`,
-`codAlu`,
-`fMarca`)
-VALUES
-('{$modelo['idClase']}',
-'{$modelo['codAlu']}',
-'{$modelo['fMarca']}');";
+(`idClase`,`codAlu`,`fMarca`)VALUES('{$modelo['idClase']}','{$modelo['codAlu']}',current_time());";
         $msj = "";
         $bd = $conexion->getBd();
         if ($bd->query($sql)) {

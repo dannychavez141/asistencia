@@ -30,7 +30,6 @@ switch ($control) {
     case 'reg':
         $modelo['idClase'] = $_POST['idClase'];
         $modelo['codAlu'] = $_POST['codAlu'];
-        $modelo['fMarca'] = $_POST['fMarca'];
         $control = new cAsistencia();
         $datos = $control->registrar($modelo);
         print_r(json_encode($datos));
