@@ -4,17 +4,7 @@
 <?php 
  include_once'./cabezera.php';  
  include_once'./conexion.php'; 
- 
-$sql="SELECT (max(idhuella))+1  from alumno";
- $rs=$mysqli->query($sql);         
-   while ($row = $rs ->fetch_array()) {
 
-                  $codi=$row[0];
-
-
-
-}  
-$rs -> close();
 ?>
 
 <body>
@@ -38,11 +28,11 @@ $rs -> close();
          <center>
                 <div class="col-lg-6 contact-right-wthree-info login">
                     <h5 class="text-center mb-4"></h5>
-                    <form action="modelos/calumno.php" method="post">
+                    <form action="modelos/calumno.php" method="post" enctype="multipart/form-data">
                      
                          <div class="form-group mt-4">
                             <label> Codigo Universitario:</label>
-                            <input type="text" class="form-control" id="validationDefault01" maxlength="100" name="tcod" onkeypress="return esInteger(event)" value="" required="" placeholder="Ingrese Codigo Universitario">
+                            <input type="text" class="form-control" id="validationDefault01" maxlength="10" name="tcod" onkeypress="return esInteger(event)" value="" required="" placeholder="Ingrese Codigo Universitario">
                         </div>
                         <div class="form-group mt-4">
                             <label>Nombres:</label>
@@ -58,10 +48,10 @@ $rs -> close();
                             <input type="text" class="form-control" id="validationDefault01" value="" name="tapema" required="" onkeypress="return validar(event)" maxlength="25" placeholder="Ingrese Apellido Materno">
                         </div>
                        <div class="form-group mt-4">
-                            <label> IDHUELLA:</label>
+                            <label> Foto del Estudiante:</label>
                             
 
-                            <input type="text" class="form-control" id="validationDefault01" maxlength="8"name="thue" onkeypress="return esInteger(event)" value="<?php echo $codi; ?>" required="" placeholder="Ingrese idhuella" readonly>
+                            <input type="file" class="form-control" id="validationDefault01"name="foto" onkeypress="return esInteger(event)" value="" required="" placeholder="Ingrese idhuella" readonly>
                         </div>
 
                         
