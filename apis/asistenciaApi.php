@@ -32,7 +32,7 @@ switch ($control) {
         $modelo['codAlu'] = $_POST['codAlu'];
         $control = new cAsistencia();
         $datos = $control->registrar($modelo);
-        print_r(json_encode($datos));
+        print_r($datos);
         break;
 
     case 'mod':
