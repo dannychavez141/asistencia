@@ -1,6 +1,5 @@
 <?php
-$mysqli = new mysqli("localhost", "root"
-	,"", "asistencia");
+$mysqli = new mysqli("localhost", "i7982532_wp1", "I.dcZ3MfCiwJYzpvmgL50", "i7982532_wp1");
 //$mysqli = new mysqli("localhost", "root", "", "asistencia");
 //$mysqli = new mysqli("sql307.tonohost.com","ottos_24465265","Teamarex100pre","ottos_24465265_asistencia"); 
 //$mysqli = new mysqli("localhost","id11530952_proyectounu2019","losloles54","id11530952_asistencia"); 

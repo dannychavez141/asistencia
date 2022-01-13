@@ -1,17 +1,21 @@
 
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="es">
 <?php
 session_start();
 if (isset($_SESSION['usuario'])) {
     echo "";
 }else{
-    header("Location: login.php");
+   echo "<script type='text/javascript'>
+  window.location.replace('./login.php');
+</script>";
     exit();
 }
 $usuario=$_SESSION['usuario'];
 $idusuario=$_SESSION['idUsuario'];
+echo $usuario."-".$usuario;
 ?>
+    
 <head>
     <title>Sistema de Control de Asistencia</title>
     <!-- Meta tag Keywords -->

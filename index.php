@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="zxx"> 
+<html lang="es"> 
 <?php 
-ob_start();
+//ob_start();
    
  include_once'./cabezera.php';  ?>
 <body>
@@ -60,11 +60,6 @@ ob_start();
         <!-- //banner slider -->
     </div>
     <!-- //banner -->
-
-
-
-
-
 
 </body>
 
