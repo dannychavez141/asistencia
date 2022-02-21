@@ -2,15 +2,17 @@
 <!DOCTYPE html>
 <head>
     <?php
-    error_reporting(0);
+    //error_reporting(0);
     session_start();
     if (isset($_SESSION['usuario'])) {
-        header("Location: index.php");
+         echo "<script type='text/javascript'>
+  window.location.replace('./index.php');
+</script>";
         exit();
     }
     $usuario = $_SESSION['usuario'];
     $idusuario = $_SESSION['idUsuario'];
-
+   
     $ms = $_GET['msj'];
     if ($ms == true) {
         echo "<script>alert('EL ACCESO O LA CONTRASEÑA SON ERRONEOS');</script>";
@@ -57,7 +59,7 @@
     </div>
 
 <center>
-    <!-- contact --><h3 >ACCESO AL SISTEMA</h3>
+    <!-- contact --><h3 >ACCESO AL SISTEMA <?php print_r($_SESSION); ?></h3>
     <h3 >DE ASISTENCIA</h3>
 
     <div class="contact py-5" id="contact">
