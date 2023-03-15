@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
     hilo();
     print(usuario);
     return MaterialApp(
-      title: 'Premium App',
+      title: ' App',
       theme: ThemeData(
         primarySwatch: Colors.yellow,
       ),

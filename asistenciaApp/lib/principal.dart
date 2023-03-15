@@ -36,7 +36,7 @@ class _principalState extends State<principal> {
     // print(usuario);
     Vistas componentes = new Vistas("Menu Principal", context, usuario);
     return Scaffold(
-        drawer: componentes.menu(),
+        drawer: componentes.menu("admin"),
         appBar: AppBar(title: Text(componentes.titulopage)),
         body: Center(
           child: Column(

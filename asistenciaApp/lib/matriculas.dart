@@ -48,7 +48,7 @@ class _matriculaState extends State<matriculas> {
     Vistas componentes = Vistas("MATRICULAS", context, widget.usuario);
 
     return Scaffold(
-        drawer: componentes.menu(),
+        drawer: componentes.menu("admin"),
         appBar: AppBar(title: Text(componentes.titulopage)),
         body: Center(
           child: Column(

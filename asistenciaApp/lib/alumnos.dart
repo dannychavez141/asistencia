@@ -42,7 +42,7 @@ class _alumnosState extends State<alumnos> {
   Widget build(BuildContext context) {
     Vistas componentes = new Vistas("Alumnos", context, widget.usuario);
     return Scaffold(
-        drawer: componentes.menu(),
+        drawer: componentes.menu("admin"),
         appBar: AppBar(title: Text(componentes.titulopage)),
         body: Center(
           child: Column(
