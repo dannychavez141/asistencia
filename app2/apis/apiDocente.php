@@ -23,13 +23,13 @@ if (isset($_POST['ac']) && $control == null) {
 switch ($control) {
     case 'todos':
         $busq = $_GET["busq"];
-        $modelo = new cAlumno();
+        $modelo = new cDocente();
         $datos = $modelo->verTodos($busq);
         print_r(json_encode($datos));
         break;
     case 'AAula':
         $aula = $_GET["aula"];
-        $modelo = new cAlumno();
+        $modelo = new cDocente();
         $datos = $modelo->verAluAula($aula);
         //print_r($datos);
         echo json_encode($datos);
@@ -37,13 +37,13 @@ switch ($control) {
         break;
     case 'todosapp':
         $busq = $_GET["busq"];
-        $modelo = new cAlumno();
+        $modelo = new cDocente();
         $datos = $modelo->verTodosapp($busq);
         print_r(json_encode($datos));
         break;
     case 'buno':
         $busq = $_GET["cod"];
-        $modelo = new cAlumno();
+        $modelo = new cDocente();
         $datos = $modelo->verUno($busq);
         print_r(json_encode($datos));
         break;
@@ -51,7 +51,7 @@ switch ($control) {
         $id = $_POST['0'];
         $huella1 = $_POST['1'];
         $huella2 = $_POST['2'];
-        $modelo = new cAlumno();
+        $modelo = new cDocente();
         $datos = $modelo->AgregarHuellas($id, $huella1, $huella2);
         print_r(json_encode($datos));
         break;
@@ -59,7 +59,7 @@ switch ($control) {
         $id = $_POST['0'];
         $huella1 = $_POST['1'];
         $huella2 = $_POST['2'];
-        $modelo = new cAlumno();
+        $modelo = new cDocente();
         $datos = $modelo->AgregarHuellas($id, $huella1, $huella2);
         print_r(json_encode($datos));
         break;
