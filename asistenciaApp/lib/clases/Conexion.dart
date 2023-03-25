@@ -1,5 +1,5 @@
 
 class Conexion{
-  String url="https://intranet.premiumcollege.edu.pe/";
+  String url="http://192.168.1.48/asistencia/";
 
 }

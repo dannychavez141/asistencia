@@ -1,12 +1,12 @@
 
-import 'package:app/clases/Calumnos.dart';
-import 'package:app/modelos/Malumno.dart';
+import 'package:app/clases/cDocente.dart';
+import 'package:app/modelos/Mdocente.dart';
 import 'package:app/modelos/Masistencia.dart';
 import 'package:flutter/material.dart';
 
 
 class asistencias extends StatefulWidget {
-  final Malumno matricula;
+  final Mdocente matricula;
   const asistencias({super.key,required this.matricula});
 
   @override
@@ -15,12 +15,12 @@ class asistencias extends StatefulWidget {
 
 class _asistenciasState extends State<asistencias> {
   late Future<List<Masistencia>> lAlumnos;
-  Calumnos metodos = new Calumnos();
+  cDocente metodos = new cDocente();
   String idMes="0";
   @override
   void initState()  {
     super.initState();
-    lAlumnos = metodos.getAsistencias(widget.matricula.id,idMes);
+    lAlumnos = metodos.getAsistencias(widget.matricula.idDoc,idMes);
   }
 
   @override
@@ -94,7 +94,7 @@ class _asistenciasState extends State<asistencias> {
         setState(() {
           selectedFc = newValue!;
           idMes = newValue;
-         lAlumnos = metodos.getAsistencias(widget.matricula.id,idMes);
+         lAlumnos = metodos.getAsistencias(widget.matricula.idDoc,idMes);
           print(idMes);
         });
       },
@@ -136,7 +136,7 @@ class _asistenciasState extends State<asistencias> {
               ),
               onPressed: () {
                 setState(() {
-                  lAlumnos = metodos.getAsistencias(widget.matricula.id,idMes);
+                  lAlumnos = metodos.getAsistencias(widget.matricula.idDoc,idMes);
                 });
 
               },

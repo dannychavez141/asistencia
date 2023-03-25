@@ -3,7 +3,7 @@ import 'package:app/main.dart';
 import 'package:app/principal.dart';
 import 'package:flutter/material.dart';
 import 'package:app/matriculas.dart';
-import '../alumnos.dart';
+import '../docentes.dart';
 import '../modelos/Musuario.dart';
 
 class Vistas {
@@ -36,11 +36,11 @@ class Vistas {
                 style: TextStyle(fontWeight: FontWeight.bold)),
             Container(
                 margin: EdgeInsets.all(5),
-                child: Text(usuario.datos,
+                child: Text(usuario.nombUsu+" "+usuario.apepaUsu+" "+usuario.apemaUsu,
                     style: TextStyle(fontWeight: FontWeight.bold))),
             Container(
                 margin: EdgeInsets.all(5),
-                child: Text(usuario.tipo,
+                child: Text(usuario.tipoUsu,
                     style: TextStyle(fontWeight: FontWeight.bold))),
             Expanded(
                 child: Divider(
@@ -131,7 +131,7 @@ class Vistas {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => MyHomePage(title: "PremiumApp 2.0")));
+                builder: (context) => MyHomePage(title: "Asistencia Unu 2.0")));
         break;
 
       default:

@@ -6,22 +6,18 @@ import 'package:app/modelos/Manio.dart';
 import 'package:app/modelos/Masistencia.dart';
 import 'package:http/http.dart' as http;
 import 'package:app/clases/Conexion.dart';
-import 'package:app/modelos/Malumno.dart';
+import 'package:app/modelos/Mdocente.dart';
 import 'package:app/modelos/Musuario.dart';
 
-class Calumnos {
+class cDocente {
   Conexion conexion = new Conexion();
 
-  Future<List<Malumno>> getMatriculados(String dni, String anio) async {
-    String api = conexion.url +
-        "ajax/cMatricula.php?control=mApoAnio&dni=" +
-        dni +
-        "&anio=" +
-        anio;
+  Future<List<Mdocente>> getMatriculados(String dni, String anio) async {
+    String api = conexion.url + "app2/apis/apiDocente.php?ac=todos&busq=" + dni;
     print(api);
     var uri = Uri.parse(api);
     final resp = await http.get(uri);
-    List<Malumno> datos = [];
+    List<Mdocente> datos = [];
     if (resp.statusCode == 200) {
       //  print(resp.body);
       String body = resp.body;
@@ -29,12 +25,17 @@ class Calumnos {
       //print(datosjson[0]);
 
       for (var item in datosjson) {
-        datos.add(Malumno(
+        datos.add(Mdocente(
             item["1"],
             item["alu"],
             item["8"] + " - " + item["10"],
             item["12"] + " " + item["14"],
             item["ext"],
+            item["0"],
+            item["0"],
+            item["0"],
+            item["0"],
+            item["0"],
             item["0"]));
       }
       return datos;
@@ -43,24 +44,26 @@ class Calumnos {
     }
   }
 
-  Future<List<Malumno>> getAlumnos(String dni) async {
+  Future<List<Mdocente>> getDocentes(String dni) async {
     String api = conexion.url + "appmovil/valumno.php?cod=" + dni + "&busq";
     print(api);
     var uri = Uri.parse(api);
     final resp = await http.get(uri);
-    List<Malumno> datos = [];
+    List<Mdocente> datos = [];
     if (resp.statusCode == 200) {
       print(resp.body);
       String body = resp.body;
       final datosjson = jsonDecode(body);
       //print(datosjson[0]);
       for (var item in datosjson) {
-        datos.add(Malumno(item["dni"], item["alum"], item["fnac"],
-            item["descrSex"], item["ext"], item["0"]));
+        datos.add(Mdocente(item["dni"], item["alum"], item["fnac"],
+            item["descrSex"], item["ext"], item["0"], item["0"], item["0"]
+            , item["0"], item["0"], item["0"]));
       }
       return datos;
     } else {
-      throw  Exception("Error de api");}
+      throw Exception("Error de api");
+    }
   }
 
   Future<List<Manio>> getAnios() async {
@@ -118,26 +121,35 @@ class Calumnos {
     }
   }
 
-  Future<List<Musuario>> getUsuario(String usu, String pass) async {
+  Future<List<Musuario>> getUsuario(
+      String usu, String pass, String tipo) async {
     String api = conexion.url +
-        "ajax/apiApoderado.php?control=login&usu=" +
+        "app2/apis/apiDocente.php?ac=login&loginUsu=" +
         usu +
-        "&pass=" +
-        pass;
+        "&passUsu=" +
+        pass +
+        "&tipoUsu=" +
+        tipo;
+    // print(api);
     var uri = Uri.parse(api);
     final resp = await http.get(uri);
     List<Musuario> datos = [];
     if (resp.statusCode == 200) {
-      print(resp.body);
+      // print(resp.body);
       String body = resp.body;
       final datosjson = jsonDecode(body);
-      //print(datosjson[0]);
+       print(datosjson[0]);
 
       for (var item in datosjson) {
-        datos.add(Musuario(
-            item["idApoderado"], item["dni"], item["datos"], item["descr"]));
+        if (tipo == "DOCENTE") {
+          datos.add(Musuario(item["idDoc"], item["dniDoc"], item["nomDoc"],
+              item["apepaDoc"], item["apemaDoc"], tipo));
+        } else {
+          datos.add(Musuario(item["idUsu"], item["dniUsu"], item["nombUsu"],
+              item["apepaUsu"], item["apemaUsu"], tipo));
+        }
       }
-
+      print(datos.toString());
       return datos;
     } else {
       throw Exception("Error de api");

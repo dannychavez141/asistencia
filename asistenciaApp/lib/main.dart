@@ -2,16 +2,16 @@ import 'package:app/clases/sesion.dart';
 import 'package:app/modelos/Musuario.dart';
 import 'package:flutter/material.dart';
 import 'package:app/principal.dart';
-import 'clases/Calumnos.dart';
-import 'clases/notif.dart';
+import 'clases/cDocente.dart';
 
 late Musuario usuario;
-Calumnos metodos = Calumnos();
+cDocente metodos = cDocente();
 sesion ses = sesion();
+var media;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initNoti();
+ // await initNoti();
   usuario = await ses.verificarInicio();
   runApp(const MyApp());
 }
@@ -22,14 +22,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    hilo();
+   // hilo();
     print(usuario);
     return MaterialApp(
       title: ' App',
       theme: ThemeData(
-        primarySwatch: Colors.yellow,
+        primarySwatch: Colors.lightGreen,
       ),
-      home: usuario.id == "null"  ? MyHomePage(title: 'Premium App 2.0'):principal(usuario: usuario),
+      home: usuario.id == "null"  ? MyHomePage(title: 'Asistencia Unu 2.0'):principal(usuario: usuario),
     );
   }
 
@@ -47,6 +47,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final cUsu = TextEditingController();
   final cPass = TextEditingController();
+  String cTipo = "DOCENTE";
 
   @override
   Widget build(BuildContext context) {
@@ -60,22 +61,30 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget cuerpo() {
+     media = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/img/img.png"),
+              image: AssetImage("assets/img/fondounu.png"),
               fit: BoxFit.cover)),
       child: Center(
-        child: Column(
+        child: Container(
+            margin: EdgeInsets.only(top: 20),
+
+            width: 600,
+            height: 500,
+            alignment: Alignment.center,
+            child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             appName(),
             titulo(),
             txtUsuario(),
             txtPass(),
+            spTipo(),
             btnIngresar()
           ],
-        ),
+        )),
       ),
     );
   }
@@ -90,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget appName() {
     return Text(
-      "Premium App 2.0",
+      "Asistencia Unu 2.0",
       style: TextStyle(
           color: Colors.white, fontSize: 35.0, fontWeight: FontWeight.bold),
     );
@@ -98,8 +107,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget txtUsuario() {
     String txtusu="";
-    if(usuario.dni!= "null"){
-      txtusu=usuario.dni;
+    if(usuario.id!= "null"){
+      txtusu=usuario.id;
     }
     cUsu.text=txtusu;
     return Container(
@@ -126,7 +135,38 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             controller: cPass));
   }
+  Widget spTipo() {
+    List<String>   tipos = ['DOCENTE', 'ADMINISTRADOR'];
 
+
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+    child:DropdownButtonFormField(
+        decoration: InputDecoration(
+          fillColor: Colors.white,
+          filled: true,
+        ),
+      hint: Text('Seleccionar'),
+      value: tipos[0],
+      onChanged: (String? newValue) {
+        setState(() {
+          this.cTipo = newValue!;
+        });
+      },
+      items: tipos
+          .map((item) => DropdownMenuItem<String>(
+          onTap: () {
+            setState(() {
+              //CREA UNA VARIABLE DE CLASE DEL ID
+              //idAnio = item.id;
+            });
+          },
+          child: Text(item,
+              textAlign: TextAlign.center, style: TextStyle(fontSize: 20)),
+          value: item))
+          .toList(),
+    ));
+  }
   Widget btnIngresar() {
     return ClipRRect(
       borderRadius: BorderRadius.circular(4),
@@ -167,11 +207,12 @@ class _MyHomePageState extends State<MyHomePage> {
   void validar() async {
     String usu = cUsu.text;
     String pass = cPass.text;
+    String tipo = cTipo;
     if (usu.length < 1 || pass.length < 1) {
       alerta("Error de Inicio de Identidicación", "Campos Vacios",
           "Los campos de Usuario o Contraseña se encuentran  vacios");
     } else {
-      List<Musuario> usuarios = await metodos.getUsuario(usu, pass);
+      List<Musuario> usuarios = await metodos.getUsuario(usu, pass,tipo);
       int canti = usuarios.length;
       if (canti > 0) {
         usuario = usuarios[0];

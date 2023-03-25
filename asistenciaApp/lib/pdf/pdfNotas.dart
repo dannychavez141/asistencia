@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../clases/Calumnos.dart';
+import '../clases/cDocente.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-Calumnos metodos = Calumnos();
+cDocente metodos = cDocente();
 class pdfNotas extends StatelessWidget {
   final String cod;
   const pdfNotas({super.key,required this.cod});

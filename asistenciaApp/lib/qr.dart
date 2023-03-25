@@ -1,10 +1,10 @@
-import 'package:app/clases/Calumnos.dart';
-import 'package:app/modelos/Malumno.dart';
+import 'package:app/clases/cDocente.dart';
+import 'package:app/modelos/Mdocente.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-Calumnos metodos = Calumnos();
+cDocente metodos = cDocente();
 class qr extends StatefulWidget {
-  final Malumno alu;
+  final Mdocente alu;
   const qr({Key? key,required this.alu}) : super(key: key);
 
   @override
@@ -21,7 +21,7 @@ class _qrState extends State<qr> {
         body: Container(  child: ventana(context),));
   }
   Widget ventana(context){
-    String url = metodos.conexion.url + "identificacion/?cod=A-" + widget.alu.id;;
+    String url = metodos.conexion.url + "identificacion/?cod=A-" + widget.alu.idDoc;
 
     return  Container(
 
@@ -31,7 +31,7 @@ class _qrState extends State<qr> {
           version: QrVersions.auto,
           size: 320,
           gapless: false,
-        ),Text(widget.alu.nomb),Text(widget.alu.sex),Text(widget.alu.fnac)
+        ),Text(widget.alu.nomDoc),Text(widget.alu.apepaDoc),Text(widget.alu.apemaDoc)
           ],)
             )
         ]));

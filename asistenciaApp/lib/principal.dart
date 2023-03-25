@@ -7,7 +7,7 @@ import 'modelos/Musuario.dart';
 
 
 sesion ses = sesion();
- Musuario usuario = Musuario("", "", "", "");
+ Musuario usuario = Musuario("", "", "", "","","");
 
 class principal extends StatefulWidget {
   final Musuario usuario;
@@ -41,7 +41,7 @@ class _principalState extends State<principal> {
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [componentes.Inicio(usuario.datos)],
+            children: [componentes.Inicio(usuario.nombUsu)],
           ),
         ));
   }

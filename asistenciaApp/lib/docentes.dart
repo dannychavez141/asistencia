@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:app/clases/sesion.dart';
 import 'package:flutter/material.dart';
-import 'package:app/clases/Calumnos.dart';
-import 'package:app/modelos/Malumno.dart';
+import 'package:app/clases/cDocente.dart';
+import 'package:app/modelos/Mdocente.dart';
 import 'package:app/clases/vistas.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:io' show Platform;
@@ -19,8 +19,8 @@ class alumnos extends StatefulWidget {
 }
 
 class _alumnosState extends State<alumnos> {
-  late Future<List<Malumno>> lAlumnos;
-  Calumnos metodos = new Calumnos();
+  late Future<List<Mdocente>> ldocentes;
+  cDocente metodos = new cDocente();
   sesion ses = sesion();
 
   @override
@@ -35,7 +35,7 @@ class _alumnosState extends State<alumnos> {
       }
     }
     super.initState();
-    lAlumnos = metodos.getAlumnos(widget.usuario.dni);
+    ldocentes = metodos.getDocentes(widget.usuario.dniUsu);
   }
 
   @override
@@ -135,7 +135,7 @@ class _alumnosState extends State<alumnos> {
 
   Widget listaDatos(context) {
     return FutureBuilder(
-        future: lAlumnos,
+        future: ldocentes,
         builder: (context, snapshop) {
           if (snapshop.hasData) {
             // print(snapshop.data);
@@ -152,14 +152,14 @@ class _alumnosState extends State<alumnos> {
         });
   }
 
-  List<Widget> elementos(List<Malumno>? data) {
+  List<Widget> elementos(List<Mdocente>? data) {
     List<Widget> element = [];
     int i = 0;
     for (var ele in data!) {
       i++;
       String img = "";
-      if (ele.ext != "0") {
-        img = metodos.conexion.url + "/img/alumnos/" + ele.dni + "." + ele.ext;
+      if (ele.foto != "0") {
+        img = metodos.conexion.url + "/img/alumnos/" + ele.dniDoc + "." + ele.dniDoc;
       } else {
         img = metodos.conexion.url + "/img/noimage.png";
       }
@@ -188,19 +188,19 @@ class _alumnosState extends State<alumnos> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(3),
-                    child: Text(ele.dni),
+                    child: Text(ele.dniDoc),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(3),
-                    child: Text(ele.nomb),
+                    child: Text(ele.nomDoc),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(3),
-                    child: Text(ele.sex),
+                    child: Text(ele.apepaDoc),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(3),
-                    child: Text("Fecha de Nacimiento:" + ele.fnac),
+                    child: Text("Fecha de Nacimiento:" + ele.apemaDoc),
                   ),
                   const Padding(
                     padding: EdgeInsets.all(3),
@@ -217,7 +217,7 @@ class _alumnosState extends State<alumnos> {
     return element;
   }
 
-  Widget btnDatos(Malumno ele) {
+  Widget btnDatos(Mdocente ele) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(5),
       child: Stack(
@@ -256,25 +256,25 @@ class _alumnosState extends State<alumnos> {
     );
   }
 
-  void detallerAlu(Malumno ele) {
+  void detallerAlu(Mdocente ele) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     showDialog(
         context: context,
         builder: (buildcontext) {
           String img;
-          if (ele.ext != "0") {
+          if (ele.foto != "0") {
             img = metodos.conexion.url +
                 "/img/alumnos/" +
-                ele.dni +
+                ele.foto +
                 "." +
-                ele.ext;
+                ele.dniDoc;
           } else {
             img = metodos.conexion.url + "/img/noimage.png";
           }
           return AlertDialog(
             insetPadding: EdgeInsets.all(0),
-            title: Text(ele.dni + "-" + ele.nomb),
+            title: Text(ele.dniDoc + "-" + ele.nomDoc),
             content: Image.network(img),
             actions: <Widget>[
               TextButton(
@@ -291,9 +291,9 @@ class _alumnosState extends State<alumnos> {
         });
   }
 
-  void pdfAlumnos(Malumno ele) {
+  void pdfAlumnos(Mdocente ele) {
     String yourURL =
-        metodos.conexion.url + "appmovil/pdfalumno.php?cod=" + ele.dni;
+        metodos.conexion.url + "appmovil/pdfalumno.php?cod=" + ele.dniDoc;
     yourURL = "https://docs.google.com/gview?embedded=true&url=" + yourURL;
     showDialog(
         context: context,

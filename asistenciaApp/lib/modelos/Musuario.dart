@@ -1,13 +1,17 @@
 class Musuario{
   String id;
-  String dni;
-  String datos;
-  String tipo;
+  String dniUsu;
+  String nombUsu;
+  String apepaUsu;
+  String apemaUsu;
+  String tipoUsu;
 
-  Musuario(this.id, this.dni, this.datos, this.tipo);
+
+  Musuario(this.id, this.dniUsu, this.nombUsu, this.apepaUsu, this.apemaUsu,
+      this.tipoUsu);
 
   @override
   String toString() {
-    return 'Musuario{id: $id, dni: $dni, datos: $datos, tipo: $tipo}';
+    return 'Musuario{id: $id, dniUsu: $dniUsu, nombUsu: $nombUsu, apepaUsu: $apepaUsu, apemaUsu: $apemaUsu, tipoUsu: $tipoUsu}';
   }
 }

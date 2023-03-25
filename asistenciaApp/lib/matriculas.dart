@@ -5,15 +5,15 @@ import 'package:app/pdf/pdfMatricula.dart';
 import 'package:app/pdf/pdfNotas.dart';
 import 'package:app/qr.dart';
 import 'package:flutter/material.dart';
-import 'package:app/clases/Calumnos.dart';
-import 'package:app/modelos/Malumno.dart';
+import 'package:app/clases/cDocente.dart';
+import 'package:app/modelos/Mdocente.dart';
 import 'package:app/clases/vistas.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'modelos/Musuario.dart';
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
-Calumnos metodos = Calumnos();
-late Future<List<Malumno>> lAlumnos;
+cDocente metodos = cDocente();
+late Future<List<Mdocente>> lAlumnos;
 late Future<List<Manio>> lAnios;
 String? idAnio = "";
 
@@ -30,7 +30,7 @@ class _matriculaState extends State<matriculas> {
   @override
   void initState() {
     lAnios = metodos.getAnios();
-    lAlumnos = metodos.getMatriculados(widget.usuario.dni, idAnio!);
+    lAlumnos = metodos.getMatriculados(widget.usuario.dniUsu, idAnio!);
     WidgetsFlutterBinding.ensureInitialized();
     if (kIsWeb) {
     } else {
@@ -103,7 +103,7 @@ class _matriculaState extends State<matriculas> {
   Widget spAnios(List<Manio> anios) {
     String selectedFc = anios.first.id;
     if(idAnio==""){idAnio = selectedFc;
-    lAlumnos = metodos.getMatriculados(widget.usuario.dni, idAnio!);
+    lAlumnos = metodos.getMatriculados(widget.usuario.dniUsu, idAnio!);
     }
    //
     return DropdownButtonFormField(
@@ -113,7 +113,7 @@ class _matriculaState extends State<matriculas> {
         setState(() {
           selectedFc = newValue!;
           idAnio = selectedFc;
-          lAlumnos = metodos.getMatriculados(widget.usuario.dni, idAnio!);
+          lAlumnos = metodos.getMatriculados(widget.usuario.dniUsu, idAnio!);
           print(idAnio);
         });
       },
@@ -207,14 +207,14 @@ class _matriculaState extends State<matriculas> {
         });
   }
 
-  List<Widget> elementos(List<Malumno>? data) {
+  List<Widget> elementos(List<Mdocente>? data) {
     List<Widget> element = [];
     int i = 0;
     for (var ele in data!) {
       i++;
       String img = "";
-      if (ele.ext != "0") {
-        img = metodos.conexion.url + "/img/alumnos/" + ele.dni + "." + ele.ext;
+      if (ele.foto != "0") {
+        img = metodos.conexion.url + "/img/alumnos/" + ele.foto + "." + ele.dniDoc;
       } else {
         img = metodos.conexion.url + "/img/noimage.png";
       }
@@ -248,19 +248,19 @@ class _matriculaState extends State<matriculas> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(3),
-                    child: Text(ele.dni),
+                    child: Text(ele.dniDoc),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(3),
-                    child: Text(ele.nomb),
+                    child: Text(ele.nomDoc),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(3),
-                    child: Text(ele.sex),
+                    child: Text(ele.apepaDoc),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(3),
-                    child: Text(ele.fnac),
+                    child: Text(ele.apemaDoc),
                   ),
                   const Padding(
                     padding: EdgeInsets.all(3),
@@ -281,7 +281,7 @@ class _matriculaState extends State<matriculas> {
     return element;
   }
 
-  Widget btnDatos(Malumno ele) {
+  Widget btnDatos(Mdocente ele) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(5),
       child: Stack(
@@ -309,7 +309,7 @@ class _matriculaState extends State<matriculas> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => pdfMatri(cod: ele.id)));
+                        builder: (context) => pdfMatri(cod: ele.idDoc)));
                 //pdfAlumnos(ele);
               },
               child: const Text("Boleta de Matricula",
@@ -323,25 +323,25 @@ class _matriculaState extends State<matriculas> {
     );
   }
 
-  void detallerAlu(Malumno ele) {
+  void detallerAlu(Mdocente ele) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     showDialog(
         context: context,
         builder: (buildcontext) {
           String img;
-          if (ele.ext != "0") {
+          if (ele.foto != "0") {
             img = metodos.conexion.url +
                 "/img/alumnos/" +
-                ele.dni +
+                ele.foto +
                 "." +
-                ele.ext;
+                ele.dniDoc;
           } else {
             img = metodos.conexion.url + "/img/noimage.png";
           }
           return AlertDialog(
             insetPadding: EdgeInsets.all(0),
-            title: Text(ele.dni + "-" + ele.nomb),
+            title: Text(ele.dniDoc + "-" + ele.nomDoc),
             content: Image.network(img),
             actions: <Widget>[
               TextButton(
@@ -358,7 +358,7 @@ class _matriculaState extends State<matriculas> {
         });
   }
 
-  Widget btnNotas(Malumno ele) {
+  Widget btnNotas(Mdocente ele) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(5),
       child: Stack(
@@ -386,7 +386,7 @@ class _matriculaState extends State<matriculas> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => pdfNotas(cod: ele.id)));
+                        builder: (context) => pdfNotas(cod: ele.idDoc)));
               },
               child: const Text("Boleta de Notas",
                   textAlign: TextAlign.center,
@@ -399,7 +399,7 @@ class _matriculaState extends State<matriculas> {
     );
   }
 
-  Widget btnAsistencia(Malumno ele) {
+  Widget btnAsistencia(Mdocente ele) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(5),
       child: Stack(
@@ -440,7 +440,7 @@ class _matriculaState extends State<matriculas> {
     );
   }
 
-  Widget btnQr(Malumno ele) {
+  Widget btnQr(Mdocente ele) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(5),
       child: Stack(
