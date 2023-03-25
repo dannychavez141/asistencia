@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 15-03-2023 a las 01:28:08
+-- Tiempo de generación: 25-03-2023 a las 04:00:43
 -- Versión del servidor: 5.7.24
 -- Versión de PHP: 7.2.19
 
@@ -103,7 +103,7 @@ CREATE TABLE `docente` (
 --
 
 INSERT INTO `docente` (`idDoc`, `dniDoc`, `claveDoc`, `nomDoc`, `apepaDoc`, `apemaDoc`, `foto`, `est`, `imghuella1`, `imghuella2`, `idgAcademico`) VALUES
-(1, '0002040105', NULL, 'GINO ANDERSON', 'GARCIA', 'ACOSTA', '19', '1', ' 1', ' 1', 1),
+(1, '12345678', '1234', 'GINO ANDERSON', 'GARCIA', 'ACOSTA', '19', '1', ' 1', ' 1', 1),
 (2, '0002060199', NULL, 'WALTER', 'VASQUEZ', 'RIOS', '57', '1', ' 1', ' 1', 1),
 (3, '0002070240', NULL, 'IVAN', 'HUAMANTICO', 'ALARCON', '26', '1', ' 1', ' 1', 1),
 (4, '0002070287', NULL, 'LUIGGI PIERRE', 'SAUCEDO', 'LOPEZ', '48', '1', ' 1', ' 1', 1),
@@ -247,6 +247,7 @@ CREATE TABLE `horario` (
 DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
   `idUsu` int(11) NOT NULL,
+  `dniUsu` varchar(8) DEFAULT NULL,
   `nombUsu` varchar(45) DEFAULT NULL,
   `apepaUsu` varchar(45) DEFAULT NULL,
   `apemaUsu` varchar(45) DEFAULT NULL,
@@ -259,8 +260,8 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`idUsu`, `nombUsu`, `apepaUsu`, `apemaUsu`, `loginUsu`, `passUsu`, `estUsu`) VALUES
-(1, 'freddy', 'ferrary', 'Fernandez', 'admin', 'admin', 1);
+INSERT INTO `usuario` (`idUsu`, `dniUsu`, `nombUsu`, `apepaUsu`, `apemaUsu`, `loginUsu`, `passUsu`, `estUsu`) VALUES
+(1, '12345678', 'freddy', 'ferrary', 'Fernandez', 'admin', 'admin', 1);
 
 --
 -- Índices para tablas volcadas
