@@ -5,11 +5,12 @@ class cDocente {
     public $metodos;
 
     public function __construct() {
-        $metodos = new mMetodos();
+        $this->metodos = new mMetodos();
     }
 
     public function verTodos($datos) {
-        $sql = "SELECT * FROM `docente` WHERE  concat(nomDoc,' ',apepaDoc,' ',apemaDoc) like '%{$datos['busq']}%';";
+        $sql = "SELECT `idDoc`, `dniDoc`, `claveDoc`, `nomDoc`, `apepaDoc`, `apemaDoc`,foto, `est`,`idgAcademico` FROM `docente` WHERE  concat(nomDoc,' ',apepaDoc,' ',apemaDoc) like '%{$datos['busq']}%' limit 10;";
+      //echo $sql;
         $resp = $this->metodos->consultar($sql);
         return $resp;
     }

@@ -107,8 +107,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget txtUsuario() {
     String txtusu="";
-    if(usuario.id!= "null"){
-      txtusu=usuario.id;
+    if(usuario.dniUsu!= "null"){
+      txtusu=usuario.dniUsu;
     }
     cUsu.text=txtusu;
     return Container(

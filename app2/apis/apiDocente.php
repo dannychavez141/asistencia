@@ -28,9 +28,8 @@ switch ($control) {
         print_r($datos);
         break;
     case 'todos':
-        $busq = $_GET["busq"];
         $modelo = new cDocente();
-        $datos = $modelo->verTodos($busq);
+        $datos = $modelo->verTodos($_GET);
         print_r($datos);
         break;
     case 'AAula':

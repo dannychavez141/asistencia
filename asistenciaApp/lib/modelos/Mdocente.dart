@@ -10,6 +10,7 @@ class Mdocente {
   String imghuella1;
   String imghuella2;
   String idgAcademico;
+  String gAcademico;
 
 
   Mdocente(this.idDoc,
@@ -22,7 +23,8 @@ class Mdocente {
       this.est,
       this.imghuella1,
       this.imghuella2,
-      this.idgAcademico);
+      this.idgAcademico,
+      this.gAcademico);
 
   @override
   String toString() {

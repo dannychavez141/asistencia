@@ -26,17 +26,18 @@ class cDocente {
 
       for (var item in datosjson) {
         datos.add(Mdocente(
-            item["1"],
-            item["alu"],
-            item["8"] + " - " + item["10"],
-            item["12"] + " " + item["14"],
-            item["ext"],
-            item["0"],
-            item["0"],
-            item["0"],
-            item["0"],
-            item["0"],
-            item["0"]));
+            item["idDoc"],
+            item["dniDoc"],
+            item["claveDoc"] ,
+            item["nomDoc"] ,
+            item["apepaDoc"],
+            item["apemaDoc"],
+            item["foto"],
+            item["est"],
+            "",
+            "",
+            item["idgAcademico"],
+            item["idgAcademico"]));
       }
       return datos;
     } else {
@@ -44,8 +45,8 @@ class cDocente {
     }
   }
 
-  Future<List<Mdocente>> getDocentes(String dni) async {
-    String api = conexion.url + "appmovil/valumno.php?cod=" + dni + "&busq";
+  Future<List<Mdocente>> getDocentes(String busq) async {
+    String api = conexion.url + "app2/apis/apiDocente.php?ac=todos&busq=" + busq ;
     print(api);
     var uri = Uri.parse(api);
     final resp = await http.get(uri);
@@ -56,9 +57,19 @@ class cDocente {
       final datosjson = jsonDecode(body);
       //print(datosjson[0]);
       for (var item in datosjson) {
-        datos.add(Mdocente(item["dni"], item["alum"], item["fnac"],
-            item["descrSex"], item["ext"], item["0"], item["0"], item["0"]
-            , item["0"], item["0"], item["0"]));
+        datos.add(Mdocente(
+            item["idDoc"],
+            item["dniDoc"],
+            item["claveDoc"] ,
+            item["nomDoc"] ,
+            item["apepaDoc"],
+            item["apemaDoc"],
+            item["foto"],
+            item["est"],
+            "",
+            "",
+            item["idgAcademico"],
+            item["idgAcademico"]));
       }
       return datos;
     } else {
