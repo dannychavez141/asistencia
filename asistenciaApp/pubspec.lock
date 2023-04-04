@@ -462,6 +462,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.3"
+  vertical_card_pager:
+    dependency: "direct dev"
+    description:
+      name: vertical_card_pager
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.5.0"
   webfeed:
     dependency: "direct dev"
     description:

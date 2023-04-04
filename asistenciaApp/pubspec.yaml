@@ -59,6 +59,7 @@ dev_dependencies:
   webfeed: ^0.7.0
   string_similarity: ^2.0.0
   sortedmap: ^0.5.1
+  vertical_card_pager: ^1.4.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
