@@ -60,6 +60,7 @@ dev_dependencies:
   string_similarity: ^2.0.0
   sortedmap: ^0.5.1
   vertical_card_pager: ^1.4.0
+  image_picker: ^0.8.7+1
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

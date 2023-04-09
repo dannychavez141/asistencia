@@ -52,7 +52,7 @@ class cDocente {
     final resp = await http.get(uri);
     List<Mdocente> datos = [];
     if (resp.statusCode == 200) {
-      print(resp.body);
+     // print(resp.body);
       String body = resp.body;
       final datosjson = jsonDecode(body);
       //print(datosjson[0]);

@@ -11,7 +11,7 @@ class sesion {
     reg.setString("apepaUsu", usuario.apepaUsu);
     reg.setString("apemaUsu", usuario.apemaUsu);
     reg.setString("tipoUsu", usuario.tipoUsu);
-    print(usuario.toString());
+  //  print(usuario.toString());
   }
 
   Future<Musuario> verificarInicio() async {

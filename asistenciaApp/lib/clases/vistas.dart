@@ -69,6 +69,7 @@ class Vistas {
     return Column(children: [
       elementoMenu("INICIO", "", "principal", this.usuario),
       elementoMenu("DOCENTES", "", "docentes", this.usuario),
+      //elementoMenu("REGISTRO DE DOCENTES", "", "rdocentes", this.usuario),
       elementoMenu("ASISTENCIAS", "", "asistencias", this.usuario),
       elementoMenu("HORARIOS", "", "horarios", this.usuario),
     ]);
@@ -77,7 +78,7 @@ class Vistas {
   Widget elementoMenu(titulo, icono, enlace, Musuario usuario) {
     return Container(
       margin: EdgeInsets.only(top: 2),
-      padding: EdgeInsets.all(5),
+      padding: EdgeInsets.all(2),
       width: double.infinity,
       color: Colors.white,
       alignment: Alignment.center,
