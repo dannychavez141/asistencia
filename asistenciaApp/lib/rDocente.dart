@@ -8,11 +8,11 @@ import 'package:app/clases/cDocente.dart';
 import 'package:app/modelos/Mdocente.dart';
 import 'package:app/clases/vistas.dart';
 import 'package:flutter/services.dart';
-import 'dart:io' show File, Platform;
+import 'dart:io' show File;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'modelos/Musuario.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class rdocente extends StatefulWidget {
   final Musuario usuario;
@@ -130,8 +130,8 @@ class _rdocenteState extends State<rdocente> {
           children: [
             Text("Apellido Paterno:", textAlign: TextAlign.right),
             TextFormField(
-                decoration:
-                InputDecoration(hintText: "Escribe Apellido Paterno del Docente"),
+                decoration: InputDecoration(
+                    hintText: "Escribe Apellido Paterno del Docente"),
                 controller: txtApepa,
                 keyboardType: TextInputType.text,
                 maxLength: 20,
@@ -153,9 +153,9 @@ class _rdocenteState extends State<rdocente> {
           children: [
             Text("Apellido Materno:", textAlign: TextAlign.right),
             TextFormField(
-                decoration:
-                InputDecoration(hintText: "Escribe Apellido Paterno del Docente"),
-                controller: txtApepa,
+                decoration: InputDecoration(
+                    hintText: "Escribe Apellido Paterno del Docente"),
+                controller: txtApema,
                 keyboardType: TextInputType.text,
                 maxLength: 20,
                 validator: (value) {
@@ -186,10 +186,52 @@ class _rdocenteState extends State<rdocente> {
       ),
       Container(margin: EdgeInsets.all(0), child: foto()),
       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        this.componentes.btn(100, 50, 200, "GUARDAR", pAccion: () => null),
+        this
+            .componentes
+            .btn(100, 50, 200, "GUARDAR", pAccion: () => confirmar()),
         this.componentes.btn(200, 0, 0, "CANCELAR", pAccion: () => cerrar())
       ])
     ]);
+  }
+
+  salvarDatos() async {
+    String dni = txtDni.text;
+    String nomb = txtNomb.text;
+    String apepa = txtApepa.text;
+    String apema = txtApema.text;
+    if (elegido == true) {
+      final bytes = File(fDocente.path).readAsBytesSync();
+      this.tempFoto = base64Encode(bytes);
+    }
+    Mdocente doc = Mdocente(
+        "0", dni, dni, nomb, apepa, apema, tempFoto, "1", "", "", "", "");
+    String resp = await metodos.rDocente(doc);
+    final respjson = jsonDecode(resp);
+    //  print(resp);
+    var fondo;
+    if (respjson['est'] == 'success') {
+       fondo=Colors.blue;
+
+    } else {
+       fondo=Colors.red;
+    }
+    Navigator.of(context).pop();
+    Fluttertoast.showToast(
+        msg: respjson['msj'],
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: fondo ,
+        textColor: Colors.white,
+        fontSize: 16.0);
+    if (respjson['est'] == 'success') {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => docente(usuario: widget.usuario)));
+    } else {
+      fondo=Colors.red;
+    }
   }
 
   _getImg(String modo) async {
@@ -230,6 +272,60 @@ class _rdocenteState extends State<rdocente> {
     } else {
       return Image.memory(this.imgDoc,
           width: 100, height: 100, fit: BoxFit.cover);
+    }
+  }
+
+  void confirmar() {
+    String dni = txtDni.text;
+    String nomb = txtNomb.text;
+    String apepa = txtApepa.text;
+    String apema = txtApema.text;
+    if (dni.length == 8 && nomb != "" && apema != "" && apepa != "") {
+      showDialog(
+          context: context,
+          builder: (buildcontext) {
+            return AlertDialog(
+              insetPadding: EdgeInsets.all(0),
+              title: Column(children: [
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      Container(
+                          margin: const EdgeInsets.all(4),
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: Text("CONFIRMACION DE ACCION",
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14))),
+                    ])
+              ]),
+              content: Container(
+                  child: Text("¿DESEAS REGISTRAR AL DOCENTE?",
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14))),
+              actions: <Widget>[
+                this
+                    .componentes
+                    .btn(0, 0, 250, "REGISTRAR", pAccion: () => salvarDatos()),
+                this.componentes.btn(250, 0, 0, "CANCELAR",
+                    pAccion: () => {Navigator.of(context).pop()})
+              ],
+            );
+          });
+    } else {
+      Fluttertoast.showToast(
+          msg: "NO SE REALIZO LA ACCION,VERIFICAR DATOS",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
   }
 

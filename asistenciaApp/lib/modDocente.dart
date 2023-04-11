@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:app/clases/sesion.dart';
-import 'package:app/rDocente.dart';
+import 'package:app/docentes.dart';
 import 'package:flutter/material.dart';
 import 'package:app/clases/cDocente.dart';
 import 'package:app/modelos/Mdocente.dart';
@@ -10,26 +10,28 @@ import 'package:app/clases/vistas.dart';
 import 'package:flutter/services.dart';
 import 'dart:io' show File, Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'modDocente.dart';
 import 'modelos/Musuario.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter/services.dart';
 
-class docente extends StatefulWidget {
+class modDocente extends StatefulWidget {
   final Musuario usuario;
+  final Mdocente mdoc;
 
-  const docente({super.key, required this.usuario});
+  const modDocente({super.key, required this.usuario, required this.mdoc});
 
   @override
-  State<docente> createState() => _docenteState();
+  State<modDocente> createState() => _modDocenteState();
 }
 
-class _docenteState extends State<docente> {
-  TextEditingController cBusq = TextEditingController();
+class _modDocenteState extends State<modDocente> {
   TextEditingController txtDni = TextEditingController();
+  TextEditingController txtClave = TextEditingController();
   TextEditingController txtNomb = TextEditingController();
   TextEditingController txtApepa = TextEditingController();
   TextEditingController txtApema = TextEditingController();
-  late Future<List<Mdocente>> ldocentes;
+  String est = "1";
   cDocente metodos = new cDocente();
   sesion ses = sesion();
   late XFile fDocente;
@@ -38,18 +40,24 @@ class _docenteState extends State<docente> {
   ImagePicker picker = ImagePicker();
   late Uint8List imgDoc;
   bool elegido = false;
+  late Vistas componentes;
 
   @override
   void initState() {
-
-    cBusq = TextEditingController();
+    txtDni.text = widget.mdoc.dniDoc;
+    txtNomb.text = widget.mdoc.nomDoc;
+    txtApepa.text = widget.mdoc.apepaDoc;
+    txtApema.text = widget.mdoc.apemaDoc;
+    txtClave.text = widget.mdoc.claveDoc;
+    tempFoto = widget.mdoc.foto;
+    est = widget.mdoc.est;
     super.initState();
-    ldocentes = metodos.getDocentes("");
   }
 
   @override
   Widget build(BuildContext context) {
-    Vistas componentes = new Vistas("DOCENTES", context, widget.usuario);
+    componentes = new Vistas("DOCENTES", context, widget.usuario);
+
     return Scaffold(
         drawer: componentes.menu("admin"),
         appBar: AppBar(title: Text(componentes.titulopage)),
@@ -57,424 +65,304 @@ class _docenteState extends State<docente> {
           child: Column(
             children: <Widget>[pantalla(context)],
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => setState(() {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => rdocente(usuario: widget.usuario)));
-          }),
-          tooltip: 'Registro de Docentes',
-          child: const Icon(Icons.add),
         ));
   }
 
   Widget pantalla(context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          margin: const EdgeInsets.all(6),
-          child: const Text(
-            "DOCENTES REGISTRADOS",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-          ),
+    return SizedBox(
+      width: MediaQuery.of(context).size.width*0.90,
+        height: MediaQuery.of(context).size.height*0.87,
+        child: new SingleChildScrollView(child: regDoc()));
+  }
+
+  Widget regDoc() {
+    imgDoc = Base64Decoder().convert(tempFoto);
+    return Column(children: [
+      Container(
+        child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.all(6),
+              child: const Text(
+                "MODIFICANDO DOCENTES",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+            ),
+            Text("Dni:", textAlign: TextAlign.right),
+            TextFormField(
+              decoration: InputDecoration(hintText: "Escribe DNI del Docente"),
+              controller: txtDni,
+              keyboardType: TextInputType.number,
+              maxLength: 8,
+              validator: (value) {
+                if (value != "") {
+                  return 'Escribe nro de DNI';
+                }
+                return null;
+                return 'Ingrese el numero';
+              },
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly
+              ],
+            )
+          ],
         ),
-        Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Container(
-                  margin: const EdgeInsets.all(4),
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  child: txtBusq()),
-              Container(
-                  margin: const EdgeInsets.all(4),
-                  width: MediaQuery.of(context).size.width * 0.25,
-                  child: btnBuscar())
-            ]),
-        Center(
-            child: Container(
-          margin: const EdgeInsets.all(10),
-          child: const Text("Lista de Docentes:"),
-        )),
-        SizedBox(
-            height: MediaQuery.of(context).size.height * 0.66,
-            child: listaDatos(context)),
-      ],
-    );
-  }
-
-  Widget txtBusq() {
-    return Container(
-        child: TextField(
-            //obscureText: true,
-            decoration: InputDecoration(
-              hintText: "Buscar Docente",
-              //filled: true,
-            ),
-            controller: cBusq));
-  }
-
-  Widget btnBuscar() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(5),
-      child: Stack(
-        children: <Widget>[
-          Positioned.fill(
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    Color(0xFF0D47A1),
-                    Color(0xFF1976D2),
-                    Color(0xFF42A5F5),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          TextButton(
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(16.0),
-                textStyle: const TextStyle(fontSize: 20),
-              ),
-              onPressed: () => setState(() {
-                    ldocentes = metodos.getDocentes(cBusq.text);
-                  }),
-              child: const Text("Buscar",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.bold))),
-        ],
       ),
-    );
-  }
-
-  Widget listaDatos(context) {
-    return FutureBuilder(
-        future: ldocentes,
-        builder: (context, snapshop) {
-          if (snapshop.hasData) {
-            // print(snapshop.data);
-            // List<Calumno>? datos= snapshop.data;
-            return ListView(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              children: elementos(snapshop.data),
-            );
-          } else if (snapshop.hasError) {
-            print(snapshop.error);
-          }
-          return const Center(child: CircularProgressIndicator());
-        });
-  }
-
-  List<Widget> elementos(List<Mdocente>? data) {
-    List<Widget> element = [];
-    int i = 0;
-    for (var ele in data!) {
-      i++;
-      if (ele.foto.length < 5) {
-        ele.foto = tempFoto;
-      }
-      Uint8List img;
-      img = Base64Decoder().convert(ele.foto);
-
-      // print(i.toString() + ele.toString());
-      element.add(Card(
-          child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Container(
-              margin: const EdgeInsets.all(4),
-              width: MediaQuery.of(context).size.width * 0.20,
-              child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      // print("por que me tocas papi"+ele.dni);
-                      detallerAlu(ele);
-                    });
-                  },
-                  child: Image.memory(img))),
-          Container(
-              margin: const EdgeInsets.all(4),
-              width: MediaQuery.of(context).size.width * 0.40,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(3),
-                    child: Text(ele.dniDoc),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(3),
-                    child: Text(ele.nomDoc),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(3),
-                    child: Text(ele.apepaDoc),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(3),
-                    child: Text(ele.apemaDoc),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(3),
-                  )
-                ],
-              )),
-          Container(
-              margin: const EdgeInsets.all(4),
-              width: MediaQuery.of(context).size.width * 0.30,
-              child: Column(children: [
-                Container(margin: EdgeInsets.all(2), child: btnDatos(ele)),
-                Container(margin: EdgeInsets.all(2), child: btnHorarios(ele))
-              ]))
-        ],
-      )));
-    }
-    return element;
-  }
-
-  Widget btnDatos(Mdocente ele) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(5),
-      child: Stack(
-        children: <Widget>[
-          Positioned.fill(
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    Color.fromRGBO(200, 173, 0, 1.0),
-                    Color.fromRGBO(200, 173, 0, 1.0),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          TextButton(
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(16.0),
-                textStyle: const TextStyle(fontSize: 20),
-              ),
-              onPressed: () {
-                // Navigator.push(
-                //      context, MaterialPageRoute(builder: (context) => pdfAlu()));
-                saltoMod(ele);
-              },
-              child: const Text("Modificar",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.bold))),
-        ],
-      ),
-    );
-  }
-
-  Widget btnHorarios(Mdocente ele) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(5),
-      child: Stack(
-        children: <Widget>[
-          Positioned.fill(
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    Color.fromRGBO(76, 0, 240, 1.0),
-                    Color.fromRGBO(76, 0, 240, 1.0),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          TextButton(
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(16.0),
-                textStyle: const TextStyle(fontSize: 20),
-              ),
-              onPressed: () {
-                // Navigator.push(
-                //      context, MaterialPageRoute(builder: (context) => pdfAlu()));
-                horarioDoc(ele);
-              },
-              child: const Text("Ver Horario",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.bold))),
-        ],
-      ),
-    );
-  }
-
-  Widget btnCerrarDet() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(5),
-      child: Stack(
-        children: <Widget>[
-          Positioned.fill(
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    Color.fromRGBO(76, 0, 240, 1.0),
-                    Color.fromRGBO(76, 0, 240, 1.0),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          TextButton(
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(16.0),
-                textStyle: const TextStyle(fontSize: 20),
-              ),
-              onPressed: () {
-                // Navigator.push(
-                //      context, MaterialPageRoute(builder: (context) => pdfAlu()));
-              },
-              child: const Text("Ver Horario",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.bold))),
-        ],
-      ),
-    );
-  }
-
-  void detallerAlu(Mdocente ele) {
-    showDialog(
-        context: context,
-        builder: (buildcontext) {
-          if (ele.foto.length < 5) {
-            ele.foto = tempFoto;
-          }
-          Uint8List img;
-          img = Base64Decoder().convert(ele.foto);
-          return AlertDialog(
-            insetPadding: EdgeInsets.all(0),
-            title: Text(ele.dniDoc + "-" + ele.nomDoc),
-            content: Image.memory(img),
-            actions: <Widget>[
-              TextButton(
-                child: const Text(
-                  "CERRAR",
-                  style: TextStyle(color: Colors.black),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          );
-        });
-  }
-  void saltoMod(Mdocente doc){
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => modDocente(usuario: widget.usuario,mdoc: doc)));
-  }
-
-  void horarioDoc(Mdocente ele) {
-    showDialog(
-        context: context,
-        builder: (buildcontext) {
-          if (ele.foto.length < 5) {
-            ele.foto = tempFoto;
-          }
-          Uint8List img;
-          img = Base64Decoder().convert(ele.foto);
-          return AlertDialog(
-            insetPadding: EdgeInsets.all(0),
-            title: Column(children: [
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    Container(
-                        margin: const EdgeInsets.all(4),
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        child: Text(ele.dniDoc + "-" + ele.nomDoc,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 14))),
-                    Container(
-                        margin: const EdgeInsets.all(2),
-                        width: MediaQuery.of(context).size.width * 0.25,
-                        child: Image.memory(img, width: 80, height: 80))
-                  ]),
-              Text("HORARIO DEL DOCENTE",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))
-            ]),
-            content: horas(),
-            actions: <Widget>[
-              TextButton(
-                child: const Text(
-                  "CERRAR",
-                  style: TextStyle(color: Colors.black),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          );
-        });
-  }
-
-  Widget horas() {
-    List<String> dias = [
-      "Lunes",
-      "Martes",
-      "Miercoles",
-      "Jueves",
-      "Viernes",
-      "Sabado",
-      "Domingo"
-    ];
-    return Container(
-        width: double.minPositive,
-        height: 300,
-        // height: MediaQuery.of(context).size.height * 0.40,
-        // constraints: BoxConstraints(minWidth: 230.0, minHeight: 25.0),
-        child: ListView.builder(
-          shrinkWrap: true,
-          scrollDirection: Axis.vertical,
-          itemCount: dias.length,
-          itemBuilder: (context, pos) {
-            return elementoHorario(dias[pos], "8:00 AM a 10:00 AM");
-          },
-        ));
-  }
-
-  Widget elementoHorario(dia, horas) {
-    return Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      Container(
         margin: EdgeInsets.all(0),
-        elevation: 1,
-        child: Container(
-          margin: const EdgeInsets.all(4),
-          width: MediaQuery.of(context).size.width * 0.60,
-          child: Column(
-            children: <Widget>[
-              ListTile(
-                contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                title: Text(dia),
-                subtitle: Text(horas),
-                leading: Icon(Icons.timelapse),
-              )
-            ],
-          ),
-        ));
+        child: Column(
+          children: [
+            Text("Clave:", textAlign: TextAlign.right),
+            TextFormField(
+                decoration: InputDecoration(hintText: "Escribe Clave"),
+                controller: txtClave,
+                keyboardType: TextInputType.text,
+                maxLength: 12,
+                validator: (value) {
+                  if (value != "") {
+                    return 'Escribe Clave del Docente';
+                  }
+                  return null;
+                },
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.singleLineFormatter
+                ])
+          ],
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.all(0),
+        child: Column(
+          children: [
+            Text("Nombres:", textAlign: TextAlign.right),
+            TextFormField(
+                decoration:
+                    InputDecoration(hintText: "Escribe Nombres del Docente"),
+                controller: txtNomb,
+                keyboardType: TextInputType.text,
+                maxLength: 30,
+                validator: (value) {
+                  if (value != "") {
+                    return 'Escribe Nombres del Docente';
+                  }
+                  return null;
+                },
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.singleLineFormatter
+                ])
+          ],
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.all(0),
+        child: Column(
+          children: [
+            Text("Apellido Paterno:", textAlign: TextAlign.right),
+            TextFormField(
+                decoration: InputDecoration(
+                    hintText: "Escribe Apellido Paterno del Docente"),
+                controller: txtApepa,
+                keyboardType: TextInputType.text,
+                maxLength: 20,
+                validator: (value) {
+                  if (value != "") {
+                    return 'Escribe Apellido Paterno del Docente';
+                  }
+                  return null;
+                },
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.singleLineFormatter
+                ])
+          ],
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.all(0),
+        child: Column(
+          children: [
+            Text("Apellido Materno:", textAlign: TextAlign.right),
+            TextFormField(
+                decoration: InputDecoration(
+                    hintText: "Escribe Apellido Paterno del Docente"),
+                controller: txtApema,
+                keyboardType: TextInputType.text,
+                maxLength: 20,
+                validator: (value) {
+                  if (value != "") {
+                    return 'Escribe Apellido Paterno del Docente';
+                  }
+                  return null;
+                },
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.singleLineFormatter
+                ])
+          ],
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.all(0),
+        child: Column(
+          children: [
+            Text("Elige Fotografia:", textAlign: TextAlign.right),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              this.componentes.btn(76, 0, 240, "Tomar Foto",
+                  pAccion: () => _getImg("camara")),
+              this.componentes.btn(76, 0, 240, "Elegir de Galeria",
+                  pAccion: () => _getImg("galeria"))
+            ])
+          ],
+        ),
+      ),
+      Container(margin: EdgeInsets.all(0), child: foto()),
+      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        this
+            .componentes
+            .btn(100, 50, 200, "MODIFICAR", pAccion: () => confirmar()),
+        this.componentes.btn(200, 0, 0, "CANCELAR", pAccion: () => cerrar())
+      ])
+    ]);
   }
 
+  salvarDatos() async {
+    String dni = txtDni.text;
+    String nomb = txtNomb.text;
+    String apepa = txtApepa.text;
+    String apema = txtApema.text;
+    String clave = txtClave.text;
+    if (elegido == true) {
+      final bytes = File(fDocente.path).readAsBytesSync();
+      this.tempFoto = base64Encode(bytes);
+    }
+    Mdocente doc = Mdocente(widget.mdoc.idDoc, dni, clave, nomb, apepa, apema,
+        tempFoto, "1", "", "", "", "");
+    String resp = await metodos.mdDocente(doc);
+    final respjson = jsonDecode(resp);
+    //  print(resp);
+    var fondo;
+    if (respjson['est'] == 'success') {
+      fondo = Colors.blue;
+    } else {
+      fondo = Colors.red;
+    }
+    Navigator.of(context).pop();
+    Fluttertoast.showToast(
+        msg: respjson['msj'],
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: fondo,
+        textColor: Colors.white,
+        fontSize: 16.0);
+    if (respjson['est'] == 'success') {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => docente(usuario: widget.usuario)));
+    } else {
+      fondo = Colors.red;
+    }
+  }
+
+  _getImg(String modo) async {
+    late XFile pickedFile;
+    try {
+      if (modo == "galeria") {
+        pickedFile =
+            await picker.pickImage(source: ImageSource.gallery) as XFile;
+      } else {
+        pickedFile =
+            await picker.pickImage(source: ImageSource.camera) as XFile;
+      }
+      if (pickedFile != null) {
+        setState(() {
+          this.fDocente = pickedFile;
+          String img64 = base64Encode(File(fDocente.path).readAsBytesSync());
+          // print(img64);
+          this.imgDoc = Base64Decoder().convert(img64);
+          elegido = true;
+        });
+      }
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+    // foto();
+//print(imgDoc);
+  }
+
+  Widget foto() {
+    if (this.elegido == true) {
+      if (kIsWeb) {
+        return Image.memory(this.imgDoc,
+            width: 100, height: 100, fit: BoxFit.cover);
+      } else {
+        return Image.file(File(this.fDocente.path),
+            width: 100, height: 100, fit: BoxFit.cover);
+      }
+    } else {
+      return Image.memory(this.imgDoc,
+          width: 100, height: 100, fit: BoxFit.cover);
+    }
+  }
+
+  void confirmar() {
+    String dni = txtDni.text;
+    String clave = txtClave.text;
+    String nomb = txtNomb.text;
+    String apepa = txtApepa.text;
+    String apema = txtApema.text;
+    if (dni.length == 8 && clave.length >= 4  && nomb != "" && apema != "" && apepa != "") {
+      showDialog(
+          context: context,
+          builder: (buildcontext) {
+            return AlertDialog(
+              insetPadding: EdgeInsets.all(0),
+              title: Column(children: [
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      Container(
+                          margin: const EdgeInsets.all(4),
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: Text("CONFIRMACION DE ACCION",
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14))),
+                    ])
+              ]),
+              content: Container(
+                  child: Text("¿DESEAS MODIFICAR AL DOCENTE?",
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14))),
+              actions: <Widget>[
+                this
+                    .componentes
+                    .btn(0, 0, 250, "MODIFICAR", pAccion: () => salvarDatos()),
+                this.componentes.btn(250, 0, 0, "CANCELAR",
+                    pAccion: () => {Navigator.of(context).pop()})
+              ],
+            );
+          });
+    } else {
+      Fluttertoast.showToast(
+          msg: "NO SE REALIZO LA ACCION,VERIFICAR DATOS",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  }
+
+  void cerrar() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => docente(usuario: widget.usuario)));
+  }
 }

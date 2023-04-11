@@ -9,7 +9,7 @@ class cDocente {
     }
 
     public function verTodos($datos) {
-        $sql = "SELECT `idDoc`, `dniDoc`, `claveDoc`, `nomDoc`, `apepaDoc`, `apemaDoc`,foto, `est`,`idgAcademico` FROM `docente` WHERE  concat(nomDoc,' ',apepaDoc,' ',apemaDoc) like '%{$datos['busq']}%' limit 10;";
+        $sql = "SELECT `idDoc`, `dniDoc`, `claveDoc`, `nomDoc`, `apepaDoc`, `apemaDoc`,foto, `est`,`idgAcademico` FROM `docente` WHERE  concat(dniDoc,' ',nomDoc,' ',apepaDoc,' ',apemaDoc) like '%{$datos['busq']}%' limit 20;";
       //echo $sql;
         $resp = $this->metodos->consultar($sql);
         return $resp;
@@ -24,7 +24,7 @@ class cDocente {
     public function crear($datos) {
         $sql = "INSERT INTO `docente`(`dniDoc`,`claveDoc`,`nomDoc`,`apepaDoc`,`apemaDoc`,`foto`,`est`) VALUES 
 ('{$datos['dniDoc']}','{$datos['claveDoc']}','{$datos['nomDoc']}','{$datos['apepaDoc']}','{$datos['apemaDoc']}','{$datos['foto']}','{$datos['est']}');";
-        $resp = $this->metodos->consultar($sql);
+        $resp = $this->metodos->ejecutar($sql,"REGISTRADO CORRECTAMENTE");
         return $resp;
     }
 
@@ -38,7 +38,7 @@ class cDocente {
                 . "`foto`='{$datos['foto']}',"
                 . "`est`='{$datos['est']}' "
                 . "WHERE `idDoc`='{$datos['idDoc']}'";
-        $resp = $this->metodos->consultar($sql);
+        $resp = $this->metodos->ejecutar($sql,"MODIFICADO CORRECTAMENTE");
         return $resp;
     }
 

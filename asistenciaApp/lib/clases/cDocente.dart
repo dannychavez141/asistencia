@@ -28,8 +28,8 @@ class cDocente {
         datos.add(Mdocente(
             item["idDoc"],
             item["dniDoc"],
-            item["claveDoc"] ,
-            item["nomDoc"] ,
+            item["claveDoc"],
+            item["nomDoc"],
             item["apepaDoc"],
             item["apemaDoc"],
             item["foto"],
@@ -44,19 +44,74 @@ class cDocente {
       throw Exception("Error de api");
     }
   }
-  //funciones del docente
-  Future<String> rDocente(Mdocente mod) async{
 
-    return "";
+  //funciones del docente
+  Future<String> rDocente(Mdocente mod) async {
+    String api = conexion.url + "app2/apis/apiDocente.php";
+    Uri uri = Uri.parse(api);
+    final headers = {'Content-Type': 'application/json'};
+    Map<String, dynamic> body = {
+      'ac': 'reg',
+      'idDoc': mod.idDoc,
+      'dniDoc': mod.dniDoc,
+      'claveDoc': mod.claveDoc,
+      'nomDoc': mod.nomDoc,
+      'apepaDoc': mod.apepaDoc,
+      'apemaDoc': mod.apemaDoc,
+      'foto': mod.foto,
+      'est': mod.est
+    };
+    String jsonBody = json.encode(body);
+    final encoding = Encoding.getByName('utf-8');
+    final response = await http.post(
+      uri,
+      headers: headers,
+      body: jsonBody,
+      encoding: encoding,
+    );
+    //int statusCode = response.statusCode;
+    String responseBody = response.body;
+    // print(responseBody);
+    return responseBody;
   }
+  Future<String> mdDocente(Mdocente mod) async {
+    String api = conexion.url + "app2/apis/apiDocente.php";
+    Uri uri = Uri.parse(api);
+    final headers = {'Content-Type': 'application/json'};
+    Map<String, dynamic> body = {
+      'ac': 'mod',
+      'idDoc': mod.idDoc,
+      'dniDoc': mod.dniDoc,
+      'claveDoc': mod.claveDoc,
+      'nomDoc': mod.nomDoc,
+      'apepaDoc': mod.apepaDoc,
+      'apemaDoc': mod.apemaDoc,
+      'foto': mod.foto,
+      'est': mod.est
+    };
+    String jsonBody = json.encode(body);
+    final encoding = Encoding.getByName('utf-8');
+    final response = await http.post(
+      uri,
+      headers: headers,
+      body: jsonBody,
+      encoding: encoding,
+    );
+    //int statusCode = response.statusCode;
+    String responseBody = response.body;
+     print(responseBody);
+    return responseBody;
+  }
+
   Future<List<Mdocente>> getDocentes(String busq) async {
-    String api = conexion.url + "app2/apis/apiDocente.php?ac=todos&busq=" + busq ;
-    print(api);
+    String api =
+        conexion.url + "app2/apis/apiDocente.php?ac=todos&busq=" + busq;
+    //print(api);
     var uri = Uri.parse(api);
     final resp = await http.get(uri);
     List<Mdocente> datos = [];
     if (resp.statusCode == 200) {
-     // print(resp.body);
+      // print(resp.body);
       String body = resp.body;
       final datosjson = jsonDecode(body);
       //print(datosjson[0]);
@@ -64,8 +119,8 @@ class cDocente {
         datos.add(Mdocente(
             item["idDoc"],
             item["dniDoc"],
-            item["claveDoc"] ,
-            item["nomDoc"] ,
+            item["claveDoc"],
+            item["nomDoc"],
             item["apepaDoc"],
             item["apemaDoc"],
             item["foto"],
@@ -153,7 +208,7 @@ class cDocente {
       // print(resp.body);
       String body = resp.body;
       final datosjson = jsonDecode(body);
-       print(datosjson[0]);
+      print(datosjson[0]);
 
       for (var item in datosjson) {
         if (tipo == "DOCENTE") {

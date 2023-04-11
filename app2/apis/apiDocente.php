@@ -10,15 +10,15 @@ include '../controlers/cDocente.php';
 include '../controlers/cUsuario.php';
 $control = null;
 
-$datos = json_decode(file_get_contents('php://input'), true);
+$model = json_decode(file_get_contents('php://input'), true);
 
 //print_r($_POST['ac']);
 if (isset($_POST['ac']) && $control == null) {
     $control = $_POST['ac'];
 } else if (isset($_GET['ac']) && $control == null) {
     $control = $_GET['ac'];
-} else if (isset($datos['ac']) && $control == null) {
-    $control = $datos['ac'];
+} else if (isset($model['ac']) && $control == null) {
+    $control = $model['ac'];
 }
 
 switch ($control) {
@@ -68,8 +68,17 @@ switch ($control) {
         $datos = $modelo->AgregarHuellas($id, $huella1, $huella2);
         print_r($datos);
         break;
+    case 'reg':
+     //   print_r($model);
+        $modelo = new cDocente();
+   $resp=$modelo->crear($model);
+   print_r(json_encode($resp));
+        break;
     case 'mod':
-
+     //   print_r($model);
+        $modelo = new cDocente();
+   $resp=$modelo->modificar($model);
+   print_r(json_encode($resp));
         break;
 
     default:
