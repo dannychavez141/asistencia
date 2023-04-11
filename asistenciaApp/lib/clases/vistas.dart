@@ -36,7 +36,12 @@ class Vistas {
                 style: TextStyle(fontWeight: FontWeight.bold)),
             Container(
                 margin: EdgeInsets.all(5),
-                child: Text(usuario.nombUsu+" "+usuario.apepaUsu+" "+usuario.apemaUsu,
+                child: Text(
+                    usuario.nombUsu +
+                        " " +
+                        usuario.apepaUsu +
+                        " " +
+                        usuario.apemaUsu,
                     style: TextStyle(fontWeight: FontWeight.bold))),
             Container(
                 margin: EdgeInsets.all(5),
@@ -102,6 +107,43 @@ class Vistas {
         textAlign: TextAlign.center, style: TextStyle(fontSize: 25));
   }
 
+  Widget btn(int r, int g, int b, String txt, {required Function pAccion}) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(5),
+      child: Stack(
+        children: <Widget>[
+          Positioned.fill(
+            child: Container(
+              margin: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: <Color>[
+                    Color.fromRGBO(r, g, b, 1.0),
+                    Color.fromRGBO(r, g, b, 1.0),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.all(16.0),
+                textStyle: const TextStyle(fontSize: 20),
+              ),
+              onPressed: () {
+                pAccion();
+              },
+              child: Text(txt,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.bold))),
+        ],
+      ),
+    );
+  }
+
   void salto(vista, Musuario usuario) {
     switch (vista) {
       case "principal":
@@ -112,7 +154,7 @@ class Vistas {
         break;
       case "docentes":
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => alumnos(usuario: usuario)));
+            MaterialPageRoute(builder: (context) => docente(usuario: usuario)));
         break;
       case "asistencias":
         Navigator.push(

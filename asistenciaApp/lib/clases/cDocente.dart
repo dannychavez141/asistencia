@@ -44,7 +44,11 @@ class cDocente {
       throw Exception("Error de api");
     }
   }
+  //funciones del docente
+  Future<String> rDocente(Mdocente mod) async{
 
+    return "";
+  }
   Future<List<Mdocente>> getDocentes(String busq) async {
     String api = conexion.url + "app2/apis/apiDocente.php?ac=todos&busq=" + busq ;
     print(api);

@@ -1,14 +1,11 @@
 import 'dart:io';
 import 'package:app/asistencias.dart';
 import 'package:app/modelos/Manio.dart';
-import 'package:app/pdf/pdfMatricula.dart';
-import 'package:app/pdf/pdfNotas.dart';
 import 'package:app/qr.dart';
 import 'package:flutter/material.dart';
 import 'package:app/clases/cDocente.dart';
 import 'package:app/modelos/Mdocente.dart';
 import 'package:app/clases/vistas.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'modelos/Musuario.dart';
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -32,14 +29,7 @@ class _matriculaState extends State<matriculas> {
     lAnios = metodos.getAnios();
     lAlumnos = metodos.getMatriculados(widget.usuario.dniUsu, idAnio!);
     WidgetsFlutterBinding.ensureInitialized();
-    if (kIsWeb) {
-    } else {
-      if (Platform.isAndroid) {
-        WebView.platform = SurfaceAndroidWebView();
-      } else if (Platform.isIOS) {
-        // iOS-specific code
-      }
-    }
+
     super.initState();
   }
 
@@ -306,10 +296,7 @@ class _matriculaState extends State<matriculas> {
                 textStyle: const TextStyle(fontSize: 30),
               ),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => pdfMatri(cod: ele.idDoc)));
+
                 //pdfAlumnos(ele);
               },
               child: const Text("Boleta de Matricula",
@@ -383,10 +370,8 @@ class _matriculaState extends State<matriculas> {
                 textStyle: const TextStyle(fontSize: 20),
               ),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => pdfNotas(cod: ele.idDoc)));
+
+
               },
               child: const Text("Boleta de Notas",
                   textAlign: TextAlign.center,
