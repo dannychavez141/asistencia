@@ -5,7 +5,7 @@ class cAsistencia {
     public $metodos;
 
     public function __construct() {
-        $metodos = new mMetodos();
+        $this->metodos = new mMetodos();
     }
 
     public function verTodos($datos) {
@@ -21,6 +21,12 @@ left join docente d on a.idDoc= d.idDoc WHERE  concat(d.nomDoc,' ',d.apepaDoc,' 
             $sql .= " and (a.day) BETWEEN '{$datos['fIni']}' AND '{$datos['fFin']}'";
         }
 
+        $resp = $this->metodos->consultar($sql);
+        return $resp;
+    }
+    public function verPorDia($datos) {
+        $sql = "SELECT a.*,d.idDoc,d.dniDoc,d.nomDoc,d.apepaDoc,d.apemaDoc,d.foto,d.est FROM asistencia a 
+left join docente d on a.idDoc=d.idDoc where a.fechaAsist='{$datos['fechaAsist']}'";
         $resp = $this->metodos->consultar($sql);
         return $resp;
     }

@@ -1,14 +1,11 @@
-class Masistencia{
-  String id;
-  String Alumno;
-  String fecha;
-  String grado;
-  String seccion;
-  String anioEscolar;
-  String tipo;
-  String hora;
-  String tentrada;
+import 'package:app/modelos/mDocente.dart';
 
-  Masistencia(this.id, this.Alumno, this.fecha, this.grado, this.seccion,
-      this.anioEscolar, this.tipo, this.hora, this.tentrada);
+class mAsistencia {
+  String idAsist;
+  mDocente docente;
+  String fecha;
+  String entrada;
+  String salida;
+
+  mAsistencia(this.idAsist, this.docente, this.fecha, this.entrada, this.salida);
 }

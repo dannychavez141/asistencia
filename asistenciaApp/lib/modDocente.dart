@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:app/clases/sesion.dart';
-import 'package:app/docentes.dart';
+import 'package:app/vDocentes.dart';
 import 'package:flutter/material.dart';
 import 'package:app/clases/cDocente.dart';
-import 'package:app/modelos/Mdocente.dart';
+import 'package:app/modelos/mDocente.dart';
 import 'package:app/clases/vistas.dart';
 import 'package:flutter/services.dart';
 import 'dart:io' show File, Platform;
@@ -17,7 +17,7 @@ import 'package:flutter/services.dart';
 
 class modDocente extends StatefulWidget {
   final Musuario usuario;
-  final Mdocente mdoc;
+  final mDocente mdoc;
 
   const modDocente({super.key, required this.usuario, required this.mdoc});
 
@@ -233,7 +233,7 @@ class _modDocenteState extends State<modDocente> {
       final bytes = File(fDocente.path).readAsBytesSync();
       this.tempFoto = base64Encode(bytes);
     }
-    Mdocente doc = Mdocente(widget.mdoc.idDoc, dni, clave, nomb, apepa, apema,
+    mDocente doc = mDocente(widget.mdoc.idDoc, dni, clave, nomb, apepa, apema,
         tempFoto, "1", "", "", "", "");
     String resp = await metodos.mdDocente(doc);
     final respjson = jsonDecode(resp);
@@ -257,7 +257,7 @@ class _modDocenteState extends State<modDocente> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => docente(usuario: widget.usuario)));
+              builder: (context) => vDocentes(usuario: widget.usuario)));
     } else {
       fondo = Colors.red;
     }
@@ -363,6 +363,6 @@ class _modDocenteState extends State<modDocente> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => docente(usuario: widget.usuario)));
+            builder: (context) => vDocentes(usuario: widget.usuario)));
   }
 }

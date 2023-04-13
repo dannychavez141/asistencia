@@ -1,9 +1,9 @@
+import 'package:app/vAsistencias.dart';
 import 'package:app/clases/sesion.dart';
 import 'package:app/main.dart';
 import 'package:app/principal.dart';
 import 'package:flutter/material.dart';
-import 'package:app/matriculas.dart';
-import '../docentes.dart';
+import '../vDocentes.dart';
 import '../modelos/Musuario.dart';
 
 class Vistas {
@@ -66,7 +66,7 @@ class Vistas {
     return Column(children: [
       elementoMenu("INICIO", "", "principal", this.usuario),
       elementoMenu("ASISTENCIAS", "", "asistencias", this.usuario),
-      elementoMenu("HORARIOS", "", "horarios", this.usuario),
+      elementoMenu("HORARIOS", "", "horarios", this.usuario)
     ]);
   }
 
@@ -74,9 +74,7 @@ class Vistas {
     return Column(children: [
       elementoMenu("INICIO", "", "principal", this.usuario),
       elementoMenu("DOCENTES", "", "docentes", this.usuario),
-      //elementoMenu("REGISTRO DE DOCENTES", "", "rdocentes", this.usuario),
-      elementoMenu("ASISTENCIAS", "", "asistencias", this.usuario),
-      elementoMenu("HORARIOS", "", "horarios", this.usuario),
+      elementoMenu("ASISTENCIAS", "", "asistencias", this.usuario)
     ]);
   }
 
@@ -114,12 +112,12 @@ class Vistas {
         children: <Widget>[
           Positioned.fill(
             child: Container(
-              margin: EdgeInsets.all(5),
+             // margin: EdgeInsets.all(5),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: <Color>[
                     Color.fromRGBO(r, g, b, 1.0),
-                    Color.fromRGBO(r, g, b, 1.0),
+                    Color.fromRGBO(r, g, b, 1.0)
                   ],
                 ),
               ),
@@ -128,8 +126,8 @@ class Vistas {
           TextButton(
               style: TextButton.styleFrom(
                 foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(16.0),
-                textStyle: const TextStyle(fontSize: 20),
+                padding:  EdgeInsets.all(5.0),
+                textStyle:  TextStyle(fontSize: 20),alignment: Alignment.center,
               ),
               onPressed: () {
                 pAccion();
@@ -137,7 +135,7 @@ class Vistas {
               child: Text(txt,
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 10.0,
+                      fontSize: 12.0,
                       fontWeight: FontWeight.bold))),
         ],
       ),
@@ -154,19 +152,19 @@ class Vistas {
         break;
       case "docentes":
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => docente(usuario: usuario)));
+            MaterialPageRoute(builder: (context) => vDocentes(usuario: usuario)));
         break;
       case "asistencias":
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => matriculas(usuario: usuario)));
+                builder: (context) => vAsistencias(usuario: usuario)));
         break;
       case "horarios":
-        Navigator.push(
+      /*  Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => matriculas(usuario: usuario)));
+                builder: (context) => matriculas(usuario: usuario)));*/
         break;
       case "cerrar":
         sesion ses = sesion();

@@ -1,4 +1,4 @@
-class Mdocente {
+class mDocente {
   String idDoc;
   String dniDoc;
   String claveDoc;
@@ -13,7 +13,7 @@ class Mdocente {
   String gAcademico;
 
 
-  Mdocente(this.idDoc,
+  mDocente(this.idDoc,
       this.dniDoc,
       this.claveDoc,
       this.nomDoc,
