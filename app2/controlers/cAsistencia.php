@@ -24,6 +24,7 @@ left join docente d on a.idDoc= d.idDoc WHERE  concat(d.nomDoc,' ',d.apepaDoc,' 
         $resp = $this->metodos->consultar($sql);
         return $resp;
     }
+
     public function verPorDia($datos) {
         $sql = "SELECT a.*,d.idDoc,d.dniDoc,d.nomDoc,d.apepaDoc,d.apemaDoc,d.foto,d.est FROM asistencia a 
 left join docente d on a.idDoc=d.idDoc where a.fechaAsist='{$datos['fechaAsist']}'";
@@ -51,6 +52,40 @@ left join docente d on a.idDoc= d.idDoc WHERE  a.idDoc='{$datos['idDoc']}' order
                 . "WHERE `idAsist`='{$datos['idAsist']}'";
         $resp = $this->metodos->consultar($sql);
         return $resp;
+    }
+
+    function registrar($modelo) {
+        date_default_timezone_set('America/Lima');
+        $hoy = date("Y-m-d");
+        $conexion = new cConexion();
+
+        $sql = "SELECT * FROM `asistencia` where fechaAsist='{$hoy}' and idDoc='{$modelo['idDoc']}';";
+        $bd = $conexion->getBd();
+        $rs = $bd->query($sql);
+        $est = 0;
+        while ($dato = $rs->fetch_array()) {
+            $datos = $dato;
+            $est = 1;
+        }
+        $msj = "";
+        if ($est == 0) {
+            $sql = "INSERT INTO `asistencia`
+        (`codAlu`,`inAsist`)VALUES({$modelo['idDoc']}',now());";
+            $msj = "ASISTENCIA REGISTRADA CORRECTAMENTE";
+        } else if ($est == 1 && $datos['salida'] == null) {
+            $sql = "UPDATE `asistencia` SET `outAsist` = now() WHERE `idAsist` = '{$datos['idAsist']}';";
+            $msj = "SALIDA REGISTRADA CORRECTAMENTE";
+        } else {
+            $msj = "USTED YA MARCO SU ASISTENCIA Y SU SALIDA";
+        }
+
+        $bd = $conexion->getBd();
+        if ($bd->query($sql)) {
+            
+        } else {
+            $msj = $bd->error;
+        }
+        return $msj;
     }
 
 }

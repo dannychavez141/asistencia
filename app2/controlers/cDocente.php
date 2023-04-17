@@ -14,6 +14,12 @@ class cDocente {
         $resp = $this->metodos->consultar($sql);
         return $resp;
     }
+     public function verTodosaApp() {
+        $sql = "SELECT `idDoc`, `dniDoc`, `nomDoc`, `apepaDoc`, `apemaDoc`,,imghuella1,imghuella2,foto, FROM `docente` WHERE est=1 ;";
+      //echo $sql;
+        $resp = $this->metodos->consultar($sql);
+        return $resp;
+    }
 
     public function verUno($datos) {
         $sql = "SELECT * FROM `docente` WHERE  idDoc='{$datos['idDoc']}'";
@@ -21,6 +27,11 @@ class cDocente {
         return $resp;
     }
 
+    public function verUnoReg($datos) {
+        $sql = "SELECT * FROM `docente` WHERE  dniDoc='{$datos['dniDoc']}'";
+        $resp = $this->metodos->consultar($sql);
+        return $resp;
+    }
     public function crear($datos) {
         $sql = "INSERT INTO `docente`(`dniDoc`,`claveDoc`,`nomDoc`,`apepaDoc`,`apemaDoc`,`foto`,`est`) VALUES 
 ('{$datos['dniDoc']}','{$datos['claveDoc']}','{$datos['nomDoc']}','{$datos['apepaDoc']}','{$datos['apemaDoc']}','{$datos['foto']}','{$datos['est']}');";

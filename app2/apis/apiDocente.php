@@ -32,6 +32,11 @@ switch ($control) {
         $datos = $modelo->verTodos($_GET);
         print_r($datos);
         break;
+      case 'todosApp':
+        $modelo = new cDocente();
+        $datos = $modelo->verTodosaApp();
+        print_r($datos);
+        break;
     case 'AAula':
         $aula = $_GET["aula"];
         $modelo = new cDocente();
@@ -50,6 +55,12 @@ switch ($control) {
         $busq = $_GET["cod"];
         $modelo = new cDocente();
         $datos = $modelo->verUno($busq);
+         print_r($datos);
+        break;
+    case 'bDni':
+        $busq = $_GET["cod"];
+        $modelo = new cDocente();
+        $datos = $modelo->verUnoReg($busq);
          print_r($datos);
         break;
     case 'rec':

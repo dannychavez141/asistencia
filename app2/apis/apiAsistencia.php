@@ -27,7 +27,11 @@ switch ($control) {
         $resp = $modelo->verPorDia($_GET);
         print_r($resp);
         break;
-
+ case 'reg':
+        $control = new cAsistencia();
+        $datos = $control->registrar($modelo);
+        print_r($datos);
+        break;
     default:
         echo "no se recibio las variables" . $control;
         break;
