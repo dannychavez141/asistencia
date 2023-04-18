@@ -15,7 +15,7 @@ class cDocente {
         return $resp;
     }
      public function verTodosaApp() {
-        $sql = "SELECT `idDoc`, `dniDoc`, `nomDoc`, `apepaDoc`, `apemaDoc`,,imghuella1,imghuella2,foto, FROM `docente` WHERE est=1 ;";
+        $sql = "SELECT `idDoc`, `dniDoc`, `nomDoc`, `apepaDoc`, `apemaDoc`,imghuella1,imghuella2,foto FROM `docente` WHERE est=1 ;";
       //echo $sql;
         $resp = $this->metodos->consultar($sql);
         return $resp;

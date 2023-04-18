@@ -28,8 +28,9 @@ switch ($control) {
         print_r($resp);
         break;
  case 'reg':
-        $control = new cAsistencia();
-        $datos = $control->registrar($modelo);
+        $modelo = new cAsistencia();
+       // print_r($_POST);
+        $datos = $modelo->registrar($_POST);
         print_r($datos);
         break;
     default:
