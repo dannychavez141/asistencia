@@ -53,8 +53,8 @@ class cDocente {
         return $resp;
     }
 
-    function AgregarHuellas($datos) {
-        $sql = "UPDATE `docente` SET `imghuella1` = '{$datos['imghuella1']}', `imghuella2` = '{$datos['imghuella2']}' WHERE (`idDoc` = '{$datos['idDoc']}');";
+    function AgregarHuellas($id, $huella1, $huella2) {
+        $sql = "UPDATE `docente` SET `imghuella1` = '{$huella1}', `imghuella2` = '{$huella2}' WHERE (`idDoc` = '{$id}');";
         //echo $sql;
         $resp = $this->metodos->ejecutar($sql, "correcto");
         return $resp;

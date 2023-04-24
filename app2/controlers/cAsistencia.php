@@ -72,11 +72,13 @@ left join docente d on a.idDoc= d.idDoc WHERE  a.idDoc='{$datos['idDoc']}' order
             $sql = "INSERT INTO `asistencia`
         (`idDoc`,`inAsist`,`fechaAsist`)VALUES('{$modelo['idDoc']}',now(),'{$hoy}');";
             $msj = "ASISTENCIA REGISTRADA CORRECTAMENTE";
-        } else if ($est == 1 && $datos['salida'] == null) {
+        } else if ($est == 1 && $datos['outAsist'] == null) {
             $sql = "UPDATE `asistencia` SET `outAsist` = now() WHERE `idAsist` = '{$datos['idAsist']}';";
             $msj = "SALIDA REGISTRADA CORRECTAMENTE";
         } else {
-            $msj = "USTED YA MARCO SU ASISTENCIA Y SU SALIDA";
+            $sql = "INSERT INTO `asistencia`
+        (`idDoc`,`inAsist`,`fechaAsist`)VALUES('{$modelo['idDoc']}',now(),'{$hoy}');";
+            $msj = "ASISTENCIA REGISTRADA CORRECTAMENTE";
         }
 
         $bd = $conexion->getBd();

@@ -52,32 +52,23 @@ switch ($control) {
           print_r($datos);
         break;
     case 'buno':
-        $busq = $_GET["cod"];
         $modelo = new cDocente();
-        $datos = $modelo->verUno($busq);
+        $datos = $modelo->verUno($_GET);
          print_r($datos);
         break;
     case 'bDni':
-        $busq = $_GET["cod"];
         $modelo = new cDocente();
-        $datos = $modelo->verUnoReg($busq);
-         print_r($datos);
-        break;
-    case 'rec':
-        $id = $_POST['0'];
-        $huella1 = $_POST['1'];
-        $huella2 = $_POST['2'];
-        $modelo = new cDocente();
-        $datos = $modelo->AgregarHuellas($id, $huella1, $huella2);
+        $datos = $modelo->verUnoReg($_GET);
          print_r($datos);
         break;
     case 'recapp':
         $id = $_POST['0'];
         $huella1 = $_POST['1'];
         $huella2 = $_POST['2'];
+        //print_r($_POST);
         $modelo = new cDocente();
         $datos = $modelo->AgregarHuellas($id, $huella1, $huella2);
-        print_r($datos);
+        print_r(json_encode($datos));
         break;
     case 'reg':
      //   print_r($model);
