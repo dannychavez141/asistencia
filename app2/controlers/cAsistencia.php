@@ -27,7 +27,13 @@ left join docente d on a.idDoc= d.idDoc WHERE  concat(d.nomDoc,' ',d.apepaDoc,' 
 
     public function verPorDia($datos) {
         $sql = "SELECT a.*,d.idDoc,d.dniDoc,d.nomDoc,d.apepaDoc,d.apemaDoc,d.foto,d.est FROM asistencia a 
-left join docente d on a.idDoc=d.idDoc where a.fechaAsist='{$datos['fechaAsist']}'";
+left join docente d on a.idDoc=d.idDoc where a.fechaAsist='{$datos['fechaAsist']}' order by a.idAsist desc";
+        $resp = $this->metodos->consultar($sql);
+        return $resp;
+    }
+    public function verAsisDocente($datos) {
+        $sql = "SELECT a.*,d.idDoc,d.dniDoc,d.nomDoc,d.apepaDoc,d.apemaDoc,d.foto,d.est FROM asistencia a 
+left join docente d on a.idDoc=d.idDoc where MONTH(a.fechaAsist)='{$datos['mes']}' and a.idDoc='{$datos['idDoc']}' order by a.idAsist desc";
         $resp = $this->metodos->consultar($sql);
         return $resp;
     }

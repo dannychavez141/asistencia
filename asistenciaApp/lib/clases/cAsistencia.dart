@@ -49,6 +49,45 @@ class cAsistencia {
       throw Exception("Error de api");
     }
   }
+  Future<List<mAsistencia>> getAsistenciasDocente(String mes,String idDoc) async {
+    String api = conexion.url + "app2/apis/apiAsistencia.php?ac=verAsisDoc&mes="+
+        mes+"&idDoc="+idDoc;
+    print(api);
+    var uri = Uri.parse(api);
+    final resp = await http.get(uri);
+    List<mAsistencia> datos = [];
+    if (resp.statusCode == 200) {
+      //  print(resp.body);
+      String body = resp.body;
+      final datosjson = jsonDecode(body);
+      print(datosjson[0]);
+      for (var item in datosjson) {
+        print(item);
+        final docente = mDocente(
+            item["idDoc"],
+            item["dniDoc"],
+            "",
+            item["nomDoc"],
+            item["apepaDoc"],
+            item["apemaDoc"],
+            item["foto"],
+            item["est"],
+            "",
+            "",
+            "",
+            "");
 
+        datos.add(mAsistencia(
+            item["idAsist"],
+            docente,
+            item["fechaAsist"],
+            item["inAsist"] == null ? "" : item["inAsist"],
+            item["outAsist"] == null ? "" : item["outAsist"]));
+      }
+      return datos;
+    } else {
+      throw Exception("Error de api");
+    }
+  }
 
 }

@@ -7,7 +7,7 @@ import 'modelos/Musuario.dart';
 
 
 sesion ses = sesion();
- Musuario usuario = Musuario("", "", "", "","","");
+ //Musuario usuario = Musuario("", "", "", "","","");
 
 class principal extends StatefulWidget {
   final Musuario usuario;
@@ -26,7 +26,8 @@ class _principalState extends State<principal> {
     super.initState();
     ses.verificarInicio().then((value) {
       setState(() {
-        usuario = value;
+       // widget.usuario = value;
+        print(widget.usuario);
       });
     });
   }
@@ -34,14 +35,14 @@ class _principalState extends State<principal> {
   @override
   Widget build(BuildContext context) {
     // print(usuario);
-    Vistas componentes = new Vistas("Menu Principal", context, usuario);
+    Vistas componentes = new Vistas("Menu Principal", context, widget.usuario);
     return Scaffold(
-        drawer: componentes.menu("admin"),
+        drawer: componentes.menu(widget.usuario.tipoUsu),
         appBar: AppBar(title: Text(componentes.titulopage)),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [componentes.Inicio(usuario.nombUsu)],
+            children: [componentes.Inicio(widget.usuario.nombUsu)],
           ),
         ));
   }

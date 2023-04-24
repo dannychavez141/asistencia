@@ -15,9 +15,9 @@ class Vistas {
 
   Widget menu(String tUsusario) {
     Widget menu = Column();
-    if (tUsusario == "admin") {
+    if (tUsusario == "ADMIN") {
       menu = menuAdmin();
-    } else if (tUsusario == "docente") {
+    } else if (tUsusario == "DOCENTE") {
       menu = menuDocente();
     }
     return Drawer(

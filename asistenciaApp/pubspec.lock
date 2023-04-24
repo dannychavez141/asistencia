@@ -22,6 +22,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.9.0"
+  barcode:
+    dependency: transitive
+    description:
+      name: barcode
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.2.3"
+  bidi:
+    dependency: transitive
+    description:
+      name: bidi
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.6"
   boolean_selector:
     dependency: transitive
     description:
@@ -310,6 +324,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.2"
+  path_parsing:
+    dependency: transitive
+    description:
+      name: path_parsing
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   path_provider:
     dependency: "direct dev"
     description:
@@ -352,6 +373,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.5"
+  pdf:
+    dependency: "direct dev"
+    description:
+      name: pdf
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.10.1"
   petitparser:
     dependency: transitive
     description:
@@ -393,14 +421,7 @@ packages:
       name: qr
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
-  qr_flutter:
-    dependency: "direct dev"
-    description:
-      name: qr_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.0.0"
+    version: "3.0.1"
   quiver:
     dependency: transitive
     description:
