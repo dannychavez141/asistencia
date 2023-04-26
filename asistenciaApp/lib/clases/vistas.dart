@@ -2,6 +2,7 @@ import 'package:app/vAsistencias.dart';
 import 'package:app/clases/sesion.dart';
 import 'package:app/main.dart';
 import 'package:app/principal.dart';
+import 'package:app/viewDocente/asistDocente.dart';
 import 'package:flutter/material.dart';
 import '../vDocentes.dart';
 import '../modelos/Musuario.dart';
@@ -65,7 +66,7 @@ class Vistas {
   Widget menuDocente() {
     return Column(children: [
       elementoMenu("INICIO", "", "principal", this.usuario),
-      elementoMenu("ASISTENCIAS", "", "asistencias", this.usuario),
+      elementoMenu("ASISTENCIAS", "", "asisDoc", this.usuario),
       elementoMenu("HORARIOS", "", "horarios", this.usuario)
     ]);
   }
@@ -100,7 +101,7 @@ class Vistas {
   Widget Inicio(usuario) {
     var msj = "Hola " +
         usuario +
-        ",\nBienvenido(a) a nuestra aplicación, el cual le permitirá ver toda la información de asistencias, incidencias, notas y matriculas de los alumnos asignados a usted como tutor o familiar.";
+        ",\nBienvenido(a) a nuestra aplicación, el cual le permitirá ver toda la información de asistencias y horarios.";
     return Text(msj,
         textAlign: TextAlign.center, style: TextStyle(fontSize: 25));
   }
@@ -159,6 +160,12 @@ class Vistas {
             context,
             MaterialPageRoute(
                 builder: (context) => vAsistencias(usuario: usuario)));
+        break;
+      case "asisDoc":
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => asistDocente(usuario: usuario)));
         break;
       case "horarios":
       /*  Navigator.push(

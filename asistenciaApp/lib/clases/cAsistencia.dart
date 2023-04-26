@@ -12,7 +12,7 @@ class cAsistencia {
   Future<List<mAsistencia>> getAsistencias(String fecha) async {
     String api = conexion.url + "app2/apis/apiAsistencia.php?ac=verDia&fechaAsist="+
     fecha;
-    print(api);
+    //print(api);
     var uri = Uri.parse(api);
     final resp = await http.get(uri);
     List<mAsistencia> datos = [];
@@ -49,9 +49,9 @@ class cAsistencia {
       throw Exception("Error de api");
     }
   }
-  Future<List<mAsistencia>> getAsistenciasDocente(String mes,String idDoc) async {
+  Future<List<mAsistencia>> getAsistenciasDocente(int mes,String idDoc) async {
     String api = conexion.url + "app2/apis/apiAsistencia.php?ac=verAsisDoc&mes="+
-        mes+"&idDoc="+idDoc;
+        mes.toString()+"&idDoc="+idDoc;
     print(api);
     var uri = Uri.parse(api);
     final resp = await http.get(uri);
@@ -60,9 +60,9 @@ class cAsistencia {
       //  print(resp.body);
       String body = resp.body;
       final datosjson = jsonDecode(body);
-      print(datosjson[0]);
+     // print(datosjson[0]);
       for (var item in datosjson) {
-        print(item);
+      //  print(item);
         final docente = mDocente(
             item["idDoc"],
             item["dniDoc"],
@@ -70,7 +70,7 @@ class cAsistencia {
             item["nomDoc"],
             item["apepaDoc"],
             item["apemaDoc"],
-            item["foto"],
+            "",
             item["est"],
             "",
             "",

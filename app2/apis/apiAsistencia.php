@@ -27,6 +27,12 @@ switch ($control) {
         $resp = $modelo->verPorDia($_GET);
         print_r($resp);
         break;
+    case 'verAsisDoc':
+        //   print_r($model);
+        $modelo = new cAsistencia();
+        $resp = $modelo->verAsisDocente($_GET);
+        print_r($resp);
+        break;
  case 'reg':
         $modelo = new cAsistencia();
        // print_r($_POST);

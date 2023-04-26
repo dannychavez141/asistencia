@@ -14,7 +14,6 @@ import 'modDocente.dart';
 import 'modelos/Musuario.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:pdf/pdf.dart';
 
 class vAsistencias extends StatefulWidget {
   final Musuario usuario;
@@ -55,7 +54,7 @@ class _vAsistenciasState extends State<vAsistencias> {
   Widget build(BuildContext context) {
     componentes = new Vistas("ASISTENCIAS", context, widget.usuario);
     return Scaffold(
-        drawer: componentes.menu("admin"),
+        drawer: componentes.menu(widget.usuario.tipoUsu),
         appBar: AppBar(title: Text(componentes.titulopage)),
         body: Center(
           child: Column(
