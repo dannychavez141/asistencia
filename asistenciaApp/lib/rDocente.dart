@@ -51,7 +51,7 @@ class _rdocenteState extends State<rdocente> {
   Widget build(BuildContext context) {
     componentes = new Vistas("DOCENTES", context, widget.usuario);
     return Scaffold(
-        drawer: componentes.menu("admin"),
+        drawer: componentes.menu(widget.usuario.tipoUsu),
         appBar: AppBar(title: Text(componentes.titulopage)),
         body: Center(
           child: Column(

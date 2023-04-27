@@ -3,6 +3,8 @@ import 'package:app/clases/sesion.dart';
 import 'package:app/main.dart';
 import 'package:app/principal.dart';
 import 'package:app/viewDocente/asistDocente.dart';
+import 'package:app/viewDocente/modHorario.dart';
+import 'package:app/viewDocente/vHorario.dart';
 import 'package:flutter/material.dart';
 import '../vDocentes.dart';
 import '../modelos/Musuario.dart';
@@ -168,10 +170,10 @@ class Vistas {
                 builder: (context) => asistDocente(usuario: usuario)));
         break;
       case "horarios":
-      /*  Navigator.push(
+       Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => matriculas(usuario: usuario)));*/
+                builder: (context) => vHorario(usuario: usuario)));
         break;
       case "cerrar":
         sesion ses = sesion();

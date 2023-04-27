@@ -59,7 +59,7 @@ class _modDocenteState extends State<modDocente> {
     componentes = new Vistas("DOCENTES", context, widget.usuario);
 
     return Scaffold(
-        drawer: componentes.menu("admin"),
+        drawer: componentes.menu(widget.usuario.tipoUsu),
         appBar: AppBar(title: Text(componentes.titulopage)),
         body: Center(
           child: Column(
