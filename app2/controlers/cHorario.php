@@ -16,8 +16,8 @@ left join docente doc on h.idDoc=doc.idDoc where h.idDoc='{$datos['idDoc']}'";
     }
     public function crear($datos) {
         $sql = "INSERT INTO `horario`
-(`idDoc`,`idDia`,`hEntrada`,`hSalida`,`idEst`)VALUES
-('{$datos['idDoc']}','{$datos['idDia']}','{$datos['hEntrada']}','{$datos['hSalida']}','{$datos['idEst']}');";
+(`idDoc`,`idDia`,`hEntrada`,`hSalida`)VALUES
+('{$datos['idDoc']}','{$datos['idDia']}','{$datos['hEntrada']}','{$datos['hSalida']}');";
         $resp = $this->metodos->ejecutar($sql,"REGISTRADO CORRECTAMENTE");
         return $resp;
     }
@@ -27,12 +27,15 @@ left join docente doc on h.idDoc=doc.idDoc where h.idDoc='{$datos['idDoc']}'";
                 . "`idDoc`='{$datos['idDoc']}',"
                 . "`idDia`='{$datos['idDia']}',"
                 . "`hEntrada`='{$datos['hEntrada']}',"
-                . "`hSalida`='{$datos['hSalida']}',"
-                . "`apemaDoc`='{$datos['apemaDoc']}',"
-                . "`foto`='{$datos['foto']}',"
-                . "`est`='{$datos['est']}' "
-                . "WHERE `idDoc`='{$datos['idDoc']}'";
+                . "`hSalida`='{$datos['hSalida']}'"
+                . "WHERE `idHor`='{$datos['idHor']}'";
         $resp = $this->metodos->ejecutar($sql,"MODIFICADO CORRECTAMENTE");
+        return $resp;
+    }
+    public function eliminar($datos) {
+        $sql = "DELETE FROM `horario`"
+                . "WHERE `idHor`='{$datos['idHor']}'";
+        $resp = $this->metodos->ejecutar($sql,"ELIMINADO CORRECTAMENTE");
         return $resp;
     }
 

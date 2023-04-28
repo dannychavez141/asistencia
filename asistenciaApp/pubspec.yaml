@@ -61,6 +61,7 @@ dev_dependencies:
   syncfusion_flutter_pdf: ^21.1.41
   fluttertoast: ^8.0.9
   open_file: ^3.2.1
+  intl: ^0.17.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

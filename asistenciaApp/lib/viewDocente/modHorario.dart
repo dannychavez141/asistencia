@@ -199,21 +199,6 @@ class _modHoraroState extends State<modHoraro> {
           ],
         ),
       ),
-      Container(
-        margin: EdgeInsets.all(0),
-        child: Column(
-          children: [
-            Text("Elige Fotografia:", textAlign: TextAlign.right),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              this.componentes.btn(76, 0, 240, "Tomar Foto",
-                  pAccion: () => _getImg("camara")),
-              this.componentes.btn(76, 0, 240, "Elegir de Galeria",
-                  pAccion: () => _getImg("galeria"))
-            ])
-          ],
-        ),
-      ),
-      Container(margin: EdgeInsets.all(0), child: foto()),
       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         this
             .componentes
@@ -263,46 +248,6 @@ class _modHoraroState extends State<modHoraro> {
     }
   }
 
-  _getImg(String modo) async {
-    late XFile pickedFile;
-    try {
-      if (modo == "galeria") {
-        pickedFile =
-        await picker.pickImage(source: ImageSource.gallery) as XFile;
-      } else {
-        pickedFile =
-        await picker.pickImage(source: ImageSource.camera) as XFile;
-      }
-      if (pickedFile != null) {
-        setState(() {
-          this.fDocente = pickedFile;
-          String img64 = base64Encode(File(fDocente.path).readAsBytesSync());
-          // print(img64);
-          this.imgDoc = Base64Decoder().convert(img64);
-          elegido = true;
-        });
-      }
-    } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
-    }
-    // foto();
-//print(imgDoc);
-  }
-
-  Widget foto() {
-    if (this.elegido == true) {
-      if (kIsWeb) {
-        return Image.memory(this.imgDoc,
-            width: 100, height: 100, fit: BoxFit.cover);
-      } else {
-        return Image.file(File(this.fDocente.path),
-            width: 100, height: 100, fit: BoxFit.cover);
-      }
-    } else {
-      return Image.memory(this.imgDoc,
-          width: 100, height: 100, fit: BoxFit.cover);
-    }
-  }
 
   void confirmar() {
     String dni = txtDni.text;

@@ -18,7 +18,7 @@ class Vistas {
 
   Widget menu(String tUsusario) {
     Widget menu = Column();
-    if (tUsusario == "ADMIN") {
+    if (tUsusario == "ADMINISTRADOR") {
       menu = menuAdmin();
     } else if (tUsusario == "DOCENTE") {
       menu = menuDocente();
@@ -115,7 +115,7 @@ class Vistas {
         children: <Widget>[
           Positioned.fill(
             child: Container(
-             // margin: EdgeInsets.all(5),
+              //margin: EdgeInsets.all(5),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: <Color>[
@@ -129,8 +129,7 @@ class Vistas {
           TextButton(
               style: TextButton.styleFrom(
                 foregroundColor: Colors.white,
-                padding:  EdgeInsets.all(5.0),
-                textStyle:  TextStyle(fontSize: 20),alignment: Alignment.center,
+                textStyle:  TextStyle(fontSize: 10),alignment: Alignment.center,
               ),
               onPressed: () {
                 pAccion();
@@ -138,7 +137,7 @@ class Vistas {
               child: Text(txt,
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 12.0,
+                      fontSize: 10.0,
                       fontWeight: FontWeight.bold))),
         ],
       ),

@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:app/clases/cHorario.dart';
 import 'package:app/clases/sesion.dart';
+import 'package:app/modelos/mHorario.dart';
 import 'package:app/rDocente.dart';
 import 'package:flutter/material.dart';
 import 'package:app/clases/cDocente.dart';
@@ -30,7 +32,9 @@ class _vDocentesState extends State<vDocentes> {
   TextEditingController txtApepa = TextEditingController();
   TextEditingController txtApema = TextEditingController();
   late Future<List<mDocente>> ldocentes;
+  late Future<List<mHorario>> horario;
   cDocente metodos = new cDocente();
+  cHorario cHora = new cHorario();
   sesion ses = sesion();
   late XFile fDocente;
   String tempFoto =
@@ -415,7 +419,7 @@ class _vDocentesState extends State<vDocentes> {
               Text("HORARIO DEL DOCENTE",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))
             ]),
-            content: horas(),
+            content: horas(ele),
             actions: <Widget>[
               TextButton(
                 child: const Text(
@@ -431,32 +435,53 @@ class _vDocentesState extends State<vDocentes> {
         });
   }
 
-  Widget horas() {
-    List<String> dias = [
-      "Lunes",
-      "Martes",
-      "Miercoles",
-      "Jueves",
-      "Viernes",
-      "Sabado",
-      "Domingo"
-    ];
-    return Container(
-        width: double.minPositive,
-        height: 300,
-        // height: MediaQuery.of(context).size.height * 0.40,
-        // constraints: BoxConstraints(minWidth: 230.0, minHeight: 25.0),
-        child: ListView.builder(
-          shrinkWrap: true,
-          scrollDirection: Axis.vertical,
-          itemCount: dias.length,
-          itemBuilder: (context, pos) {
-            return elementoHorario(dias[pos], "8:00 AM a 10:00 AM");
-          },
-        ));
+   Widget horas(mDocente doc) {
+    Future<List<mHorario>> horario=  cHora.getHorario(doc.idDoc);
+
+    return  FutureBuilder<List<mHorario>>(
+      future: horario, // a previously-obtained Future<String> or null
+      builder: (BuildContext context, AsyncSnapshot<List<mHorario>> snapshot) {
+       Widget children;
+        if (snapshot.hasData) {
+          List<mHorario>? datos=snapshot.data;
+          int? cantidad=datos?.length;
+          if(cantidad! > 0){
+            children = Container(
+                width: double.minPositive,
+                height: 300,
+                // height: MediaQuery.of(context).size.height * 0.40,
+                // constraints: BoxConstraints(minWidth: 230.0, minHeight: 25.0),
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: datos?.length,
+                    itemBuilder: (context, pos) {
+                      return elementoHorario(datos![pos]);
+                    }));
+          }else{
+            children = Container(
+                width: double.minPositive,
+                height: 300,
+                // height: MediaQuery.of(context).size.height * 0.40,
+                // constraints: BoxConstraints(minWidth: 230.0, minHeight: 25.0),
+                child: Text("El Docente no tiene Horarios Registrados"));
+          }
+
+        } else {
+          children =
+            SizedBox(
+              width: 60,
+              height: 60,
+              child: CircularProgressIndicator(),
+            );
+        }
+        return children;
+      },
+    )
+    ;
   }
 
-  Widget elementoHorario(dia, horas) {
+  Widget elementoHorario(mHorario horario) {
     return Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         margin: EdgeInsets.all(0),
@@ -468,8 +493,8 @@ class _vDocentesState extends State<vDocentes> {
             children: <Widget>[
               ListTile(
                 contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                title: Text(dia),
-                subtitle: Text(horas),
+                title: Text(horario.dia.descrDia),
+                subtitle: Text("De "+horario.hEntrada+" a "+horario.hSalida),
                 leading: Icon(Icons.timelapse),
               )
             ],
