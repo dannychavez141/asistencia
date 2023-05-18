@@ -10,7 +10,7 @@ import 'package:app/modelos/Musuario.dart';
 class cAsistencia {
   Conexion conexion = new Conexion();
   Future<List<mAsistencia>> getAsistencias(String fecha) async {
-    String api = conexion.url + "app2/apis/apiAsistencia.php?ac=verDia&fechaAsist="+
+    String api = conexion.url + "apis/apiAsistencia.php?ac=verDia&fechaAsist="+
     fecha;
     //print(api);
     var uri = Uri.parse(api);
@@ -50,7 +50,7 @@ class cAsistencia {
     }
   }
   Future<List<mAsistencia>> getAsistenciasDocente(int mes,String idDoc) async {
-    String api = conexion.url + "app2/apis/apiAsistencia.php?ac=verAsisDoc&mes="+
+    String api = conexion.url + "apis/apiAsistencia.php?ac=verAsisDoc&mes="+
         mes.toString()+"&idDoc="+idDoc;
     print(api);
     var uri = Uri.parse(api);

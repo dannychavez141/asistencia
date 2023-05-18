@@ -15,7 +15,7 @@ class cDocente {
 
   //funciones del docente
   Future<String> rDocente(mDocente mod) async {
-    String api = conexion.url + "app2/apis/apiDocente.php";
+    String api = conexion.url + "apis/apiDocente.php";
     Uri uri = Uri.parse(api);
     final headers = {'Content-Type': 'application/json'};
     Map<String, dynamic> body = {
@@ -44,7 +44,7 @@ class cDocente {
   }
 
   Future<String> mdDocente(mDocente mod) async {
-    String api = conexion.url + "app2/apis/apiDocente.php";
+    String api = conexion.url + "apis/apiDocente.php";
     Uri uri = Uri.parse(api);
     final headers = {'Content-Type': 'application/json'};
     Map<String, dynamic> body = {
@@ -74,7 +74,7 @@ class cDocente {
 
   Future<List<mDocente>> getDocentes(String busq) async {
     String api =
-        conexion.url + "app2/apis/apiDocente.php?ac=todos&busq=" + busq;
+        conexion.url + "apis/apiDocente.php?ac=todos&busq=" + busq;
     //print(api);
     var uri = Uri.parse(api);
     final resp = await http.get(uri);
@@ -108,14 +108,13 @@ class cDocente {
 
   Future<List<Musuario>> getUsuario(
       String usu, String pass, String tipo) async {
-    String api = conexion.url +
-        "app2/apis/apiDocente.php?ac=login&loginUsu=" +
+    String api = conexion.url +"apis/apiDocente.php?ac=login&loginUsu=" +
         usu +
         "&passUsu=" +
         pass +
         "&tipoUsu=" +
         tipo;
-    // print(api);
+     print(api);
     var uri = Uri.parse(api);
     final resp = await http.get(uri);
     List<Musuario> datos = [];

@@ -13,7 +13,7 @@ class cHorario {
   Conexion conexion = new Conexion();
 
   Future<List<mHorario>> getHorario(String idDoc) async {
-    String api = conexion.url + "app2/apis/apiHorario.php?ac=ver&idDoc="+
+    String api = conexion.url + "apis/apiHorario.php?ac=ver&idDoc="+
         idDoc;
     print(api);
     var uri = Uri.parse(api);
@@ -53,7 +53,7 @@ final dia=mDia(item["idDia"], item["descrDia"], item["idEst"]);
     }
   }
   Future<String> rHorario(mHorario mod) async {
-    String api = conexion.url + "app2/apis/apiHorario.php";
+    String api = conexion.url + "apis/apiHorario.php";
     Uri uri = Uri.parse(api);
     final headers = {'Content-Type': 'application/json'};
     Map<String, dynamic> body = {
@@ -79,7 +79,7 @@ final dia=mDia(item["idDia"], item["descrDia"], item["idEst"]);
   }
   //funcion eliminar horario
   Future<String> eliHorario(mHorario mod) async {
-    String api = conexion.url + "app2/apis/apiHorario.php";
+    String api = conexion.url + "apis/apiHorario.php";
     Uri uri = Uri.parse(api);
     final headers = {'Content-Type': 'application/json'};
     Map<String, dynamic> body = {
