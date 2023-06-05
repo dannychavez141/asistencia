@@ -469,7 +469,7 @@ class _vAsistenciasState extends State<vAsistencias> {
     //Set style
     headerRow.style.backgroundBrush = PdfSolidBrush(PdfColor(68, 114, 196));
     headerRow.style.textBrush = PdfBrushes.white;
-    headerRow.cells[0].value = 'ID';
+    headerRow.cells[0].value = "DNI";
     headerRow.cells[0].stringFormat.alignment = PdfTextAlignment.center;
     headerRow.cells[1].value = 'NOMBRES Y APELLIDOS';
     headerRow.cells[2].value = 'FECHA';
@@ -482,7 +482,7 @@ class _vAsistenciasState extends State<vAsistencias> {
       mAsistencia asist = datos[i];
       print(asist.toString());
       addAsistencia(
-          asist.idAsist,
+          asist.docente.dniDoc,
           asist.docente.nomDoc +
               " " +
               asist.docente.apepaDoc +

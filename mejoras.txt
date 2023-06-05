@@ -1,0 +1,6 @@
+- arreglar formate de hora
+- hacer calendario de horarios semanal
+- usuario invitado, validar de reniec - buscar docente ver horario
+- libreria de huellero 2.0
+- mejora de interfas en pc y web
+- agregar logo en reporte

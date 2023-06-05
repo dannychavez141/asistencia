@@ -453,7 +453,7 @@ class _vDocentesState extends State<vDocentes> {
                 // constraints: BoxConstraints(minWidth: 230.0, minHeight: 25.0),
                 child: ListView.builder(
                     shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
+                    scrollDirection: Axis.horizontal,
                     itemCount: datos?.length,
                     itemBuilder: (context, pos) {
                       return elementoHorario(datos![pos]);
