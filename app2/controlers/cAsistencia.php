@@ -63,6 +63,7 @@ left join docente d on a.idDoc= d.idDoc WHERE  a.idDoc='{$datos['idDoc']}' order
     function registrar($modelo) {
         date_default_timezone_set('America/Lima');
         $hoy = date("Y-m-d");
+         $hora = date("H:i:s");
         $conexion = new mConexion();
 
         $sql = "SELECT * FROM `asistencia` where fechaAsist='{$hoy}' and idDoc='{$modelo['idDoc']}';";
@@ -76,14 +77,14 @@ left join docente d on a.idDoc= d.idDoc WHERE  a.idDoc='{$datos['idDoc']}' order
         $msj = "";
         if ($est == 0) {
             $sql = "INSERT INTO `asistencia`
-        (`idDoc`,`inAsist`,`fechaAsist`)VALUES('{$modelo['idDoc']}',now(),'{$hoy}');";
+        (`idDoc`,`inAsist`,`fechaAsist`)VALUES('{$modelo['idDoc']}','{$hora}','{$hoy}');";
             $msj = "ASISTENCIA REGISTRADA CORRECTAMENTE";
         } else if ($est == 1 && $datos['outAsist'] == null) {
-            $sql = "UPDATE `asistencia` SET `outAsist` = now() WHERE `idAsist` = '{$datos['idAsist']}';";
+            $sql = "UPDATE `asistencia` SET `outAsist` = '{$hora}' WHERE `idAsist` = '{$datos['idAsist']}';";
             $msj = "SALIDA REGISTRADA CORRECTAMENTE";
         } else {
             $sql = "INSERT INTO `asistencia`
-        (`idDoc`,`inAsist`,`fechaAsist`)VALUES('{$modelo['idDoc']}',now(),'{$hoy}');";
+        (`idDoc`,`inAsist`,`fechaAsist`)VALUES('{$modelo['idDoc']}','{$hora}','{$hoy}');";
             $msj = "ASISTENCIA REGISTRADA CORRECTAMENTE";
         }
 

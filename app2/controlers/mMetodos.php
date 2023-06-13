@@ -21,7 +21,7 @@ class mMetodos {
             $resp['msj'] = mysqli_error($bd);
             $resp['est'] = 'error';
         }
-        return json_encode($resp);
+        return $resp;
     }
 
     function consultar($sql) {

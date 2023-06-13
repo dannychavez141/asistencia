@@ -45,7 +45,6 @@ class _vDocentesState extends State<vDocentes> {
 
   @override
   void initState() {
-
     cBusq = TextEditingController();
     super.initState();
     ldocentes = metodos.getDocentes("");
@@ -58,14 +57,17 @@ class _vDocentesState extends State<vDocentes> {
         drawer: componentes.menu(widget.usuario.tipoUsu),
         appBar: AppBar(title: Text(componentes.titulopage)),
         body: Center(
+            child: Container(
           child: Column(
             children: <Widget>[pantalla(context)],
           ),
-        ),
+        )),
         floatingActionButton: FloatingActionButton(
           onPressed: () => setState(() {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => rdocente(usuario: widget.usuario)));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => rdocente(usuario: widget.usuario)));
           }),
           tooltip: 'Registro de Docentes',
           child: const Icon(Icons.add),
@@ -383,9 +385,13 @@ class _vDocentesState extends State<vDocentes> {
           );
         });
   }
-  void saltoMod(mDocente doc){
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => modDocente(usuario: widget.usuario,mdoc: doc)));
+
+  void saltoMod(mDocente doc) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                modDocente(usuario: widget.usuario, mdoc: doc)));
   }
 
   void horarioDoc(mDocente ele) {
@@ -435,17 +441,17 @@ class _vDocentesState extends State<vDocentes> {
         });
   }
 
-   Widget horas(mDocente doc) {
-    Future<List<mHorario>> horario=  cHora.getHorario(doc.idDoc);
+  Widget horas(mDocente doc) {
+    Future<List<mHorario>> horario = cHora.getHorario(doc.idDoc);
 
-    return  FutureBuilder<List<mHorario>>(
+    return FutureBuilder<List<mHorario>>(
       future: horario, // a previously-obtained Future<String> or null
       builder: (BuildContext context, AsyncSnapshot<List<mHorario>> snapshot) {
-       Widget children;
+        Widget children;
         if (snapshot.hasData) {
-          List<mHorario>? datos=snapshot.data;
-          int? cantidad=datos?.length;
-          if(cantidad! > 0){
+          List<mHorario>? datos = snapshot.data;
+          int? cantidad = datos?.length;
+          if (cantidad! > 0) {
             children = Container(
                 width: double.minPositive,
                 height: 300,
@@ -458,7 +464,7 @@ class _vDocentesState extends State<vDocentes> {
                     itemBuilder: (context, pos) {
                       return elementoHorario(datos![pos]);
                     }));
-          }else{
+          } else {
             children = Container(
                 width: double.minPositive,
                 height: 300,
@@ -466,19 +472,16 @@ class _vDocentesState extends State<vDocentes> {
                 // constraints: BoxConstraints(minWidth: 230.0, minHeight: 25.0),
                 child: Text("El Docente no tiene Horarios Registrados"));
           }
-
         } else {
-          children =
-            SizedBox(
-              width: 60,
-              height: 60,
-              child: CircularProgressIndicator(),
-            );
+          children = SizedBox(
+            width: 60,
+            height: 60,
+            child: CircularProgressIndicator(),
+          );
         }
         return children;
       },
-    )
-    ;
+    );
   }
 
   Widget elementoHorario(mHorario horario) {
@@ -494,12 +497,12 @@ class _vDocentesState extends State<vDocentes> {
               ListTile(
                 contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                 title: Text(horario.dia.descrDia),
-                subtitle: Text("De "+horario.hEntrada+" a "+horario.hSalida),
+                subtitle:
+                    Text("De " + horario.hEntrada + " a " + horario.hSalida),
                 leading: Icon(Icons.timelapse),
               )
             ],
           ),
         ));
   }
-
 }

@@ -45,6 +45,7 @@ class cDocente {
 
   Future<String> mdDocente(mDocente mod) async {
     String api = conexion.url + "apis/apiDocente.php";
+    print(api);
     Uri uri = Uri.parse(api);
     final headers = {'Content-Type': 'application/json'};
     Map<String, dynamic> body = {
