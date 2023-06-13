@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'dart:html';
 
 ///To save the pdf file in the device
-Future<void> saveAndLaunchFile(List<int> bytes, String fileName) async {
+Future<void> saveAndLaunchFileweb(List<int> bytes, String fileName) async {
   AnchorElement(
       href:
       'data:application/octet-stream;charset=utf-16le;base64,${base64.encode(bytes)}')

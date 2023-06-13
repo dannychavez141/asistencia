@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:open_file/open_file.dart' as open_file;
 import 'package:path_provider/path_provider.dart' as path_provider;
 // ignore: depend_on_referenced_packages
@@ -18,6 +17,7 @@ Future<void> saveAndLaunchFile(List<int> bytes, String fileName) async {
     path = directory.path;
   } else {
     path = await PathProviderPlatform.instance.getApplicationSupportPath();
+
   }
   final File file =
   File(Platform.isWindows ? '$path\\$fileName' : '$path/$fileName');
@@ -33,5 +33,6 @@ Future<void> saveAndLaunchFile(List<int> bytes, String fileName) async {
     await Process.run('xdg-open', <String>['$path/$fileName'],
         runInShell: true);
   }
+  print("aca no toy");
   print(<String>['$path/$fileName']);
 }

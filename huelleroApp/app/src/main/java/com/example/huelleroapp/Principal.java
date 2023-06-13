@@ -317,46 +317,48 @@ public class Principal extends Activity
     //////////////////////////////////////////////////////////////////////////////////////////////
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void captura1() {
-        // Toast.makeText(getApplicationContext(), "Por favor poner su dedo en el Huellero..", Toast.LENGTH_SHORT).show();
-        mTextViewResult.setText("Por favor poner su dedo en el Huellero..");
-        //  try {
-        long result;
-        imagen1 = new byte[mImageWidth * mImageHeight];
+        try {
+            mTextViewResult.setText("Por favor poner su dedo en el Huellero..");
+            //  try {
+            long result;
+            imagen1 = new byte[mImageWidth * mImageHeight];
 
-        result = sgfplib.GetImageEx(imagen1, IMAGE_CAPTURE_TIMEOUT_MS, IMAGE_CAPTURE_QUALITY);
+            result = sgfplib.GetImageEx(imagen1, IMAGE_CAPTURE_TIMEOUT_MS, IMAGE_CAPTURE_QUALITY);
 
-        if (result == SGFDxErrorCode.SGFDX_ERROR_NONE) {
-            DumpFile("capture2016.raw", imagen1);
-            mTextViewResult.setText("Huella  capturada\n");
-            mImageViewFingerprint.setImageBitmap(this.toGrayscale(imagen1));
+            if (result == SGFDxErrorCode.SGFDX_ERROR_NONE) {
+                DumpFile("capture2016.raw", imagen1);
+                mTextViewResult.setText("Huella  capturada\n");
+                mImageViewFingerprint.setImageBitmap(this.toGrayscale(imagen1));
 
+            }
+            int pos = comparar();
+            if (pos > -1) {
+                Toast.makeText(getApplicationContext(), "Identificado", Toast.LENGTH_LONG).show();
+                alumno = alumnos[pos];
+                llenaralumno(alumno);
+            } else {
+                Toast.makeText(getApplicationContext(), "Alumno no identificado", Toast.LENGTH_LONG).show();
+                Sonidoerror.start();
+                Handler handler = new Handler(Looper.getMainLooper());
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Bitmap logo = BitmapFactory.decodeResource(getResources(), R.drawable.unu);
+                        mImageViewFingerprint.setImageBitmap(logo);
+                        //    Toast.makeText(getApplicationContext(), "Por favor poner su dedo en el Huellero..", Toast.LENGTH_LONG).show();
+                        txtdatosalu.setText("______________");
+                        mTextViewResult.setText("--------------");
+                    }
+                }, 3000);
+            }
+
+
+            return;
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-        int pos = comparar();
-        if (pos > -1) {
-            Toast.makeText(getApplicationContext(), "Identificado", Toast.LENGTH_LONG).show();
-            alumno = alumnos[pos];
-            llenaralumno(alumno);
-        } else {
-            Toast.makeText(getApplicationContext(), "Alumno no identificado", Toast.LENGTH_LONG).show();
-            Sonidoerror.start();
-            Handler handler = new Handler(Looper.getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Bitmap logo = BitmapFactory.decodeResource(getResources(), R.drawable.unu);
-                    mImageViewFingerprint.setImageBitmap(logo);
-                    //    Toast.makeText(getApplicationContext(), "Por favor poner su dedo en el Huellero..", Toast.LENGTH_LONG).show();
-                    txtdatosalu.setText("______________");
-                    mTextViewResult.setText("--------------");
-                }
-            }, 3000);
-        }
+        //
 
-       /* }catch (Exception e){
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-            Log.i("appLog",e.getMessage());
-        }*/
-        return;
     }
 
     public void llenaralumno(cDocente alumno) {
