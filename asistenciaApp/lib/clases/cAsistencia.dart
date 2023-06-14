@@ -1,11 +1,9 @@
 import 'dart:convert';
 import 'dart:async';
-import 'package:app/modelos/Manio.dart';
 import 'package:app/modelos/mAsistencia.dart';
 import 'package:http/http.dart' as http;
 import 'package:app/clases/Conexion.dart';
 import 'package:app/modelos/mDocente.dart';
-import 'package:app/modelos/Musuario.dart';
 
 class cAsistencia {
   Conexion conexion = new Conexion();
@@ -30,7 +28,8 @@ class cAsistencia {
             item["nomDoc"],
             item["apepaDoc"],
             item["apemaDoc"],
-            item["foto"],
+           // item["foto"],
+            "",
             item["est"],
             "",
             "",

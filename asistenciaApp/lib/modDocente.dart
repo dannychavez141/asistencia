@@ -199,7 +199,7 @@ class _modDocenteState extends State<modDocente> {
           ],
         ),
       ),
-      Container(
+      /*Container(
         margin: EdgeInsets.all(0),
         child: Column(
           children: [
@@ -213,7 +213,7 @@ class _modDocenteState extends State<modDocente> {
           ],
         ),
       ),
-      Container(margin: EdgeInsets.all(0), child: foto()),
+      //Container(margin: EdgeInsets.all(0), child: foto())*/
       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         this
             .componentes

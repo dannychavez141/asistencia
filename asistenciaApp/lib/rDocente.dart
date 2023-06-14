@@ -170,7 +170,7 @@ class _rdocenteState extends State<rdocente> {
           ],
         ),
       ),
-      Container(
+      /*Container(
         margin: EdgeInsets.all(0),
         child: Column(
           children: [
@@ -183,8 +183,8 @@ class _rdocenteState extends State<rdocente> {
             ])
           ],
         ),
-      ),
-      Container(margin: EdgeInsets.all(0), child: foto()),
+      )*/
+     // Container(margin: EdgeInsets.all(0), child: foto()),
       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         this
             .componentes

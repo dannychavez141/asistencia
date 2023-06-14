@@ -205,27 +205,32 @@ class _vDocentesState extends State<vDocentes> {
                       detallerAlu(ele);
                     });
                   },
-                  child: Image.memory(img))),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(3),
+                        child: Text(ele.dniDoc),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(3),
+                      )
+                    ],
+                  )
+                  //Image.memory(img)
+                ) ),
           Container(
               margin: const EdgeInsets.all(4),
               width: MediaQuery.of(context).size.width * 0.40,
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(3),
-                    child: Text(ele.dniDoc),
-                  ),
+
                   Padding(
                     padding: const EdgeInsets.all(3),
                     child: Text(ele.nomDoc),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(3),
-                    child: Text(ele.apepaDoc),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(3),
-                    child: Text(ele.apemaDoc),
+                    child: Text(ele.apepaDoc+" "+ele.apemaDoc),
                   ),
                   const Padding(
                     padding: EdgeInsets.all(3),
