@@ -11,7 +11,7 @@ class mConexion {
     private $host = "localhost";
     private $user = "root";
     private $pass = "";
-    private $database = "asistencia";
+    private $database = "asistenciaunu";
     private $bd;
 
     function __construct() {
