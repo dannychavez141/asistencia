@@ -3,13 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 21-06-2023 a las 17:00:44
--- Versión del servidor: 8.0.30
--- Versión de PHP: 7.4.33
+-- Tiempo de generación: 26-06-2023 a las 01:31:15
+-- Versión del servidor: 5.7.24
+-- Versión de PHP: 7.4.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "-05:00";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -31,10 +31,10 @@ USE `asistenciaunu`;
 
 DROP TABLE IF EXISTS `actividad`;
 CREATE TABLE `actividad` (
-  `idAct` int NOT NULL,
-  `idDoc` int DEFAULT NULL,
-  `idTipAct` int DEFAULT NULL,
-  `idLug` int DEFAULT NULL,
+  `idAct` int(11) NOT NULL,
+  `idDoc` int(11) DEFAULT NULL,
+  `idTipAct` int(11) DEFAULT NULL,
+  `idLug` int(11) DEFAULT NULL,
   `descrAct` varchar(80) DEFAULT NULL,
   `hIniAct` date DEFAULT NULL,
   `hFinAct` date DEFAULT NULL
@@ -48,12 +48,12 @@ CREATE TABLE `actividad` (
 
 DROP TABLE IF EXISTS `asistencia`;
 CREATE TABLE `asistencia` (
-  `idAsist` int NOT NULL,
+  `idAsist` int(11) NOT NULL,
   `idDoc` varchar(10) NOT NULL,
   `fechaAsist` date DEFAULT NULL,
   `inAsist` time DEFAULT NULL,
   `outAsist` time DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `asistencia`
@@ -83,12 +83,12 @@ INSERT INTO `asistencia` (`idAsist`, `idDoc`, `fechaAsist`, `inAsist`, `outAsist
 
 DROP TABLE IF EXISTS `asistenciaactividad`;
 CREATE TABLE `asistenciaactividad` (
-  `idasisActi` int NOT NULL,
-  `idTipAsis` int DEFAULT NULL,
-  `idAct` int DEFAULT NULL,
+  `idasisActi` int(11) NOT NULL,
+  `idTipAsis` int(11) DEFAULT NULL,
+  `idAct` int(11) DEFAULT NULL,
   `horaAct` varchar(45) DEFAULT NULL,
-  `latAsisActi` varchar(45) DEFAULT NULL,
-  `altAsisActi` varchar(45) DEFAULT NULL
+  `altAsisActi` varchar(45) DEFAULT NULL,
+  `latAsisActi` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -99,9 +99,9 @@ CREATE TABLE `asistenciaactividad` (
 
 DROP TABLE IF EXISTS `dia`;
 CREATE TABLE `dia` (
-  `idDia` int NOT NULL,
+  `idDia` int(11) NOT NULL,
   `descrDia` varchar(45) DEFAULT NULL,
-  `idEst` int DEFAULT NULL
+  `idEst` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -125,7 +125,7 @@ INSERT INTO `dia` (`idDia`, `descrDia`, `idEst`) VALUES
 
 DROP TABLE IF EXISTS `docente`;
 CREATE TABLE `docente` (
-  `idDoc` int NOT NULL,
+  `idDoc` int(11) NOT NULL,
   `dniDoc` varchar(10) NOT NULL,
   `claveDoc` varchar(45) DEFAULT NULL,
   `nomDoc` varchar(45) DEFAULT NULL,
@@ -135,9 +135,9 @@ CREATE TABLE `docente` (
   `est` varchar(11) DEFAULT '1',
   `imghuella1` longtext,
   `imghuella2` longtext,
-  `idgAcademico` int DEFAULT '1',
-  `idEsc` int DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  `idgAcademico` int(11) DEFAULT '1',
+  `idEsc` int(11) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `docente`
@@ -231,9 +231,9 @@ INSERT INTO `docente` (`idDoc`, `dniDoc`, `claveDoc`, `nomDoc`, `apepaDoc`, `ape
 
 DROP TABLE IF EXISTS `escuela`;
 CREATE TABLE `escuela` (
-  `idEsc` int NOT NULL,
+  `idEsc` int(11) NOT NULL,
   `descrEsc` varchar(100) DEFAULT NULL,
-  `estEsc` int DEFAULT '1'
+  `estEsc` int(11) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -252,9 +252,9 @@ INSERT INTO `escuela` (`idEsc`, `descrEsc`, `estEsc`) VALUES
 
 DROP TABLE IF EXISTS `estado`;
 CREATE TABLE `estado` (
-  `idEst` int NOT NULL,
+  `idEst` int(11) NOT NULL,
   `descrEst` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `estado`
@@ -272,10 +272,10 @@ INSERT INTO `estado` (`idEst`, `descrEst`) VALUES
 
 DROP TABLE IF EXISTS `gradoacademico`;
 CREATE TABLE `gradoacademico` (
-  `idgAcademico` int NOT NULL,
+  `idgAcademico` int(11) NOT NULL,
   `descrAcademico` varchar(45) NOT NULL,
   `abrevAcademico` varchar(45) DEFAULT NULL,
-  `idEst` int DEFAULT NULL
+  `idEst` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -297,12 +297,12 @@ INSERT INTO `gradoacademico` (`idgAcademico`, `descrAcademico`, `abrevAcademico`
 
 DROP TABLE IF EXISTS `horario`;
 CREATE TABLE `horario` (
-  `idHor` int NOT NULL,
-  `idDoc` int NOT NULL,
-  `idDia` int NOT NULL,
+  `idHor` int(11) NOT NULL,
+  `idDoc` int(11) NOT NULL,
+  `idDia` int(11) NOT NULL,
   `hEntrada` time DEFAULT NULL,
   `hSalida` time DEFAULT NULL,
-  `idEst` int DEFAULT NULL
+  `idEst` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -320,14 +320,21 @@ INSERT INTO `horario` (`idHor`, `idDoc`, `idDia`, `hEntrada`, `hSalida`, `idEst`
 
 DROP TABLE IF EXISTS `lugar`;
 CREATE TABLE `lugar` (
-  `idLug` int NOT NULL,
+  `idLug` int(11) NOT NULL,
   `descrLug` varchar(100) DEFAULT NULL,
   `dirLug` varchar(100) DEFAULT NULL,
   `telfLug` varchar(12) DEFAULT NULL,
   `altLug` double DEFAULT NULL,
   `latLug` double DEFAULT NULL,
-  `estLug` int DEFAULT NULL
+  `estLug` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `lugar`
+--
+
+INSERT INTO `lugar` (`idLug`, `descrLug`, `dirLug`, `telfLug`, `altLug`, `latLug`, `estLug`) VALUES
+(1, 'CASA DAHE', 'JR. POMAROSA MZ F LT3', '991268866', -8.3633243, -74.5628951, NULL);
 
 -- --------------------------------------------------------
 
@@ -337,9 +344,9 @@ CREATE TABLE `lugar` (
 
 DROP TABLE IF EXISTS `tipoactividad`;
 CREATE TABLE `tipoactividad` (
-  `idTipAct` int NOT NULL,
+  `idTipAct` int(11) NOT NULL,
   `descrTipAct` varchar(45) DEFAULT NULL,
-  `estTipAct` int DEFAULT NULL
+  `estTipAct` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -350,7 +357,7 @@ CREATE TABLE `tipoactividad` (
 
 DROP TABLE IF EXISTS `tipoasistencia`;
 CREATE TABLE `tipoasistencia` (
-  `idTipAsis` int NOT NULL,
+  `idTipAsis` int(11) NOT NULL,
   `descTipAsis` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -370,15 +377,15 @@ INSERT INTO `tipoasistencia` (`idTipAsis`, `descTipAsis`) VALUES
 
 DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
-  `idUsu` int NOT NULL,
+  `idUsu` int(11) NOT NULL,
   `dniUsu` varchar(8) DEFAULT NULL,
   `nombUsu` varchar(45) DEFAULT NULL,
   `apepaUsu` varchar(45) DEFAULT NULL,
   `apemaUsu` varchar(45) DEFAULT NULL,
   `loginUsu` varchar(45) DEFAULT NULL,
   `passUsu` varchar(45) DEFAULT NULL,
-  `estUsu` int DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  `estUsu` int(11) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `usuario`
@@ -480,79 +487,79 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `actividad`
 --
 ALTER TABLE `actividad`
-  MODIFY `idAct` int NOT NULL AUTO_INCREMENT;
+  MODIFY `idAct` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `asistencia`
 --
 ALTER TABLE `asistencia`
-  MODIFY `idAsist` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `idAsist` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `asistenciaactividad`
 --
 ALTER TABLE `asistenciaactividad`
-  MODIFY `idasisActi` int NOT NULL AUTO_INCREMENT;
+  MODIFY `idasisActi` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `dia`
 --
 ALTER TABLE `dia`
-  MODIFY `idDia` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idDia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `docente`
 --
 ALTER TABLE `docente`
-  MODIFY `idDoc` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `idDoc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT de la tabla `escuela`
 --
 ALTER TABLE `escuela`
-  MODIFY `idEsc` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idEsc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `estado`
 --
 ALTER TABLE `estado`
-  MODIFY `idEst` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idEst` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `gradoacademico`
 --
 ALTER TABLE `gradoacademico`
-  MODIFY `idgAcademico` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idgAcademico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `horario`
 --
 ALTER TABLE `horario`
-  MODIFY `idHor` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idHor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `lugar`
 --
 ALTER TABLE `lugar`
-  MODIFY `idLug` int NOT NULL AUTO_INCREMENT;
+  MODIFY `idLug` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `tipoactividad`
 --
 ALTER TABLE `tipoactividad`
-  MODIFY `idTipAct` int NOT NULL AUTO_INCREMENT;
+  MODIFY `idTipAct` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `tipoasistencia`
 --
 ALTER TABLE `tipoasistencia`
-  MODIFY `idTipAsis` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idTipAsis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idUsu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
