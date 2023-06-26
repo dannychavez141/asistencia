@@ -2,8 +2,8 @@ import 'package:app/vAsistencias.dart';
 import 'package:app/clases/sesion.dart';
 import 'package:app/main.dart';
 import 'package:app/principal.dart';
+import 'package:app/vLugares.dart';
 import 'package:app/viewDocente/asistDocente.dart';
-import 'package:app/viewDocente/modHorario.dart';
 import 'package:app/viewDocente/vHorario.dart';
 import 'package:flutter/material.dart';
 import '../vDocentes.dart';
@@ -69,7 +69,8 @@ class Vistas {
     return Column(children: [
       elementoMenu("INICIO", "", "principal", this.usuario),
       elementoMenu("ASISTENCIAS", "", "asisDoc", this.usuario),
-      elementoMenu("HORARIOS", "", "horarios", this.usuario)
+      elementoMenu("HORARIOS", "", "horarios", this.usuario),
+      elementoMenu("ACTIVIDADES", "", "actiDoc", this.usuario)
     ]);
   }
 
@@ -77,7 +78,9 @@ class Vistas {
     return Column(children: [
       elementoMenu("INICIO", "", "principal", this.usuario),
       elementoMenu("DOCENTES", "", "docentes", this.usuario),
-      elementoMenu("ASISTENCIAS", "", "asistencias", this.usuario)
+      elementoMenu("ASISTENCIAS", "", "asistencias", this.usuario),
+      elementoMenu("LUGARES", "", "lugares", this.usuario),
+      elementoMenu("ACTIVIDADES", "", "actividades", this.usuario)
     ]);
   }
 
@@ -173,6 +176,18 @@ class Vistas {
             context,
             MaterialPageRoute(
                 builder: (context) => vHorario(usuario: usuario)));
+        break;
+      case "actividades":
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => vHorario(usuario: usuario)));
+        break;
+      case "lugares":
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => vLugares(usuario: usuario)));
         break;
       case "cerrar":
         sesion ses = sesion();

@@ -8,8 +8,8 @@ class cLugar {
         $this->metodos = new mMetodos();
     }
 
-    public function ver() {
-        $sql = "SELECT * FROM lugar";
+    public function ver($datos) {
+        $sql = "SELECT * FROM lugar where descrLug like %'{$datos['descrLug']}'%;";
         $resp = $this->metodos->consultar($sql);
         return $resp;
     }

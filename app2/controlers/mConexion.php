@@ -19,6 +19,8 @@ class mConexion {
         if (mysqli_connect_errno($this->bd)) {
             echo '{"error":{"text" : "' . mysqli_connect_error($this->bd) . "}}";
             exit();
+        }else{
+           // echo '{"success":{"text" : "conexion con exito"}}"';
         };
     }
 
