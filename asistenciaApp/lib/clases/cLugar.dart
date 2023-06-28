@@ -71,7 +71,7 @@ class cLugar {
 
   Future<List<mLugar>> getLugares(String busq) async {
     String api = conexion.url + "apis/apiLugar.php?ac=ver&descrLug=" + busq;
-    //print(api);
+    print(api);
     var uri = Uri.parse(api);
     final resp = await http.get(uri);
     List<mLugar> datos = [];

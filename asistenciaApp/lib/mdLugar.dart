@@ -11,41 +11,50 @@ import 'package:app/clases/cDocente.dart';
 import 'package:app/modelos/mDocente.dart';
 import 'package:app/clases/vistas.dart';
 import 'package:flutter/services.dart';
-import 'dart:io' show File;
+import 'dart:io' show File, Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'modelos/Musuario.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter/services.dart';
 
-class rLugar extends StatefulWidget {
+class mdLugar extends StatefulWidget {
   final Musuario usuario;
+  final mLugar mod;
 
-  const rLugar({super.key, required this.usuario});
+  const mdLugar({super.key, required this.usuario, required this.mod});
 
   @override
-  State<rLugar> createState() => _rLugarState();
+  State<mdLugar> createState() => _mdLugarState();
 }
 
-class _rLugarState extends State<rLugar> {
+class _mdLugarState extends State<mdLugar> {
   TextEditingController txtdescrLug = TextEditingController();
   TextEditingController txtdirLug = TextEditingController();
   TextEditingController txttelfLug = TextEditingController();
-  TextEditingController txtlatLug = TextEditingController();
   TextEditingController txtaltLug = TextEditingController();
-  late Future<List<mDocente>> ldocentes;
+  TextEditingController txtlatLug = TextEditingController();
+  String est = "1";
   cLugar metodos = new cLugar();
   sesion ses = sesion();
-
+String estado="ACTIVO";
   late Vistas componentes;
 
   @override
   void initState() {
+    txtdescrLug.text = widget.mod.descrLug;
+    txtdirLug.text = widget.mod.dirLug;
+    txttelfLug.text = widget.mod.telfLug;
+    txtaltLug.text = widget.mod.altLug;
+    txtlatLug.text = widget.mod.latLug;
+    est = widget.mod.estLug;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     componentes = new Vistas("LUGARES", context, widget.usuario);
+
     return Scaffold(
         drawer: componentes.menu(widget.usuario.tipoUsu),
         appBar: AppBar(title: Text(componentes.titulopage)),
@@ -57,37 +66,39 @@ class _rLugarState extends State<rLugar> {
   }
 
   Widget pantalla(context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          margin: const EdgeInsets.all(6),
-          child: const Text(
-            "REGISTRANDO LUGARES",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-          ),
-        ),
-        Container(width: 350, child: registro()),
-      ],
-    );
+    return SizedBox(
+      width: MediaQuery.of(context).size.width*0.90,
+        height: MediaQuery.of(context).size.height*0.87,
+        child: new SingleChildScrollView(child: registro()));
   }
 
   Widget registro() {
+    const List<String> list = <String>['ACTIVO', 'INACTIVO'];
+    print(widget.mod.estLug+"ACA TOY");
+    estado=list[(int.parse(widget.mod.estLug)-1)];
     return Column(children: [
       Container(
         child: Column(
           children: [
-            Text("Descripción del Lugar:", textAlign: TextAlign.right),
+            Container(
+              margin: const EdgeInsets.all(6),
+              child: const Text(
+                "MODIFICANDO LUGAR",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+            ),
+            Text("Descripción  del Lugar:", textAlign: TextAlign.right),
             TextFormField(
-              decoration:
-                  InputDecoration(hintText: "Escribe Descripción del Lugar"),
+              decoration: InputDecoration(hintText: "Escribe Descripción  del Lugar"),
               controller: txtdescrLug,
               keyboardType: TextInputType.text,
               maxLength: 100,
               validator: (value) {
                 if (value != "") {
-                  return 'Escribe Descripción del Lugar';
+                  return 'Escribe Descripción  del Lugar';
                 }
                 return null;
+                return 'Ingrese el numero';
               },
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.singleLineFormatter
@@ -100,16 +111,15 @@ class _rLugarState extends State<rLugar> {
         margin: EdgeInsets.all(0),
         child: Column(
           children: [
-            Text("Direccion del Lugar:", textAlign: TextAlign.right),
+            Text("Dirección del Lugar:", textAlign: TextAlign.right),
             TextFormField(
-                decoration:
-                    InputDecoration(hintText: "Escribe Direccion del Lugar"),
+                decoration: InputDecoration(hintText: "Dirección del Lugar"),
                 controller: txtdirLug,
                 keyboardType: TextInputType.text,
-                maxLength: 100,
+                maxLength: 60,
                 validator: (value) {
                   if (value != "") {
-                    return 'Escribe Direccion del Lugar';
+                    return 'Escribe Dirección del Lugar';
                   }
                   return null;
                 },
@@ -125,8 +135,7 @@ class _rLugarState extends State<rLugar> {
           children: [
             Text("Telefono del Lugar:", textAlign: TextAlign.right),
             TextFormField(
-                decoration:
-                    InputDecoration(hintText: "Escribe Telefono del Lugar"),
+                decoration: InputDecoration(hintText: "Telefono del Lugar"),
                 controller: txttelfLug,
                 keyboardType: TextInputType.number,
                 maxLength: 12,
@@ -137,7 +146,7 @@ class _rLugarState extends State<rLugar> {
                   return null;
                 },
                 inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.singleLineFormatter
+                  FilteringTextInputFormatter.digitsOnly
                 ])
           ],
         ),
@@ -152,10 +161,33 @@ class _rLugarState extends State<rLugar> {
                     InputDecoration(hintText: "Escribe Altitud del Lugar"),
                 controller: txtaltLug,
                 keyboardType: TextInputType.number,
-                maxLength: 40,
+                maxLength: 30,
                 validator: (value) {
                   if (value != "") {
                     return 'Escribe Altitud del Lugar';
+                  }
+                  return null;
+                },
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly
+                ])
+          ],
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.all(0),
+        child: Column(
+          children: [
+            Text("Latitud del Lugar:", textAlign: TextAlign.right),
+            TextFormField(
+                decoration: InputDecoration(
+                    hintText: "Escribe Latitud del Lugar"),
+                controller: txtlatLug,
+                keyboardType: TextInputType.text,
+                maxLength: 20,
+                validator: (value) {
+                  if (value != "") {
+                    return 'Escribe Latitud del Lugar';
                   }
                   return null;
                 },
@@ -169,36 +201,49 @@ class _rLugarState extends State<rLugar> {
         margin: EdgeInsets.all(0),
         child: Column(
           children: [
-            Text("Latitud del Lugar:", textAlign: TextAlign.right),
-            TextFormField(
-                decoration:
-                    InputDecoration(hintText: "Escribe Latitud del Lugar"),
-                controller: txtlatLug,
-                keyboardType: TextInputType.number,
-                maxLength: 40,
-                validator: (value) {
-                  if (value != "") {
-                    return 'Escribe Latitud del Lugar';
+            Text("Estado del Lugar:", textAlign: TextAlign.right),
+            DropdownButton<String>(
+              value: estado,
+              icon: const Icon(Icons.arrow_downward),
+              elevation: 16,
+              style: const TextStyle(color: Colors.deepPurple),
+              underline: Container(
+                height: 2,
+                color: Colors.deepPurpleAccent,
+              ),
+              onChanged: (String? value) {
+                // This is called when the user selects an item.
+                setState(() {
+                  estado = value!;
+                 for (var i = 0; i < list.length; i++) {
+                    if(list[i]==estado){
+                      widget.mod.estLug=(i+1).toString();
+                      print(widget.mod.estLug);
+                    }
                   }
-                  return null;
-                },
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.singleLineFormatter
-                ])
-          ],
+                });
+              },
+              items: list.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            )],
         ),
       ),
       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         this
             .componentes
-            .btn(100, 50, 200, "GUARDAR", pAccion: () => confirmar()),
+            .btn(100, 50, 200, "MODIFICAR", pAccion: () => confirmar()),
         this.componentes.btn(200, 0, 0, "CANCELAR", pAccion: () => cerrar())
       ])
     ]);
   }
 
-  salvarDatos(mLugar mod) async {
-    String resp = await metodos.rLugar(mod);
+  salvarDatos(mLugar reg) async {
+
+    String resp = await metodos.mdLugar(reg);
     final respjson = jsonDecode(resp);
     //  print(resp);
     var fondo;
@@ -232,13 +277,8 @@ class _rLugarState extends State<rLugar> {
     String telfLug = txttelfLug.text;
     String altLug = txtaltLug.text;
     String latLug = txtlatLug.text;
-
-    if (descrLug != "" &&
-        dirLug != "" &&
-        telfLug != "" &&
-        altLug != "" &&
-        latLug != "") {
-      mLugar mod = mLugar("", descrLug, dirLug, telfLug, altLug, latLug, "1");
+    if (descrLug != "" && dirLug != "" && telfLug != "" && altLug != "" && latLug != "") {
+      mLugar reg = mLugar(widget.mod.idLug, descrLug, dirLug, telfLug, altLug, latLug, widget.mod.estLug);
       showDialog(
           context: context,
           builder: (buildcontext) {
@@ -261,14 +301,15 @@ class _rLugarState extends State<rLugar> {
                     ])
               ]),
               content: Container(
-                  child: Text("¿DESEAS REGISTRAR EL LUGAR?",
+                  child: Text("¿DESEAS MODIFICAR EL LUGAR?",
                       style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,
                           fontSize: 14))),
               actions: <Widget>[
-                this.componentes.btn(0, 0, 250, "REGISTRAR",
-                    pAccion: () => salvarDatos(mod)),
+                this
+                    .componentes
+                    .btn(0, 0, 250, "MODIFICAR", pAccion: () => salvarDatos(reg)),
                 this.componentes.btn(250, 0, 0, "CANCELAR",
                     pAccion: () => {Navigator.of(context).pop()})
               ],

@@ -448,7 +448,6 @@ class _vDocentesState extends State<vDocentes> {
 
   Widget horas(mDocente doc) {
     Future<List<mHorario>> horario = cHora.getHorario(doc.idDoc);
-
     return FutureBuilder<List<mHorario>>(
       future: horario, // a previously-obtained Future<String> or null
       builder: (BuildContext context, AsyncSnapshot<List<mHorario>> snapshot) {

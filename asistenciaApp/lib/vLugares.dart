@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:app/clases/cHorario.dart';
 import 'package:app/clases/cLugar.dart';
 import 'package:app/clases/sesion.dart';
+import 'package:app/mdLugar.dart';
 import 'package:app/modelos/mHorario.dart';
 import 'package:app/modelos/mLugar.dart';
 import 'package:app/rDocente.dart';
@@ -93,6 +94,24 @@ class _vLugaresState extends State<vLugares> {
           margin: const EdgeInsets.all(10),
           child: const Text("Lista de Lugares:"),
         )),
+        Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Container(
+                  margin: const EdgeInsets.all(4),
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  child: Text("Nombre")),
+              Container(
+                  margin: const EdgeInsets.all(4),
+                  width: MediaQuery.of(context).size.width * 0.40,
+                  child: Text("Direccion/Telefono")),
+              Container(
+                  margin: const EdgeInsets.all(4),
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  child: Text("Acciones"))
+            ]),
         SizedBox(
             height: MediaQuery.of(context).size.height * 0.66,
             child: listaDatos(context)),
@@ -136,7 +155,7 @@ class _vLugaresState extends State<vLugares> {
                 textStyle: const TextStyle(fontSize: 20),
               ),
               onPressed: () => setState(() {
-                datos = metodos.getLugares(cBusq.text);
+                    datos = metodos.getLugares(cBusq.text);
                   }),
               child: const Text("Buscar",
                   style: TextStyle(
@@ -186,8 +205,7 @@ class _vLugaresState extends State<vLugares> {
               child: GestureDetector(
                   onTap: () {
                     setState(() {
-                      // print("por que me tocas papi"+ele.dni);
-                    //detallerAlu(ele);
+                      detaller(ele);
                     });
                   },
                   child: Column(
@@ -202,13 +220,12 @@ class _vLugaresState extends State<vLugares> {
                     ],
                   )
                   //Image.memory(img)
-                ) ),
+                  )),
           Container(
               margin: const EdgeInsets.all(4),
               width: MediaQuery.of(context).size.width * 0.40,
               child: Column(
                 children: [
-
                   Padding(
                     padding: const EdgeInsets.all(3),
                     child: Text(ele.dirLug),
@@ -258,11 +275,11 @@ class _vLugaresState extends State<vLugares> {
                 textStyle: const TextStyle(fontSize: 20),
               ),
               onPressed: () {
-               /* Navigator.push(
+                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            modDocente(usuario: widget.usuario, mdoc: doc)));*/
+                            mdLugar(usuario: widget.usuario, mod: ele)));
               },
               child: const Text("Modificar",
                   style: TextStyle(
@@ -274,5 +291,45 @@ class _vLugaresState extends State<vLugares> {
     );
   }
 
-
+  void detaller(mLugar ele) {
+    showDialog(
+        context: context,
+        builder: (buildcontext) {
+          return AlertDialog(
+            insetPadding: EdgeInsets.all(0),
+            title: Text(ele.descrLug,textAlign: TextAlign.center),
+            content: Container( height: 300,
+              child: Column(children: [
+                Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text("Direccion:\n" + ele.dirLug,textAlign: TextAlign.center),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text("Teleforno:\n" + ele.telfLug,textAlign: TextAlign.center),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text("Altitud:\n" + ele.altLug,textAlign: TextAlign.center),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text("Latitud:\n" + ele.latLug,textAlign: TextAlign.center),
+                )
+              ]),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text(
+                  "CERRAR",
+                  style: TextStyle(color: Colors.black),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+  }
 }

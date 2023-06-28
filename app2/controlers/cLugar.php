@@ -9,7 +9,7 @@ class cLugar {
     }
 
     public function ver($datos) {
-        $sql = "SELECT * FROM lugar where descrLug like %'{$datos['descrLug']}'%;";
+        $sql = "SELECT * FROM lugar where descrLug like '%{$datos['descrLug']}%';";
         $resp = $this->metodos->consultar($sql);
         return $resp;
     }
@@ -40,6 +40,7 @@ VALUES
                 . "`latLug`='{$datos['latLug']}',"
                 . "`estLug`='{$datos['estLug']}'"
                 . "WHERE `idLug`='{$datos['idLug']}'";
+       // echo $sql;
         $resp = $this->metodos->ejecutar($sql, "MODIFICADO CORRECTAMENTE");
         return $resp;
     }

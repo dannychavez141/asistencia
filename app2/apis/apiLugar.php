@@ -24,13 +24,11 @@ switch ($control) {
 
     case 'ver':
         //   print_r($model);
-
         $resp = $modelo->ver($_GET);
         print_r($resp);
         break;
     case 'mod':
-
-        $resp = $modelo->eliminar($model);
+        $resp = $modelo->modificar($model);
         print_r($resp);
         break;
     case 'reg':
