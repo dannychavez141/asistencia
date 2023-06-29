@@ -4,6 +4,7 @@ import 'package:app/main.dart';
 import 'package:app/principal.dart';
 import 'package:app/vLugares.dart';
 import 'package:app/viewDocente/asistDocente.dart';
+import 'package:app/viewDocente/vActividadDoc.dart';
 import 'package:app/viewDocente/vHorario.dart';
 import 'package:flutter/material.dart';
 import '../vDocentes.dart';
@@ -189,6 +190,13 @@ class Vistas {
             MaterialPageRoute(
                 builder: (context) => vLugares(usuario: usuario)));
         break;
+      case "actiDoc":
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => vActividadDoc(usuario: usuario)));
+        break;
+
       case "cerrar":
         sesion ses = sesion();
         ses.cerrarSesion();

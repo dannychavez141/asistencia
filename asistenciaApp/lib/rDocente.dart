@@ -234,7 +234,7 @@ class _rdocenteState extends State<rdocente> {
     }
   }
 
-  _getImg(String modo) async {
+  /*_getImg(String modo) async {
     late XFile pickedFile;
     try {
       if (modo == "galeria") {
@@ -258,9 +258,9 @@ class _rdocenteState extends State<rdocente> {
     }
     // foto();
 //print(imgDoc);
-  }
+  }*/
 
-  Widget foto() {
+  /*Widget foto() {
     if (this.elegido == true) {
       if (kIsWeb) {
         return Image.memory(this.imgDoc,
@@ -273,7 +273,7 @@ class _rdocenteState extends State<rdocente> {
       return Image.memory(this.imgDoc,
           width: 100, height: 100, fit: BoxFit.cover);
     }
-  }
+  }*/
 
   void confirmar() {
     String dni = txtDni.text;

@@ -49,5 +49,9 @@ VALUES
         $resp = $this->metodos->ejecutar($sql, "MODIFICADO CORRECTAMENTE");
         return $resp;
     }
-
+public function verTipo() {
+        $sql = "SELECT * FROM tipoactividad;";
+        $resp = $this->metodos->consultar($sql);
+        return $resp;
+    }
 }

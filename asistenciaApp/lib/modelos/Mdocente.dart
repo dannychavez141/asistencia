@@ -26,6 +26,8 @@ class mDocente {
       this.idgAcademico,
       this.gAcademico);
 
+
+
   @override
   String toString() {
     return 'Mdocente{dniDoc: $dniDoc, claveDoc: $claveDoc, nomDoc: $nomDoc, apepaDoc: $apepaDoc, apemaDoc: $apemaDoc, foto: $foto, est: $est, imghuella1: $imghuella1, imghuella2: $imghuella2, idgAcademico: $idgAcademico}';
