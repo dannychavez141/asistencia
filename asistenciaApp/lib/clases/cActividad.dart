@@ -27,7 +27,7 @@ class cActividad {
       final datosjson = jsonDecode(body);
       //print(datosjson[0]);
       for (var item in datosjson) {
-        print(item);
+        //print(item);
         final docente = mDocente(
             item["idDoc"],
             item["dniDoc"],
@@ -44,7 +44,7 @@ class cActividad {
         final tipoAct = mTipoAct(item["idTipAct"], item["descrTipAct"], item["estTipAct"]);
         final lugar = mLugar(item["idLug"], item["descrLug"], item["dirLug"], item["telfLug"], item["altLug"], item["latLug"], item["estLug"]);
         datos.add(mActividad(
-            item["idHor"], docente, lugar,tipoAct,item["descrAct"],item["fechaAct"], item["hIniAct"], item["hFinAct"]));
+            item["idAct"], docente, lugar,tipoAct,item["descrAct"],item["fechaAct"], item["hIniAct"], item["hFinAct"]));
       }
       return datos;
     } else {
@@ -63,6 +63,7 @@ class cActividad {
       'idLug': mod.lugar.idLug,
       'hIniAct': mod.hIniAct,
       'hFinAct': mod.hFinAct,
+      'descrAct': mod.descrAct,
       'fechaAct':mod.fechaAct
     };
     String jsonBody = json.encode(body);
@@ -100,13 +101,17 @@ class cActividad {
     return responseBody;
   }
   //funcion eliminar horario
-  Future<String> eliminar(mHorario mod) async {
+  Future<String> marcar(mActividad mod,int idTipAsis,String horaAct,String altAsisActi,String latAsisActi) async {
     String api = conexion.url + "apis/apiHorario.php";
     Uri uri = Uri.parse(api);
     final headers = {'Content-Type': 'application/json'};
     Map<String, dynamic> body = {
-      'ac': 'eli',
-      'idHor': mod.idHor,
+      'ac': 'marcar',
+      'idAct': mod.idAct,
+      'idTipAsis': idTipAsis,
+      'horaAct': horaAct,
+      'altAsisActi': altAsisActi,
+      'latAsisActi': latAsisActi,
     };
     String jsonBody = json.encode(body);
     final encoding = Encoding.getByName('utf-8');
@@ -132,6 +137,7 @@ class cActividad {
       String body = resp.body;
       final datosjson = jsonDecode(body);
       //print(datosjson[0]);
+
       for (var item in datosjson) {
        // print(item);
         final tipoAct = mTipoAct(item["idTipAct"], item["descrTipAct"], item["estTipAct"]);

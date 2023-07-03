@@ -1,27 +1,19 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:typed_data';
 import 'package:app/clases/cActividad.dart';
-import 'package:app/clases/cHorario.dart';
 import 'package:app/clases/cLugar.dart';
 import 'package:app/clases/sesion.dart';
 import 'package:app/modelos/mActividad.dart';
-import 'package:app/modelos/mDia.dart';
-import 'package:app/modelos/mHorario.dart';
 import 'package:app/modelos/mLugar.dart';
 import 'package:app/modelos/mTipoAct.dart';
-import 'package:app/vDocentes.dart';
 import 'package:app/viewDocente/vActividadDoc.dart';
-import 'package:app/viewDocente/vHorario.dart';
 import 'package:flutter/material.dart';
-import 'package:app/clases/cDocente.dart';
 import 'package:app/modelos/mDocente.dart';
 import 'package:app/clases/vistas.dart';
 import 'package:flutter/services.dart';
 import 'dart:io' show File;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import '../modelos/Musuario.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
@@ -35,7 +27,7 @@ class rActividadDoc extends StatefulWidget {
 }
 
 class _rActividadDocState extends State<rActividadDoc> {
-  TextEditingController txtNomb = TextEditingController();
+  TextEditingController descrAct = TextEditingController();
   TextEditingController hentrada = TextEditingController();
   TextEditingController hsalida = TextEditingController();
   TextEditingController fActi = TextEditingController();
@@ -47,8 +39,9 @@ class _rActividadDocState extends State<rActividadDoc> {
   late Future<List<mLugar>> lugares;
   late mTipoAct tipo;
   late mLugar lugar;
-int idTipo=0;
-int idLugar=0;
+  int idTipo = 0;
+  int idLugar = 0;
+
   @override
   void initState() {
     super.initState();
@@ -86,42 +79,57 @@ int idLugar=0;
 
   Widget regDoc() {
     return Column(children: [
-    Container(
-    child: Column(
-    children: [
-        Text("DOCENTE:", textAlign: TextAlign.right,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-    Text(widget.usuario.dniUsu+"-"+widget.usuario.nombUsu+" "+widget.usuario.apepaUsu+" "+widget.usuario.apemaUsu, textAlign: TextAlign.right)
-    ],
-    ),
-    ),
       Container(
-        margin: EdgeInsets.fromLTRB(1,10,1,10),
         child: Column(
           children: [
-            Text("LUGAR DE ACTIVIDAD", textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+            Text("DOCENTE:",
+                textAlign: TextAlign.right,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+            Text(
+                widget.usuario.dniUsu +
+                    "-" +
+                    widget.usuario.nombUsu +
+                    " " +
+                    widget.usuario.apepaUsu +
+                    " " +
+                    widget.usuario.apemaUsu,
+                textAlign: TextAlign.right)
+          ],
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.fromLTRB(1, 10, 1, 10),
+        child: Column(
+          children: [
+            Text("LUGAR DE ACTIVIDAD",
+                textAlign: TextAlign.right,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
             getLugares(context)
           ],
         ),
       ),
       Container(
-        margin: EdgeInsets.fromLTRB(1,10,1,10),
+        margin: EdgeInsets.fromLTRB(1, 10, 1, 10),
         child: Column(
           children: [
-            Text("TIPO DE ACTIVIDAD", textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+            Text("TIPO DE ACTIVIDAD",
+                textAlign: TextAlign.right,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
             getTipos(context)
           ],
         ),
       ),
       Container(
-        margin: EdgeInsets.fromLTRB(1,10,1,10),
+        margin: EdgeInsets.fromLTRB(1, 10, 1, 10),
         child: Column(
           children: [
-            Text("DESCRIPCION DE ACTIVIDAD", textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+            Text("DESCRIPCION DE ACTIVIDAD",
+                textAlign: TextAlign.right,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
             TextFormField(
-                decoration:
-                InputDecoration(hintText: "Escribe Descripcion de Actividad"),
-                controller: txtNomb,
+                decoration: InputDecoration(
+                    hintText: "Escribe Descripcion de Actividad"),
+                controller: descrAct,
                 keyboardType: TextInputType.text,
                 maxLength: 100,
                 validator: (value) {
@@ -136,128 +144,151 @@ int idLugar=0;
           ],
         ),
       ),
-    Container(
-    margin: EdgeInsets.fromLTRB(1,10,1,10),
-    child: Column(
-    children: [
-    Text("FECHA DE ACTIVIDAD", textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-    TextField(
-    controller: fActi, //editing controller of this TextField
-    decoration: InputDecoration(
-    icon: Icon(Icons.calendar_month), //icon of text field
-    labelText: "Selecione fecha de Actividad." //label text of field
-    ),
-    readOnly: true, //set it true, so that user will not able to edit text
-    onTap: () async {
-    DateTime? pickedTime = await showDatePicker(context: context, initialDate: DateTime.now(),firstDate: DateTime(1950),lastDate: DateTime(2100));
-    if(pickedTime != null ){
-      //converting to DateTime so that we can further format on different pattern.
-    String formattedTime = DateFormat('yyyy-MM-dd').format(pickedTime);
-    print(formattedTime); //output 14:59:00
-    //DateFormat() is from intl package, you can format the time on any pattern you need.
+      Container(
+        margin: EdgeInsets.fromLTRB(1, 10, 1, 10),
+        child: Column(
+          children: [
+            Text("FECHA DE ACTIVIDAD",
+                textAlign: TextAlign.right,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+            TextField(
+              controller: fActi,
+              //editing controller of this TextField
+              decoration: InputDecoration(
+                  icon: Icon(Icons.calendar_month), //icon of text field
+                  labelText:
+                      "Selecione fecha de Actividad." //label text of field
+                  ),
+              readOnly: true,
+              //set it true, so that user will not able to edit text
+              onTap: () async {
+                DateTime? pickedTime = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(1950),
+                    lastDate: DateTime(2100));
+                if (pickedTime != null) {
+                  //converting to DateTime so that we can further format on different pattern.
+                  String formattedTime =
+                      DateFormat('yyyy-MM-dd').format(pickedTime);
+                  print(formattedTime); //output 14:59:00
+                  //DateFormat() is from intl package, you can format the time on any pattern you need.
 
-    setState(() {
-    fActi.text = formattedTime; //set the value of text field.
-    });
-    }else{
-    print("Time is not selected");
-    }
-    },
-    )
-    ],
-    ),
-    ),
-    Container(
-    margin: EdgeInsets.all(0),
-    child: Column(
-    children: [
-    Text("HORA DE ENTRADA", textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-    TextField(
-    controller: hentrada, //editing controller of this TextField
-    decoration: InputDecoration(
-    icon: Icon(Icons.timer), //icon of text field
-    labelText: "Selecione hora de entrada." //label text of field
-    ),
-    readOnly: true, //set it true, so that user will not able to edit text
-    onTap: () async {
-    TimeOfDay? pickedTime = await showTimePicker(
-    initialTime: TimeOfDay.now(),
-    context: context,
-    );
-    if(pickedTime != null ){
-    print(pickedTime.format(context)); //output 10:51 PM
+                  setState(() {
+                    fActi.text = formattedTime; //set the value of text field.
+                  });
+                } else {
+                  print("Fecha no Seleccionada");
+                }
+              },
+            )
+          ],
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.all(0),
+        child: Column(
+          children: [
+            Text("HORA DE ENTRADA",
+                textAlign: TextAlign.right,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+            TextField(
+              controller: hentrada,
+              //editing controller of this TextField
+              decoration: InputDecoration(
+                  icon: Icon(Icons.timer), //icon of text field
+                  labelText: "Selecione hora de entrada." //label text of field
+                  ),
+              readOnly: true,
+              //set it true, so that user will not able to edit text
+              onTap: () async {
+                TimeOfDay? pickedTime = await showTimePicker(
+                  initialTime: TimeOfDay.now(),
+                  context: context,
+                );
+                if (pickedTime != null) {
+                  print(pickedTime.format(context)); //output 10:51 PM
                   DateTime parsedTime = DateFormat.jm()
                       .parse(pickedTime.format(context).toString());
                   //converting to DateTime so that we can further format on different pattern.
-    print(parsedTime); //output 1970-01-01 22:53:00.000
-    String formattedTime = DateFormat('HH:mm:ss').format(parsedTime);
-    print(formattedTime); //output 14:59:00
-    //DateFormat() is from intl package, you can format the time on any pattern you need.
+                  print(parsedTime); //output 1970-01-01 22:53:00.000
+                  String formattedTime =
+                      DateFormat('HH:mm:ss').format(parsedTime);
+                  print(formattedTime); //output 14:59:00
+                  //DateFormat() is from intl package, you can format the time on any pattern you need.
 
-    setState(() {
-    hentrada.text = formattedTime; //set the value of text field.
-    });
-    }else{
-    print("Hora no seleccionada");
-    }
-    },
-    )
-    ],
-    ),
-    ),
-    Container(
-    margin: EdgeInsets.fromLTRB(1,10,1,1),
-    child: Column(
-    children: [
-    Text("HORARIO DE SALIDA", textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-    TextField(
-    controller: hsalida, //editing controller of this TextField
-    decoration: InputDecoration(
-    icon: Icon(Icons.timer), //icon of text field
-    labelText: "Selecione hora de salida." //label text of field
-    ),
-    readOnly: true, //set it true, so that user will not able to edit text
-    onTap: () async {
-    TimeOfDay? pickedTime = await showTimePicker(
-    initialTime: TimeOfDay.now(),
-    context: context,
-    );
+                  setState(() {
+                    hentrada.text =
+                        formattedTime; //set the value of text field.
+                  });
+                } else {
+                  print("Hora no seleccionada");
+                }
+              },
+            )
+          ],
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.fromLTRB(1, 10, 1, 1),
+        child: Column(
+          children: [
+            Text("HORARIO DE SALIDA",
+                textAlign: TextAlign.right,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+            TextField(
+              controller: hsalida,
+              //editing controller of this TextField
+              decoration: InputDecoration(
+                  icon: Icon(Icons.timer), //icon of text field
+                  labelText: "Selecione hora de salida." //label text of field
+                  ),
+              readOnly: true,
+              //set it true, so that user will not able to edit text
+              onTap: () async {
+                TimeOfDay? pickedTime = await showTimePicker(
+                  initialTime: TimeOfDay.now(),
+                  context: context,
+                );
 
-    if(pickedTime != null ){
-    print(pickedTime.format(context)); //output 10:51 PM
-    DateTime parsedTime = DateFormat.jm().parse(pickedTime.format(context).toString());
-    //converting to DateTime so that we can further format on different pattern.
-    print(parsedTime); //output 1970-01-01 22:53:00.000
-    String formattedTime = DateFormat('HH:mm:ss').format(parsedTime);
-    print(formattedTime); //output 14:59:00
-    //DateFormat() is from intl package, you can format the time on any pattern you need.
+                if (pickedTime != null) {
+                  print(pickedTime.format(context)); //output 10:51 PM
+                  DateTime parsedTime = DateFormat.jm()
+                      .parse(pickedTime.format(context).toString());
+                  //converting to DateTime so that we can further format on different pattern.
+                  print(parsedTime); //output 1970-01-01 22:53:00.000
+                  String formattedTime =
+                      DateFormat('HH:mm:ss').format(parsedTime);
+                  print(formattedTime); //output 14:59:00
+                  //DateFormat() is from intl package, you can format the time on any pattern you need.
 
-    setState(() {
-    hsalida.text = formattedTime; //set the value of text field.
-    });
-    }else{
-    print("Time is not selected");
-    }
-    },
-    )
-
-    ],
-    ),
-    ),
-    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-    Container( margin: EdgeInsets.all(5),
-    child: this.componentes
-        .btn(100, 50, 200, "GUARDAR", pAccion: () => confirmar())),
-    Container( margin: EdgeInsets.all(5),
-    child: this.componentes.btn(200, 0, 0, "CANCELAR", pAccion: () => cerrar())
-    )
-    ])
-    ]
-    );
+                  setState(() {
+                    hsalida.text = formattedTime; //set the value of text field.
+                  });
+                } else {
+                  print("Hora no seleccionada");
+                }
+              },
+            )
+          ],
+        ),
+      ),
+      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Container(
+            margin: EdgeInsets.all(5),
+            child: this
+                .componentes
+                .btn(100, 50, 200, "GUARDAR", pAccion: () => confirmar())),
+        Container(
+            margin: EdgeInsets.all(5),
+            child: this
+                .componentes
+                .btn(200, 0, 0, "CANCELAR", pAccion: () => cerrar()))
+      ])
+    ]);
   }
 
-  salvarDatos( mActividad dato) async {
-
+  salvarDatos(mActividad dato) async {
     String resp = await metodos.registrar(dato);
     final respjson = jsonDecode(resp);
     //  print(resp);
@@ -280,20 +311,30 @@ int idLugar=0;
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => vHorario(usuario: widget.usuario)));
+              builder: (context) => vActividadDoc(usuario: widget.usuario)));
     } else {
       fondo = Colors.red;
     }
   }
 
-
   void confirmar() {
     String hent = hentrada.text;
     String hsal = hsalida.text;
     String fAct = fActi.text;
-    String descr = fActi.text;
+    String descr = descrAct.text;
+    print(lugar.toString());
+    print(tipo.toString());
     if (hent != "" && hsal != "" && fAct != "") {
-      mActividad dato = mActividad("", new mDocente(widget.usuario.id, "", "", "","","","","","","","",""),lugar,tipo , descr,fAct,hent,hsal);
+      mActividad dato = mActividad(
+          "",
+          new mDocente(
+              widget.usuario.id, "", "", "", "", "", "", "", "", "", "", ""),
+          lugar,
+          tipo,
+          descr,
+          fAct,
+          hent,
+          hsal);
       showDialog(
           context: context,
           builder: (buildcontext) {
@@ -307,10 +348,7 @@ int idLugar=0;
                     children: <Widget>[
                       Container(
                           margin: const EdgeInsets.all(4),
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 0.5,
+                          width: MediaQuery.of(context).size.width * 0.5,
                           child: Text("CONFIRMACION DE ACCION",
                               style: TextStyle(
                                   color: Colors.blue,
@@ -325,9 +363,8 @@ int idLugar=0;
                           fontWeight: FontWeight.bold,
                           fontSize: 14))),
               actions: <Widget>[
-                this
-                    .componentes
-                    .btn(0, 0, 250, "REGISTRAR", pAccion: () => salvarDatos(dato)),
+                this.componentes.btn(0, 0, 250, "REGISTRAR",
+                    pAccion: () => salvarDatos(dato)),
                 this.componentes.btn(250, 0, 0, "CANCELAR",
                     pAccion: () => {Navigator.of(context).pop()})
               ],
@@ -345,24 +382,26 @@ int idLugar=0;
     }
   }
 
-  Widget getTipos(context) {
-
+  Widget getLugares(context) {
     return FutureBuilder(
-        future: tipos,
+        future: lugares,
         builder: (context, snapshop) {
           if (snapshop.hasData) {
             // print(snapshop.data);
             // List<Calumno>? datos= snapshop.data;
-            return cbTipo(snapshop.data);
+            if (lugar == null) {
+              lugar = snapshop.data![0];
+            }
+            return cbLugar(snapshop.data);
           } else if (snapshop.hasError) {
             print(snapshop.error);
           }
           return const Center(child: CircularProgressIndicator());
         });
   }
+
   Widget cbLugar(List<mLugar>? datos) {
-    lugar=datos![0];
-   // print(lugar.toString());
+    // print(lugar.toString());
     return DropdownButton<String>(
       value: datos?[idLugar].descrLug,
       icon: const Icon(Icons.arrow_downward),
@@ -379,8 +418,8 @@ int idLugar=0;
           for (var dato in datos!) {
             if (dato.descrLug == value) {
               idLugar = pos;
-              lugar=dato;
-            //  print(lugar.toString());
+              lugar = dato;
+              print(lugar.toString());
             }
             pos++;
           }
@@ -397,26 +436,28 @@ int idLugar=0;
         );
       }).toList(),
     );
-
   }
-  Widget getLugares(context) {
 
+  Widget getTipos(context) {
     return FutureBuilder(
-        future: lugares,
+        future: tipos,
         builder: (context, snapshop) {
           if (snapshop.hasData) {
             // print(snapshop.data);
             // List<Calumno>? datos= snapshop.data;
-            return cbLugar(snapshop.data);
+            if (tipo == null) {
+              tipo = snapshop.data![0];
+            }
+            return cbTipo(snapshop.data);
           } else if (snapshop.hasError) {
             print(snapshop.error);
           }
           return const Center(child: CircularProgressIndicator());
         });
   }
+
   Widget cbTipo(List<mTipoAct>? datos) {
-    tipo=datos![0];
-    print(tipo.toString());
+    //print(tipo.toString());
     return DropdownButton<String>(
       value: datos?[idTipo].descrTipAct,
       icon: const Icon(Icons.arrow_downward),
@@ -433,8 +474,8 @@ int idLugar=0;
           for (var dato in datos!) {
             if (dato.descrTipAct == value) {
               idTipo = pos;
-              tipo=dato;
-               //print(tipo.toString());
+              tipo = dato;
+              print(tipo.toString());
             }
             pos++;
           }
@@ -451,8 +492,8 @@ int idLugar=0;
         );
       }).toList(),
     );
-
   }
+
   void cerrar() {
     Navigator.push(
         context,

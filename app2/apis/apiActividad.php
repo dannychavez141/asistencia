@@ -36,7 +36,7 @@ switch ($control) {
         break;
     case 'reg':
         //   print_r($model);
-        $resp = $modelo->crear($_POST);
+        $resp = $modelo->crear($model);
         print_r($resp);
         break;
  case 'mod':

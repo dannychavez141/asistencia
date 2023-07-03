@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 26-06-2023 a las 01:31:15
+-- Tiempo de generación: 03-07-2023 a las 01:55:33
 -- Versión del servidor: 5.7.24
 -- Versión de PHP: 7.4.8
 
@@ -36,9 +36,22 @@ CREATE TABLE `actividad` (
   `idTipAct` int(11) DEFAULT NULL,
   `idLug` int(11) DEFAULT NULL,
   `descrAct` varchar(80) DEFAULT NULL,
-  `hIniAct` date DEFAULT NULL,
-  `hFinAct` date DEFAULT NULL
+  `fechaAct` date DEFAULT NULL,
+  `hIniAct` time DEFAULT NULL,
+  `hFinAct` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `actividad`
+--
+
+INSERT INTO `actividad` (`idAct`, `idDoc`, `idTipAct`, `idLug`, `descrAct`, `fechaAct`, `hIniAct`, `hFinAct`) VALUES
+(1, 1, 1, 1, '', '2023-07-02', '15:00:00', '17:00:00'),
+(2, 1, 1, 1, 'supervision de clases', '2023-07-02', '16:23:00', '17:23:00'),
+(3, 1, 1, 1, 'assadas', NULL, '16:31:00', '16:31:00'),
+(4, 1, 1, 1, 'sdas', NULL, '17:36:00', '18:36:00'),
+(5, 1, 1, 1, 'sdasd', '2023-07-02', '16:47:00', '16:47:00'),
+(6, 1, 2, 2, 'xczxczx', '2023-07-02', '17:03:00', '17:03:00');
 
 -- --------------------------------------------------------
 
@@ -326,7 +339,7 @@ CREATE TABLE `lugar` (
   `telfLug` varchar(12) DEFAULT NULL,
   `altLug` double DEFAULT NULL,
   `latLug` double DEFAULT NULL,
-  `estLug` int(11) DEFAULT NULL
+  `estLug` int(11) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -334,7 +347,8 @@ CREATE TABLE `lugar` (
 --
 
 INSERT INTO `lugar` (`idLug`, `descrLug`, `dirLug`, `telfLug`, `altLug`, `latLug`, `estLug`) VALUES
-(1, 'CASA DAHE', 'JR. POMAROSA MZ F LT3', '991268866', -8.3633243, -74.5628951, NULL);
+(1, 'DAHE & NARY HOUSE', 'JR. ALFONSO UGARTE MZ: N LT:4', '991268866', -8.3633243, -74.5628951, 1),
+(2, 'MULTIVENTAS OREJITAS', 'JR. POMAROSA MZ:F LT3', '991268866', -8.3649651, -74.5742837, 1);
 
 -- --------------------------------------------------------
 
@@ -346,8 +360,17 @@ DROP TABLE IF EXISTS `tipoactividad`;
 CREATE TABLE `tipoactividad` (
   `idTipAct` int(11) NOT NULL,
   `descrTipAct` varchar(45) DEFAULT NULL,
-  `estTipAct` int(11) DEFAULT NULL
+  `estTipAct` int(11) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tipoactividad`
+--
+
+INSERT INTO `tipoactividad` (`idTipAct`, `descrTipAct`, `estTipAct`) VALUES
+(1, 'DICTADO DE CLASES', 1),
+(2, 'SUPERVICION', 1),
+(3, 'GESTION DE DOCUMENTOS', 1);
 
 -- --------------------------------------------------------
 
@@ -487,7 +510,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `actividad`
 --
 ALTER TABLE `actividad`
-  MODIFY `idAct` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idAct` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `asistencia`
@@ -541,13 +564,13 @@ ALTER TABLE `horario`
 -- AUTO_INCREMENT de la tabla `lugar`
 --
 ALTER TABLE `lugar`
-  MODIFY `idLug` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idLug` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `tipoactividad`
 --
 ALTER TABLE `tipoactividad`
-  MODIFY `idTipAct` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idTipAct` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `tipoasistencia`

@@ -19,21 +19,22 @@ where a.idDoc='{$datos['idDoc']}'";
     }
 
     public function crear($datos) {
+       // print_r($datos);
         $sql = "INSERT INTO `actividad`
 (`idDoc`,
 `idTipAct`,
 `idLug`,
 `descrAct`,
 `hIniAct`,
-`hFinAct`)
+`hFinAct`,`fechaAct`)
 VALUES
 ('{$datos['idDoc']}',
 '{$datos['idTipAct']}',
 '{$datos['idLug']}',
 '{$datos['descrAct']}',
 '{$datos['hIniAct']}',
-'{$datos['hFinAct']}');";
-        $resp = $this->metodos->ejecutar($sql, "REGISTRADO CORRECTAMENTE");
+'{$datos['hFinAct']}','{$datos['fechaAct']}');";
+       $resp = $this->metodos->ejecutar($sql, "REGISTRADO CORRECTAMENTE");
         return $resp;
     }
 
