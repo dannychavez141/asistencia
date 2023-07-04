@@ -336,7 +336,7 @@ class _rActividadDocState extends State<rActividadDoc> {
           descr,
           fAct,
           hent,
-          hsal);
+          hsal,"","","","","","");
       showDialog(
           context: context,
           builder: (buildcontext) {

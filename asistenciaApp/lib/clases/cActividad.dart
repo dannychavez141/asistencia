@@ -44,7 +44,9 @@ class cActividad {
         final tipoAct = mTipoAct(item["idTipAct"], item["descrTipAct"], item["estTipAct"]);
         final lugar = mLugar(item["idLug"], item["descrLug"], item["dirLug"], item["telfLug"], item["altLug"], item["latLug"], item["estLug"]);
         datos.add(mActividad(
-            item["idAct"], docente, lugar,tipoAct,item["descrAct"],item["fechaAct"], item["hIniAct"], item["hFinAct"]));
+            item["idAct"], docente, lugar,tipoAct,item["descrAct"],item["fechaAct"], item["hIniAct"], item["hFinAct"]
+            ,item["hIniDoc"], item["logIniAct"], item["latIniAct"]
+            ,item["hFinDoc"], item["logFinDoc"], item["latFinDoc"]));
       }
       return datos;
     } else {

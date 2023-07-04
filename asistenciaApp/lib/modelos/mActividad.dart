@@ -12,7 +12,26 @@ class mActividad {
   String fechaAct;
   String hIniAct;
   String hFinAct;
+  String hIniDoc;
+  String logIniAct;
+  String latIniAct;
+  String hFinDoc;
+  String logFinDoc;
+  String latFinDoc;
 
-  mActividad(this.idAct, this.docente, this.lugar, this.tipo, this.descrAct,
-      this.fechaAct, this.hIniAct, this.hFinAct);
+  mActividad(
+      this.idAct,
+      this.docente,
+      this.lugar,
+      this.tipo,
+      this.descrAct,
+      this.fechaAct,
+      this.hIniAct,
+      this.hFinAct,
+      this.hIniDoc,
+      this.logIniAct,
+      this.latIniAct,
+      this.hFinDoc,
+      this.logFinDoc,
+      this.latFinDoc);
 }
