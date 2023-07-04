@@ -215,11 +215,13 @@ class _vActividadDocState extends State<vActividadDoc> {
       print(doc.fechaAct + " " + doc.hIniAct + "Z");
       print(dia + " " + hora + "Z");
       print(horaTotal.inMinutes);
-      if (horaTotal.inMinutes > 10 && horaTotal.inMinutes < 10) {
+      if (horaTotal.inMinutes > -10 && horaTotal.inMinutes < 10) {
         switch (tip) {
           case 1:
+
             break;
           case 2:
+
             break;
           default:
             break;

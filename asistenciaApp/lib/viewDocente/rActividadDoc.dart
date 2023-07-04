@@ -37,16 +37,18 @@ class _rActividadDocState extends State<rActividadDoc> {
   late Vistas componentes;
   late Future<List<mTipoAct>> tipos;
   late Future<List<mLugar>> lugares;
-  late mTipoAct tipo;
-  late mLugar lugar;
+   mTipoAct tipo = mTipoAct("", "", "");
+   mLugar lugar= mLugar("", "", "","", "", "","");
   int idTipo = 0;
   int idLugar = 0;
 
   @override
   void initState() {
     super.initState();
-    tipos = metodos.getTipos();
     lugares = cLug.getLugares("");
+    tipos = metodos.getTipos();
+
+
   }
 
   @override
@@ -389,7 +391,7 @@ class _rActividadDocState extends State<rActividadDoc> {
           if (snapshop.hasData) {
             // print(snapshop.data);
             // List<Calumno>? datos= snapshop.data;
-            if (lugar == null) {
+            if (lugar.idLug == "") {
               lugar = snapshop.data![0];
             }
             return cbLugar(snapshop.data);
@@ -445,7 +447,7 @@ class _rActividadDocState extends State<rActividadDoc> {
           if (snapshop.hasData) {
             // print(snapshop.data);
             // List<Calumno>? datos= snapshop.data;
-            if (tipo == null) {
+            if (tipo.idTipAct=="") {
               tipo = snapshop.data![0];
             }
             return cbTipo(snapshop.data);
