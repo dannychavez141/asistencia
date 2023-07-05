@@ -53,7 +53,44 @@ class cActividad {
       throw Exception("Error de api");
     }
   }
-
+  Future<List<mActividad>> getDatosRep(String fecha) async {
+    String api = conexion.url + "apis/apiActividad.php?ac=verRep&fechaAct=" + fecha;
+    print(api);
+    var uri = Uri.parse(api);
+    final resp = await http.get(uri);
+    List<mActividad> datos = [];
+    if (resp.statusCode == 200) {
+      //  print(resp.body);
+      String body = resp.body;
+      final datosjson = jsonDecode(body);
+      //print(datosjson[0]);
+      for (var item in datosjson) {
+        //print(item);
+        final docente = mDocente(
+            item["idDoc"],
+            item["dniDoc"],
+            "",
+            item["nomDoc"],
+            item["apepaDoc"],
+            item["apemaDoc"],
+            "",
+            "",
+            "",
+            "",
+            "",
+            "");
+        final tipoAct = mTipoAct(item["idTipAct"], item["descrTipAct"], item["estTipAct"]);
+        final lugar = mLugar(item["idLug"], item["descrLug"], item["dirLug"], item["telfLug"], item["altLug"], item["latLug"], item["estLug"]);
+        datos.add(mActividad(
+            item["idAct"], docente, lugar,tipoAct,item["descrAct"],item["fechaAct"], item["hIniAct"], item["hFinAct"]
+            ,item["hIniDoc"], item["logIniAct"], item["latIniAct"]
+            ,item["hFinDoc"], item["logFinDoc"], item["latFinDoc"]));
+      }
+      return datos;
+    } else {
+      throw Exception("Error de api");
+    }
+  }
   Future<String> registrar(mActividad mod) async {
     String api = conexion.url + "apis/apiActividad.php";
     Uri uri = Uri.parse(api);
@@ -102,18 +139,28 @@ class cActividad {
     print(responseBody);
     return responseBody;
   }
-  //funcion eliminar horario
-  Future<String> marcar(mActividad mod,int idTipAsis,String horaAct,String altAsisActi,String latAsisActi) async {
-    String api = conexion.url + "apis/apiHorario.php";
+  //funcion marcar actividad
+  Future<String> marcar(mActividad mod,int idTipAsis,String horaAct,String lonAsisActi,String latAsisActi) async {
+    String api = conexion.url + "apis/apiActividad.php";
     Uri uri = Uri.parse(api);
     final headers = {'Content-Type': 'application/json'};
+    String txthora="hIniDoc";
+    String txtlon="logIniAct";
+    String txtlat="latIniAct";
+    if(idTipAsis==2){
+       txthora="hFinDoc";
+       txtlon="logFinDoc";
+       txtlat="latFinDoc";
+    }
     Map<String, dynamic> body = {
       'ac': 'marcar',
       'idAct': mod.idAct,
-      'idTipAsis': idTipAsis,
-      'horaAct': horaAct,
-      'altAsisActi': altAsisActi,
-      'latAsisActi': latAsisActi,
+      'txthora': txthora,
+      'txtlon': txtlon,
+      'txtlat': txtlat,
+      'hora': horaAct,
+      'lon': lonAsisActi,
+      'lat': latAsisActi
     };
     String jsonBody = json.encode(body);
     final encoding = Encoding.getByName('utf-8');
@@ -126,6 +173,7 @@ class cActividad {
     //int statusCode = response.statusCode;
     String responseBody = response.body;
     print(responseBody);
+
     return responseBody;
   }
   Future<List<mTipoAct>> getTipos() async {

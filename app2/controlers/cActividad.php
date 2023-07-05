@@ -13,12 +13,21 @@ class cActividad {
 left join docente d on a.idDoc=d.idDoc
 left join tipoactividad ta on a.idTipAct=ta.idTipAct
 left join lugar l on a.idLug=l.idLug
-where a.idDoc='{$datos['idDoc']}'";
+where a.idDoc='{$datos['idDoc']}' order by idAct desc";
         $resp = $this->metodos->consultar($sql);
         return $resp;
     }
-
+public function verRep($datos) {
+        $sql = "SELECT * FROM actividad a
+left join docente d on a.idDoc=d.idDoc
+left join tipoactividad ta on a.idTipAct=ta.idTipAct
+left join lugar l on a.idLug=l.idLug
+where a.fechaAct='{$datos['fechaAct']}' order by idAct desc";
+        $resp = $this->metodos->consultar($sql);
+        return $resp;
+    }
     public function crear($datos) {
+       //ya amor
        // print_r($datos);
         $sql = "INSERT INTO `actividad`
 (`idDoc`,
@@ -46,6 +55,15 @@ VALUES
                 . "`descrAct`='{$datos['descrAct']}',"
                 . "`hIniAct`='{$datos['hIniAct']}',"
                 . "`hFinAct`='{$datos['hFinAct']}'"
+                . "WHERE `idAct`='{$datos['idAct']}'";
+        $resp = $this->metodos->ejecutar($sql, "MODIFICADO CORRECTAMENTE");
+        return $resp;
+    }
+    public function marcar($datos) {
+        $sql = "UPDATE `actividad` SET "
+                . "`{$datos['txthora']}`='{$datos['hora']}',"
+                . "`{$datos['txtlon']}`='{$datos['lon']}',"
+                . "`{$datos['txtlat']}`='{$datos['lat']}'"
                 . "WHERE `idAct`='{$datos['idAct']}'";
         $resp = $this->metodos->ejecutar($sql, "MODIFICADO CORRECTAMENTE");
         return $resp;

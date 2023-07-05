@@ -90,18 +90,54 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget titulo() {
-    return Text(
-      "Inicio de Sesion",
-      style: TextStyle(
-          color: Colors.white, fontSize: 35.0, fontWeight: FontWeight.bold),
+    return Stack(
+      children: <Widget>[
+        // Stroked text as border.
+        Text(
+           "Inicio de Sesion",
+          style: TextStyle(
+            fontSize: 38,
+            foreground: Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 6
+              ..color = Colors.blue[700]!,
+          ),
+        ),
+        // Solid text as fill.
+        Text(
+          "Inicio de Sesion",
+          style: TextStyle(
+            fontSize: 38,
+            color: Colors.white,
+          ),
+        ),
+      ],
     );
   }
 
   Widget appName() {
-    return Text(
-      "Asistencia Unu 2.0",
-      style: TextStyle(
-          color: Colors.white, fontSize: 35.0, fontWeight: FontWeight.bold),
+    return Stack(
+      children: <Widget>[
+        // Stroked text as border.
+        Text(
+          'Asistencia Unu 2.0',
+          style: TextStyle(
+            fontSize: 38,
+            foreground: Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 6
+              ..color = Colors.blue[700]!,
+          ),
+        ),
+        // Solid text as fill.
+        Text(
+          'Asistencia Unu 2.0',
+          style: TextStyle(
+            fontSize: 38,
+            color: Colors.white,
+          ),
+        ),
+      ],
     );
   }
 

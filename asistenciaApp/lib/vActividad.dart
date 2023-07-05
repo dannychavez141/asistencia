@@ -1,61 +1,62 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:app/clases/sesion.dart';
-import 'package:app/modelos/mAsistencia.dart';
+import 'package:app/clases/cActividad.dart';
+import 'package:app/modelos/mActividad.dart';
 import 'package:app/modelos/mLogo.dart';
-import 'package:app/pdf/saveApp.dart';
-
-//import 'package:app/pdf/saveWeb.dart';
+import 'package:app/viewDocente/rActividadDoc.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:app/modelos/mDocente.dart';
 import 'package:app/clases/vistas.dart';
 import 'package:flutter/services.dart';
-import 'dart:io';
+import 'dart:io' show Directory, File, Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'clases/cAsistencia.dart';
-import 'modDocente.dart';
-import 'modelos/Musuario.dart';
-import 'package:intl/intl.dart';
-import 'package:syncfusion_flutter_pdf/pdf.dart';
+import '../modelos/Musuario.dart';
+import 'package:geolocator/geolocator.dart';
+
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:app/pdf/saveApp.dart';
+//import 'package:app/pdf/saveWeb.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
-
-Future<Directory?>? _appSupportDirectory;
-
-class vAsistencias extends StatefulWidget {
+class vActividad extends StatefulWidget {
   final Musuario usuario;
 
-  const vAsistencias({super.key, required this.usuario});
+  const vActividad({super.key, required this.usuario});
 
   @override
-  State<vAsistencias> createState() => _vAsistenciasState();
+  State<vActividad> createState() => _vActividadState();
 }
 
-class _vAsistenciasState extends State<vAsistencias> {
+class _vActividadState extends State<vActividad> {
+  cActividad metodos = new cActividad();
+  late List<mActividad> actividad;
+  mLogo mlog= mLogo();
+  String tempFoto ="";
+  Future<Directory?>? _appSupportDirectory;
   TextEditingController cBusq = TextEditingController();
-  late List<mAsistencia> asist;
-  late Future<List<mAsistencia>> ldocentes;
-  cAsistencia metodos = new cAsistencia();
   sesion ses = sesion();
-  mLogo mImg = mLogo();
+  late Future<List<mActividad>> lista;
   late Vistas componentes;
+  final GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
+  late Position ubicacion;
 
   @override
   void initState() {
-    cBusq = TextEditingController();
-
     super.initState();
-    var now = new DateTime.now();
+    tempFoto =mlog.logo;  var now = new DateTime.now();
     var formatter = DateFormat('yyyy-MM-dd');
     String formattedDate = formatter.format(now);
     //print(formattedDate);
+    tempFoto =mlog.logo;
     cBusq.text = formattedDate;
-    ldocentes = metodos.getAsistencias(cBusq.text);
+    lista = metodos.getDatosRep(cBusq.text);
   }
 
   @override
   Widget build(BuildContext context) {
-    componentes = new Vistas("ASISTENCIAS", context, widget.usuario);
+    componentes = new Vistas("ACTIVIDADES", context, widget.usuario);
     return Scaffold(
         drawer: componentes.menu(widget.usuario.tipoUsu),
         appBar: AppBar(title: Text(componentes.titulopage)),
@@ -63,6 +64,17 @@ class _vAsistenciasState extends State<vAsistencias> {
           child: Column(
             children: <Widget>[pantalla(context)],
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => setState(() {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        rActividadDoc(usuario: widget.usuario)));
+          }),
+          tooltip: 'Registro de Actividades',
+          child: const Icon(Icons.add),
         ));
   }
 
@@ -72,10 +84,32 @@ class _vAsistenciasState extends State<vAsistencias> {
         Container(
           margin: const EdgeInsets.all(6),
           child: const Text(
-            "ASISTENCIAS REGISTRADAS",
+            "ACTIVIDADES REGISTRADAS",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
-        ),
+        ),Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisSize: MainAxisSize.max,
+    children: <Widget>[Container(
+            margin: const EdgeInsets.all(4),
+            width: MediaQuery.of(context).size.width * 0.25,
+            child: txtBusq()),
+        Container(
+            margin: const EdgeInsets.all(4),
+            width: MediaQuery.of(context).size.width * 0.25,
+            child: btnBuscar()),
+        Container(
+            margin: const EdgeInsets.all(4),
+            width: MediaQuery.of(context).size.width * 0.25,
+            child: this.componentes.btn(0, 200, 100, "GENERAR PDF",
+                pAccion: () => {generarReporte()}))])
+      ,
+        Center(
+            child: Container(
+              margin: const EdgeInsets.all(10),
+              child: const Text("Lista de Actividades:"),
+            )),
         Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,22 +118,16 @@ class _vAsistenciasState extends State<vAsistencias> {
               Container(
                   margin: const EdgeInsets.all(4),
                   width: MediaQuery.of(context).size.width * 0.25,
-                  child: txtBusq()),
+                  child: Text("Nombre de Actividad")),
+              Container(
+                  margin: const EdgeInsets.all(4),
+                  width: MediaQuery.of(context).size.width * 0.40,
+                  child: Text("Fecha-Lugar-Hora")),
               Container(
                   margin: const EdgeInsets.all(4),
                   width: MediaQuery.of(context).size.width * 0.25,
-                  child: btnBuscar()),
-              Container(
-                  margin: const EdgeInsets.all(4),
-                  width: MediaQuery.of(context).size.width * 0.25,
-                  child: this.componentes.btn(0, 200, 100, "GENERAR PDF",
-                      pAccion: () => {generarReporte()}))
+                  child: Text("Acciones"))
             ]),
-        Center(
-            child: Container(
-          margin: const EdgeInsets.all(10),
-          child: const Text("Lista de Asistencia:"),
-        )),
         SizedBox(
             height: MediaQuery.of(context).size.height * 0.66,
             child: listaDatos(context)),
@@ -107,32 +135,97 @@ class _vAsistenciasState extends State<vAsistencias> {
     );
   }
 
-  Widget txtBusq() {
-    return GestureDetector(
-      onTap: () {
-        showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(DateTime.now().year - 100),
-                lastDate: DateTime(DateTime.now().year + 1))
-            .then((value) {
-          String mes = value!.month.toString();
-          if (int.parse(mes) <= 10) {
-            mes = "0" + mes;
+  Widget listaDatos(context) {
+    return FutureBuilder(
+        future: lista,
+        builder: (context, snapshop) {
+          if (snapshop.hasData) {
+            // print(snapshop.data);
+            actividad = snapshop.data!;
+            // List<Calumno>? datos= snapshop.data;
+            return ListView(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              children: elementos(snapshop.data),
+            );
+          } else if (snapshop.hasError) {
+            print(snapshop.error);
           }
-          String dia = value!.day.toString();
-          if (int.parse(dia) <= 10) {
-            dia = "0" + dia;
-          }
-          cBusq.text = '${value?.year.toString()}-${mes}-${dia}';
+          return const Center(child: CircularProgressIndicator());
         });
-      },
-      child: TextField(
-        controller: this.cBusq,
-        enabled: false,
-      ),
-    );
   }
+
+  List<Widget> elementos(List<mActividad>? data) {
+    List<Widget> element = [];
+    int i = 0;
+    for (var ele in data!) {
+      i++;
+      // print(i.toString() + ele.toString());
+      element.add(Card(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                  margin: const EdgeInsets.all(4),
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(3),
+                        child: Text(ele.descrAct),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(3),
+                        child: Text(ele.tipo.descrTipAct),
+                      ) /*,
+                  Padding(
+                    padding: const EdgeInsets.all(3),
+                    child: Text(ele.docente.apemaDoc),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(3),
+                  )*/
+                    ],
+                  )),
+              Container(
+                  margin: const EdgeInsets.all(4),
+                  width: MediaQuery.of(context).size.width * 0.40,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(3),
+                        child: Text(ele.fechaAct),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(3),
+                        child: Text(ele.lugar.descrLug),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(3),
+                        child: Text("De " + ele.hIniAct + "a " + ele.hFinAct),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(3),
+                      )
+                    ],
+                  )),
+              Container(
+                  margin: const EdgeInsets.all(4),
+                  width: MediaQuery.of(context).size.width * 0.20,
+                  child: Column(children: [
+                    Container(
+                        margin: EdgeInsets.all(1),
+                        child: this.componentes.btn(0, 190, 200, "Detalle",
+                            pAccion: () => {detalle(ele)}))
+                  ]))
+            ],
+          )));
+    }
+    return element;
+  }
+
 
   Widget btnBuscar() {
     return ClipRRect(
@@ -159,8 +252,8 @@ class _vAsistenciasState extends State<vAsistencias> {
                 textStyle: const TextStyle(fontSize: 20),
               ),
               onPressed: () => setState(() {
-                    ldocentes = metodos.getAsistencias(cBusq.text);
-                  }),
+                lista = metodos.getDatosRep(cBusq.text);
+              }),
               child: const Text("Buscar",
                   style: TextStyle(
                       color: Colors.white,
@@ -171,190 +264,8 @@ class _vAsistenciasState extends State<vAsistencias> {
     );
   }
 
-  Widget listaDatos(context) {
-    return FutureBuilder(
-        future: ldocentes,
-        builder: (context, snapshop) {
-          if (snapshop.hasData) {
-            // print(snapshop.data);
-            List<mAsistencia>? datos = snapshop.data;
-            asist = datos!;
-            if (datos!.length > 0) {
-              return ListView(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                children: elementos(datos),
-              );
-            } else {
-              return Text("NO EXISTEN REGISTROS");
-            }
-          } else if (snapshop.hasError) {
-            print(snapshop.error);
-          }
-          return const Center(child: CircularProgressIndicator());
-        });
-  }
-
-  List<Widget> elementos(List<mAsistencia>? data) {
-    List<Widget> element = [];
-    int i = 0;
-    for (var ele in data!) {
-      i++;
-      /*if (ele.docente.foto.length < 5) {
-        ele.docente.foto = tempFoto;
-      }
-      Uint8List img;
-      img = Base64Decoder().convert(ele.docente.foto);*/
-
-      // print(i.toString() + ele.toString());
-      element.add(Card(
-          child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Container(
-              margin: const EdgeInsets.all(4),
-              width: MediaQuery.of(context).size.width * 0.20,
-              child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      // print("por que me tocas papi"+ele.dni);
-                      //detallerAlu(ele.docente);
-                    });
-                  },
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(3),
-                        child: Text(ele.docente.dniDoc),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.all(3),
-                      )
-                    ],
-                  ))),
-          Container(
-              margin: const EdgeInsets.all(4),
-              width: MediaQuery.of(context).size.width * 0.30,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(3),
-                    child: Text(ele.docente.nomDoc),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(3),
-                    child:
-                        Text(ele.docente.apepaDoc + " " + ele.docente.apemaDoc),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(3),
-                  )
-                ],
-              )),
-          Container(
-              margin: const EdgeInsets.all(4),
-              width: MediaQuery.of(context).size.width * 0.35,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(3),
-                    child: Text("FECHA: " + ele.fecha),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(3),
-                    child: Text("ENTRADA: " + ele.entrada),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(3),
-                    child: Text("SALIDA: " + ele.salida),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(3),
-                  )
-                ],
-              ))
-        ],
-      )));
-    }
-    return element;
-  }
-
-  Widget btnCerrarDet() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(5),
-      child: Stack(
-        children: <Widget>[
-          Positioned.fill(
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    Color.fromRGBO(76, 0, 240, 1.0),
-                    Color.fromRGBO(76, 0, 240, 1.0),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          TextButton(
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(16.0),
-                textStyle: const TextStyle(fontSize: 20),
-              ),
-              onPressed: () {
-                // Navigator.push(
-                //      context, MaterialPageRoute(builder: (context) => pdfAlu()));
-              },
-              child: const Text("Ver Horario",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.bold))),
-        ],
-      ),
-    );
-  }
-
-  /*void detallerAlu(mDocente ele) {
-    showDialog(
-        context: context,
-        builder: (buildcontext) {
-
-          return AlertDialog(
-            insetPadding: EdgeInsets.all(0),
-            title: Text(ele.dniDoc + "-" + ele.nomDoc),
-            content: Image.memory(
-              img,
-              width: 50,
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: const Text(
-                  "CERRAR",
-                  style: TextStyle(color: Colors.black),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          );
-        });
-  }*/
-
-  void saltoMod(mDocente doc) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                modDocente(usuario: widget.usuario, mdoc: doc)));
-  }
-
   Future<void> generarReporte() async {
-    if (asist.length == 0) {
+    if (actividad.length == 0) {
       Fluttertoast.showToast(
           msg: "No se puede generar el reporte por que no existen datos",
           toastLength: Toast.LENGTH_LONG,
@@ -376,7 +287,7 @@ class _vAsistenciasState extends State<vAsistencias> {
         bounds: Rect.fromLTWH(0, 0, pageSize.width, pageSize.height),
         pen: PdfPen(PdfColor(142, 170, 219)));
     //Generate PDF grid.
-    final PdfGrid grid = getGrid(asist);
+    final PdfGrid grid = getGrid(actividad);
     //Draw the header section by creating text element
     final PdfLayoutResult result = drawHeader(page, pageSize, grid);
     //Draw grid
@@ -385,8 +296,11 @@ class _vAsistenciasState extends State<vAsistencias> {
     //drawFooter(page, pageSize);
     //logo sistemas
     Uint8List img;
-    img = Base64Decoder().convert(mImg.logo);
-    page.graphics.drawImage(PdfBitmap(img), Rect.fromLTWH(450, 5, 50, 50));
+    img = Base64Decoder().convert(tempFoto);
+    page.graphics.drawImage(
+        PdfBitmap(img),
+        Rect.fromLTWH(
+            450, 5, 50, 50));
     //Save the PDF document
 
     final List<int> bytes = document.saveSync();
@@ -396,16 +310,15 @@ class _vAsistenciasState extends State<vAsistencias> {
     if (kIsWeb) {
       //await saveAndLaunchFileweb(bytes, 'reporteAsistencia.pdf');
     } else {
+
       await saveAndLaunchFile(bytes, 'reporteAsistencia.pdf');
     }
   }
-
   void _requestAppSupportDirectory() {
     setState(() {
       _appSupportDirectory = path_provider.getApplicationSupportDirectory();
     });
   }
-
   //Draws the invoice header
   PdfLayoutResult drawHeader(PdfPage page, Size pageSize, PdfGrid grid) {
     //Draw rectangle
@@ -413,7 +326,7 @@ class _vAsistenciasState extends State<vAsistencias> {
         brush: PdfSolidBrush(PdfColor(91, 126, 215)),
         bounds: Rect.fromLTWH(0, 0, pageSize.width, 60));
     //Draw string
-    page.graphics.drawString('Reporte de Asistencias de ' + cBusq.text,
+    page.graphics.drawString('Reporte de Actividades de ' + cBusq.text,
         PdfStandardFont(PdfFontFamily.helvetica, 20),
         brush: PdfBrushes.white,
         bounds: Rect.fromLTWH(25, 0, pageSize.width - 115, 60),
@@ -464,7 +377,7 @@ class _vAsistenciasState extends State<vAsistencias> {
   //Draw the invoice footer data.
   void drawFooter(PdfPage page, Size pageSize) {
     final PdfPen linePen =
-        PdfPen(PdfColor(142, 170, 219), dashStyle: PdfDashStyle.custom);
+    PdfPen(PdfColor(142, 170, 219), dashStyle: PdfDashStyle.custom);
     linePen.dashPattern = <double>[3, 3];
     //Draw line
     page.graphics.drawLine(linePen, Offset(0, pageSize.height - 100),
@@ -484,7 +397,7 @@ class _vAsistenciasState extends State<vAsistencias> {
     //Create a PDF grid
     final PdfGrid grid = PdfGrid();
     //Secify the columns count to the grid.
-    grid.columns.add(count: 5);
+    grid.columns.add(count: 6);
     //Create the header row of the grid.
     final PdfGridRow headerRow = grid.headers.add(1)[0];
     //Set style
@@ -492,25 +405,26 @@ class _vAsistenciasState extends State<vAsistencias> {
     headerRow.style.textBrush = PdfBrushes.white;
     headerRow.cells[0].value = "DNI";
     headerRow.cells[0].stringFormat.alignment = PdfTextAlignment.center;
-    headerRow.cells[1].value = 'NOMBRES Y APELLIDOS';
-    headerRow.cells[2].value = 'FECHA';
-    headerRow.cells[3].value = 'HORA DE ENTRADA';
-    headerRow.cells[4].value = 'HORA DE SALIDA';
+    headerRow.cells[1].value = 'DOCENTE';
+    headerRow.cells[2].value = 'LUGAR';
+    headerRow.cells[3].value = 'FECHA';
+    headerRow.cells[4].value = 'HORA DE ENTRADA';
+    headerRow.cells[5].value = 'HORA DE SALIDA';
     //Add rows
 
     for (var i = 0; i < datos.length; i++) {
-      mAsistencia asist = datos[i];
-      print(asist.toString());
+      mActividad mod = datos[i];
+      print(mod.toString());
       addAsistencia(
-          asist.docente.dniDoc,
-          asist.docente.nomDoc +
+          mod.docente.dniDoc,
+          mod.docente.nomDoc +
               " " +
-              asist.docente.apepaDoc +
+              mod.docente.apepaDoc +
               " " +
-              asist.docente.apemaDoc,
-          asist.fecha,
-          asist.entrada,
-          asist.salida,
+              mod.docente.apemaDoc,mod.lugar.descrLug,
+          mod.fechaAct,
+          mod.hIniAct,
+          mod.hFinAct,
           grid);
     }
     //Apply the table built-in style
@@ -536,13 +450,63 @@ class _vAsistenciasState extends State<vAsistencias> {
   }
 
   //Create and row for the grid.
-  void addAsistencia(String id, String docente, String fecha, String entrada,
+  void addAsistencia(String id, String docente, String lugar,String fecha, String entrada,
       String salida, PdfGrid grid) {
     final PdfGridRow row = grid.rows.add();
     row.cells[0].value = id;
     row.cells[1].value = docente;
-    row.cells[2].value = fecha;
-    row.cells[3].value = entrada;
-    row.cells[4].value = salida;
+    row.cells[2].value = lugar;
+    row.cells[3].value = fecha;
+    row.cells[4].value = entrada;
+    row.cells[5].value = salida;
+  }
+void detalle(mActividad ele) {
+    showDialog(
+        context: context,
+        builder: (buildcontext) {
+
+          return AlertDialog(
+            insetPadding: EdgeInsets.all(0),
+            title: Text(ele.descrAct ),
+            content: Column(children: [Text(ele.docente.nomDoc + "-" + ele.docente.apemaDoc)],),
+            actions: <Widget>[
+              TextButton(
+                child: const Text(
+                  "CERRAR",
+                  style: TextStyle(color: Colors.black),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+  }
+  Widget txtBusq() {
+    return GestureDetector(
+      onTap: () {
+        showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(DateTime.now().year - 100),
+            lastDate: DateTime(DateTime.now().year + 1))
+            .then((value) {
+          String mes = value!.month.toString();
+          if (int.parse(mes) <= 10) {
+            mes = "0" + mes;
+          }
+          String dia = value!.day.toString();
+          if (int.parse(dia) <= 10) {
+            dia = "0" + dia;
+          }
+          cBusq.text = '${value?.year.toString()}-${mes}-${dia}';
+        });
+      },
+      child: TextField(
+        controller: this.cBusq,
+        enabled: false,
+      ),
+    );
   }
 }

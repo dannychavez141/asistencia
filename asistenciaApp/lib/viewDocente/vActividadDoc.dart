@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:app/clases/sesion.dart';
 import 'package:app/clases/cActividad.dart';
 import 'package:app/modelos/mActividad.dart';
@@ -181,14 +182,26 @@ class _vActividadDocState extends State<vActividadDoc> {
               margin: const EdgeInsets.all(4),
               width: MediaQuery.of(context).size.width * 0.20,
               child: Column(children: [
-                Container(
-                    margin: EdgeInsets.all(1),
-                    child: this.componentes.btn(0, 200, 190, "Marcar Inicio",
-                        pAccion: () => {marcarEvento(ele, 1)})),
-                Container(
-                    margin: EdgeInsets.all(1),
-                    child: this.componentes.btn(252, 190, 47, "Marcar Fin",
-                        pAccion: () => {marcarEvento(ele, 2)}))
+                if (ele.hIniDoc == "")
+                  Container(
+                      margin: EdgeInsets.all(1),
+                      child: this.componentes.btn(0, 200, 190, "Marcar Inicio",
+                          pAccion: () => {marcarEvento(ele, 1)})),
+                if (ele.hIniDoc != "" && ele.hFinDoc == "")
+                  Container(
+                      margin: EdgeInsets.all(1),
+                      child: this.componentes.btn(252, 190, 47, "Marcar Fin",
+                          pAccion: () => {marcarEvento(ele, 2)})),
+                if (ele.hIniDoc != "" && ele.hFinDoc != "")
+                  Container(
+                      margin: EdgeInsets.all(1),
+                      child: Text("Finalizado",style: TextStyle(
+                        fontSize: 12,
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 1
+                          ..color = Colors.red[700]!,
+                      )))
               ]))
         ],
       )));
@@ -209,23 +222,43 @@ class _vActividadDocState extends State<vActividadDoc> {
       final DateTime now = DateTime.now();
       String dia = DateFormat('yyyy-MM-dd').format(now);
       String hora = DateFormat('HH:mm:ss').format(now);
+
       DateTime fecha1 = DateTime.parse(doc.fechaAct + " " + doc.hIniAct + "Z");
+      if (tip == 2) {
+        fecha1 = DateTime.parse(doc.fechaAct + " " + doc.hFinAct + "Z");
+      }
       DateTime fecha2 = DateTime.parse(dia + " " + hora + "Z");
       Duration horaTotal = fecha1.difference(fecha2);
       print(doc.fechaAct + " " + doc.hIniAct + "Z");
       print(dia + " " + hora + "Z");
       print(horaTotal.inMinutes);
       if (horaTotal.inMinutes > -10 && horaTotal.inMinutes < 10) {
-        switch (tip) {
-          case 1:
-
-            break;
-          case 2:
-
-            break;
-          default:
-            break;
-        }
+        String resp = await metodos.marcar(doc, tip, hora, ubicacion.longitude.toString(),
+            ubicacion.latitude.toString());
+        lista = metodos.getDatos(widget.usuario.id);
+       final respjson = jsonDecode(resp);
+       //  print(resp);
+       var fondo;
+       if (respjson['est'] == 'success') {
+         fondo = Colors.blue;
+       } else {
+         fondo = Colors.red;
+       }
+       Navigator.of(context).pop();
+       Fluttertoast.showToast(
+           msg: respjson['msj'],
+           toastLength: Toast.LENGTH_LONG,
+           gravity: ToastGravity.CENTER,
+           timeInSecForIosWeb: 1,
+           backgroundColor: fondo,
+           textColor: Colors.white,
+           fontSize: 16.0);
+       if (respjson['est'] == 'success') {
+         Navigator.push(
+             context,
+             MaterialPageRoute(
+                 builder: (context) => vActividadDoc(usuario: widget.usuario)));
+       }
       } else {
         Fluttertoast.showToast(
             msg:
@@ -249,7 +282,7 @@ class _vActividadDocState extends State<vActividadDoc> {
           fontSize: 16.0);
     }
 
-    /* Navigator.push(context,
+/* Navigator.push(context,
         MaterialPageRoute(builder: (context) => modHoraro(usuario: widget.usuario,mdoc: doc)));*/
   }
 

@@ -1,3 +1,4 @@
+import 'package:app/vActividad.dart';
 import 'package:app/vAsistencias.dart';
 import 'package:app/clases/sesion.dart';
 import 'package:app/main.dart';
@@ -182,7 +183,7 @@ class Vistas {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => vHorario(usuario: usuario)));
+                builder: (context) => vActividad(usuario: usuario)));
         break;
       case "lugares":
         Navigator.push(

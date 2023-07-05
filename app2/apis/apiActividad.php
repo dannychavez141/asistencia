@@ -28,6 +28,12 @@ switch ($control) {
         $resp = $modelo->ver($_GET);
         print_r($resp);
         break;
+     case 'verRep':
+        //   print_r($model);
+       
+        $resp = $modelo->verRep($_GET);
+        print_r($resp);
+        break;
     case 'verTipo':
         //   print_r($model);
        
@@ -42,6 +48,11 @@ switch ($control) {
  case 'mod':
        // print_r($_POST);
         $datos = $modelo->modificar($_POST);
+        print_r($datos);
+        break;
+    case 'marcar':
+       // print_r($_POST);
+        $datos = $modelo->marcar($model);
         print_r($datos);
         break;
     default:
