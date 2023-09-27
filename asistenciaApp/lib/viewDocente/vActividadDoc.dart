@@ -218,6 +218,8 @@ class _vActividadDocState extends State<vActividadDoc> {
     print("local:" + doc.lugar.altLug + " " + doc.lugar.latLug);
     double dist = calculateDistance(ubicacion.latitude, ubicacion.longitude,
         double.parse(doc.lugar.altLug), double.parse(doc.lugar.latLug));
+
+   //RANGO DE TOLERANCIA DE PUNTO DEL GPS
     if (dist < 30) {
       final DateTime now = DateTime.now();
       String dia = DateFormat('yyyy-MM-dd').format(now);
@@ -232,7 +234,8 @@ class _vActividadDocState extends State<vActividadDoc> {
       print(doc.fechaAct + " " + doc.hIniAct + "Z");
       print(dia + " " + hora + "Z");
       print(horaTotal.inMinutes);
-      if (horaTotal.inMinutes > -10 && horaTotal.inMinutes < 10) {
+     //RANDO DE 10 MINUTOS DE TOLERANCIA
+      if (horaTotal.inMinutes > -15 && horaTotal.inMinutes < 15) {
         String resp = await metodos.marcar(doc, tip, hora, ubicacion.longitude.toString(),
             ubicacion.latitude.toString());
         lista = metodos.getDatos(widget.usuario.id);

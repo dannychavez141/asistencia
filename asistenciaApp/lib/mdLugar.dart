@@ -155,16 +155,16 @@ String estado="ACTIVO";
         margin: EdgeInsets.all(0),
         child: Column(
           children: [
-            Text("Altitud del Lugar:", textAlign: TextAlign.right),
+            Text("Longitud del Lugar:", textAlign: TextAlign.right),
             TextFormField(
                 decoration:
-                    InputDecoration(hintText: "Escribe Altitud del Lugar"),
+                    InputDecoration(hintText: "Escribe Longitud del Lugar"),
                 controller: txtaltLug,
                 keyboardType: TextInputType.number,
                 maxLength: 30,
                 validator: (value) {
                   if (value != "") {
-                    return 'Escribe Altitud del Lugar';
+                    return 'Escribe Longitud del Lugar';
                   }
                   return null;
                 },

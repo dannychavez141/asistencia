@@ -315,32 +315,6 @@ class _vAsistenciasState extends State<vAsistencias> {
     );
   }
 
-  /*void detallerAlu(mDocente ele) {
-    showDialog(
-        context: context,
-        builder: (buildcontext) {
-
-          return AlertDialog(
-            insetPadding: EdgeInsets.all(0),
-            title: Text(ele.dniDoc + "-" + ele.nomDoc),
-            content: Image.memory(
-              img,
-              width: 50,
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: const Text(
-                  "CERRAR",
-                  style: TextStyle(color: Colors.black),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          );
-        });
-  }*/
 
   void saltoMod(mDocente doc) {
     Navigator.push(
@@ -394,7 +368,7 @@ class _vAsistenciasState extends State<vAsistencias> {
     document.dispose();
     //Save and launch the file.
     if (kIsWeb) {
-      //await saveAndLaunchFileweb(bytes, 'reporteAsistencia.pdf');
+    //  await saveAndLaunchFileweb(bytes, 'reporteAsistencia.pdf');
     } else {
 
       await saveAndLaunchFile(bytes, 'reporteAsistencia.pdf');

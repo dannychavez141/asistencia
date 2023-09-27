@@ -397,7 +397,7 @@ class _vActividadState extends State<vActividad> {
     //Create a PDF grid
     final PdfGrid grid = PdfGrid();
     //Secify the columns count to the grid.
-    grid.columns.add(count: 6);
+    grid.columns.add(count: 8);
     //Create the header row of the grid.
     final PdfGridRow headerRow = grid.headers.add(1)[0];
     //Set style
@@ -408,8 +408,10 @@ class _vActividadState extends State<vActividad> {
     headerRow.cells[1].value = 'DOCENTE';
     headerRow.cells[2].value = 'LUGAR';
     headerRow.cells[3].value = 'FECHA';
-    headerRow.cells[4].value = 'HORA DE ENTRADA';
-    headerRow.cells[5].value = 'HORA DE SALIDA';
+    headerRow.cells[4].value = 'HORA DE INICIO';
+    headerRow.cells[5].value = 'HORA DE ENTRADA';
+    headerRow.cells[6].value = 'HORA DE FIN';
+    headerRow.cells[7].value = 'HORA DE SALIDA';
     //Add rows
 
     for (var i = 0; i < datos.length; i++) {
@@ -424,7 +426,9 @@ class _vActividadState extends State<vActividad> {
               mod.docente.apemaDoc,mod.lugar.descrLug,
           mod.fechaAct,
           mod.hIniAct,
+          mod.hIniDoc,
           mod.hFinAct,
+          mod.hFinDoc,
           grid);
     }
     //Apply the table built-in style
@@ -450,15 +454,17 @@ class _vActividadState extends State<vActividad> {
   }
 
   //Create and row for the grid.
-  void addAsistencia(String id, String docente, String lugar,String fecha, String entrada,
-      String salida, PdfGrid grid) {
+  void addAsistencia(String id, String docente, String lugar,String fecha, String inicio,
+   String entrada,String fin,String salida, PdfGrid grid) {
     final PdfGridRow row = grid.rows.add();
     row.cells[0].value = id;
     row.cells[1].value = docente;
     row.cells[2].value = lugar;
     row.cells[3].value = fecha;
-    row.cells[4].value = entrada;
-    row.cells[5].value = salida;
+    row.cells[4].value = inicio;
+    row.cells[5].value = entrada;
+    row.cells[6].value = fin;
+    row.cells[7].value = salida;
   }
 void detalle(mActividad ele) {
     showDialog(

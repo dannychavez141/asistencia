@@ -8,9 +8,14 @@ class mConexion {
 //    private $database = "premiumc_pcoll";
 //    private $bd;
 
+//    private $host = "localhost";
+//    private $user = "root";
+//    private $pass = "";
+//    private $database = "asistenciaunu";
+//    private $bd;
     private $host = "localhost";
-    private $user = "root";
-    private $pass = "";
+    private $user = "dahe";
+    private $pass = "Acm1ptbt";
     private $database = "asistenciaunu";
     private $bd;
 

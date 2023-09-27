@@ -9,8 +9,10 @@ class cDocente {
     }
 
     public function verTodos($datos) {
-        $sql = "SELECT `idDoc`, `dniDoc`, `claveDoc`, `nomDoc`, `apepaDoc`, `apemaDoc`,foto, `est`,`idgAcademico` FROM `docente` WHERE  concat(dniDoc,' ',nomDoc,' ',apepaDoc,' ',apemaDoc) like '%{$datos['busq']}%' limit 20;";
-      //echo $sql;
+      //  $sql = "SELECT `idDoc`, `dniDoc`, `claveDoc`, `nomDoc`, `apepaDoc`, `apemaDoc`,foto, `est`,`idgAcademico` FROM `docente` WHERE  concat(dniDoc,' ',nomDoc,' ',apepaDoc,' ',apemaDoc) like '%{$datos['busq']}%' limit 20;";
+       $sql = "SELECT `idDoc`, `dniDoc`, `claveDoc`, `nomDoc`, `apepaDoc`, `apemaDoc`, `est`,`idgAcademico` FROM `docente` WHERE  concat(dniDoc,' ',nomDoc,' ',apepaDoc,' ',apemaDoc) like '%{$datos['busq']}%' limit 20;";
+     
+//echo $sql;
         $resp = $this->metodos->consultar($sql);
         return $resp;
     }
