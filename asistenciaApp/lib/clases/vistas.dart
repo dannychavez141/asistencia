@@ -95,7 +95,7 @@ class Vistas {
       alignment: Alignment.center,
       child: TextButton(
         style: TextButton.styleFrom(
-          primary: Colors.blue,
+          foregroundColor: Colors.blue,
         ),
         onPressed: () {
           salto(enlace, usuario);
