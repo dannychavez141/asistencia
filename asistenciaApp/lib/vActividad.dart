@@ -13,10 +13,9 @@ import 'dart:io' show Directory, File, Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import '../modelos/Musuario.dart';
 import 'package:geolocator/geolocator.dart';
-
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:app/pdf/saveApp.dart';
-//import 'package:app/pdf/saveWeb.dart';
+//import 'package:app/pdf/saveApp.dart';
+import 'package:app/pdf/saveWeb.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
@@ -308,10 +307,10 @@ class _vActividadState extends State<vActividad> {
     document.dispose();
     //Save and launch the file.
     if (kIsWeb) {
-      //await saveAndLaunchFileweb(bytes, 'reporteAsistencia.pdf');
+     await saveAndLaunchFileweb(bytes, 'reporteAsistencia.pdf');
     } else {
 
-      await saveAndLaunchFile(bytes, 'reporteAsistencia.pdf');
+     // await saveAndLaunchFile(bytes, 'reporteAsistencia.pdf');
     }
   }
   void _requestAppSupportDirectory() {

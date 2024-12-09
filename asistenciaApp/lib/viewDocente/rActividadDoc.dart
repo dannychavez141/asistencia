@@ -37,8 +37,8 @@ class _rActividadDocState extends State<rActividadDoc> {
   late Vistas componentes;
   late Future<List<mTipoAct>> tipos;
   late Future<List<mLugar>> lugares;
-   mTipoAct tipo = mTipoAct("", "", "");
-   mLugar lugar= mLugar("", "", "","", "", "","");
+  mTipoAct tipo = mTipoAct("", "", "");
+  mLugar lugar = mLugar("", "", "", "", "", "", "");
   int idTipo = 0;
   int idLugar = 0;
 
@@ -47,8 +47,6 @@ class _rActividadDocState extends State<rActividadDoc> {
     super.initState();
     lugares = cLug.getLugares("");
     tipos = metodos.getTipos();
-
-
   }
 
   @override
@@ -210,14 +208,20 @@ class _rActividadDocState extends State<rActividadDoc> {
                 );
                 if (pickedTime != null) {
                   print(pickedTime.format(context)); //output 10:51 PM
-                  DateTime parsedTime = DateFormat.jm()
-                      .parse(pickedTime.format(context).toString());
-                  //converting to DateTime so that we can further format on different pattern.
-                  print(parsedTime); //output 1970-01-01 22:53:00.000
-                  String formattedTime =
-                      DateFormat('HH:mm:ss').format(parsedTime);
-                  print(formattedTime); //output 14:59:00
-                  //DateFormat() is from intl package, you can format the time on any pattern you need.
+                  String formattedTime =pickedTime.format(context).toString()+":00";
+                  try{
+                    DateTime parsedTime = DateFormat.jm()
+                        .parse(pickedTime.format(context).toString());
+                    //converting to DateTime so that we can further format on different pattern.
+                    print(parsedTime); //output 1970-01-01 22:53:00.000
+                    String formattedTime =
+                    DateFormat('HH:mm:ss').format(parsedTime);
+                    print(formattedTime); //output 14:59:00
+                    //DateFormat() is from intl package, you can format the time on any pattern you need.
+
+                  } catch (e) {
+
+                  }
 
                   setState(() {
                     hentrada.text =
@@ -255,13 +259,21 @@ class _rActividadDocState extends State<rActividadDoc> {
 
                 if (pickedTime != null) {
                   print(pickedTime.format(context)); //output 10:51 PM
-                  DateTime parsedTime = DateFormat.jm()
-                      .parse(pickedTime.format(context).toString());
-                  //converting to DateTime so that we can further format on different pattern.
-                  print(parsedTime); //output 1970-01-01 22:53:00.000
-                  String formattedTime =
-                      DateFormat('HH:mm:ss').format(parsedTime);
-                  print(formattedTime); //output 14:59:00
+                  String formattedTime =pickedTime.format(context).toString()+":00";
+                  try {
+                    DateTime parsedTime = DateFormat.jm()
+                        .parse(pickedTime.format(context).toString());
+                    //converting to DateTime so that we can further format on different pattern.
+                    print(parsedTime); //output 1970-01-01 22:53:00.000
+                    String formattedTime =
+                        DateFormat('HH:mm:ss').format(parsedTime);
+                    print(formattedTime);
+                  } catch (e) {
+
+                  }
+
+                  //output 14:59:00
+
                   //DateFormat() is from intl package, you can format the time on any pattern you need.
 
                   setState(() {
@@ -336,7 +348,13 @@ class _rActividadDocState extends State<rActividadDoc> {
           descr,
           fAct,
           hent,
-          hsal,"","","","","","");
+          hsal,
+          "",
+          "",
+          "",
+          "",
+          "",
+          "");
       showDialog(
           context: context,
           builder: (buildcontext) {
@@ -447,7 +465,7 @@ class _rActividadDocState extends State<rActividadDoc> {
           if (snapshop.hasData) {
             // print(snapshop.data);
             // List<Calumno>? datos= snapshop.data;
-            if (tipo.idTipAct=="") {
+            if (tipo.idTipAct == "") {
               tipo = snapshop.data![0];
             }
             return cbTipo(snapshop.data);

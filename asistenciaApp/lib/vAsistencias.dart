@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:app/clases/sesion.dart';
 import 'package:app/modelos/mAsistencia.dart';
 import 'package:app/modelos/mLogo.dart';
-import 'package:app/pdf/saveApp.dart';
-//import 'package:app/pdf/saveWeb.dart';
+//import 'package:app/pdf/saveApp.dart';
+import 'package:app/pdf/saveWeb.dart';
 import 'package:flutter/material.dart';
 import 'package:app/modelos/mDocente.dart';
 import 'package:app/clases/vistas.dart';
@@ -368,10 +368,10 @@ class _vAsistenciasState extends State<vAsistencias> {
     document.dispose();
     //Save and launch the file.
     if (kIsWeb) {
-    //  await saveAndLaunchFileweb(bytes, 'reporteAsistencia.pdf');
+    await saveAndLaunchFileweb(bytes, 'reporteAsistencia.pdf');
     } else {
 
-      await saveAndLaunchFile(bytes, 'reporteAsistencia.pdf');
+     // await saveAndLaunchFile(bytes, 'reporteAsistencia.pdf');
     }
   }
   void _requestAppSupportDirectory() {

@@ -115,13 +115,15 @@ class _rHorarioState extends State<rHorario> {
 
                 if(pickedTime != null ){
                   print(pickedTime.format(context));   //output 10:51 PM
-                  DateTime parsedTime = DateFormat.jm().parse(pickedTime.format(context).toString());
-                  //converting to DateTime so that we can further format on different pattern.
-                  print(parsedTime); //output 1970-01-01 22:53:00.000
-                  String formattedTime = DateFormat('HH:mm:ss').format(parsedTime);
-                  print(formattedTime); //output 14:59:00
-                  //DateFormat() is from intl package, you can format the time on any pattern you need.
-
+                  String formattedTime =pickedTime.format(context).toString()+":00";
+                  try{
+                    DateTime parsedTime = DateFormat.jm().parse(pickedTime.format(context).toString());
+                    //converting to DateTime so that we can further format on different pattern.
+                    print(parsedTime); //output 1970-01-01 22:53:00.000
+                    String formattedTime = DateFormat('HH:mm:ss').format(parsedTime);
+                    print(formattedTime); //output 14:59:00
+                    //DateFormat() is from intl package, you can format the time on any pattern you need.
+                  }catch(e){}
                   setState(() {
                     hentrada.text = formattedTime; //set the value of text field.
                   });
@@ -153,13 +155,15 @@ class _rHorarioState extends State<rHorario> {
 
           if(pickedTime != null ){
             print(pickedTime.format(context));   //output 10:51 PM
+            String formattedTime =pickedTime.format(context).toString()+":00";
+            try{
             DateTime parsedTime = DateFormat.jm().parse(pickedTime.format(context).toString());
             //converting to DateTime so that we can further format on different pattern.
             print(parsedTime); //output 1970-01-01 22:53:00.000
             String formattedTime = DateFormat('HH:mm:ss').format(parsedTime);
             print(formattedTime); //output 14:59:00
             //DateFormat() is from intl package, you can format the time on any pattern you need.
-
+    }catch(e){}
             setState(() {
               hsalida.text = formattedTime; //set the value of text field.
             });

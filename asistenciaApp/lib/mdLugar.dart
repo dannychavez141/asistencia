@@ -169,7 +169,7 @@ String estado="ACTIVO";
                   return null;
                 },
                 inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.digitsOnly
+                  FilteringTextInputFormatter.singleLineFormatter
                 ])
           ],
         ),
