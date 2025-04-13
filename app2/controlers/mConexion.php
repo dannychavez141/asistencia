@@ -8,16 +8,16 @@ class mConexion {
 //    private $database = "premiumc_pcoll";
 //    private $bd;
 
-//    private $host = "localhost";
-//    private $user = "root";
-//    private $pass = "";
-//    private $database = "asistenciaunu";
-//    private $bd;
-    private $host = "localhost";
+private $host = "localhost";
+private $user = "root";
+private $pass = "";
+private $database = "asistenciaunu";
+private $bd;
+  /*  private $host = "localhost";
     private $user = "dahe";
     private $pass = "Acm1ptbt";
     private $database = "asistenciaunu";
-    private $bd;
+    private $bd;*/
 
     function __construct() {
         $this->bd = new mysqli($this->host, $this->user, $this->pass, $this->database);

@@ -58,7 +58,7 @@ dev_dependencies:
   string_similarity: ^2.0.0
   sortedmap: ^0.5.1
   vertical_card_pager: ^1.4.0
-  image_picker: ^0.8.7+1
+  image_picker: ^0.8.7
   syncfusion_flutter_pdf: ^21.1.41
   fluttertoast: ^8.0.9
   open_file: ^3.2.1
