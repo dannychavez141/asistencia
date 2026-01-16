@@ -1,15 +1,19 @@
 package com.example.huelleroapp;
-import java.io.*;
-import java.nio.ByteBuffer;
-import SecuGen.Driver.Constant;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.BroadcastReceiver;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
@@ -20,13 +24,26 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Paint;
-import SecuGen.FDxSDKPro.*;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+
+import SecuGen.Driver.Constant;
+import SecuGen.FDxSDKPro.JSGFPLib;
+import SecuGen.FDxSDKPro.SGANSITemplateInfo;
+import SecuGen.FDxSDKPro.SGAutoOnEventNotifier;
+import SecuGen.FDxSDKPro.SGDeviceInfoParam;
+import SecuGen.FDxSDKPro.SGFDxConstant;
+import SecuGen.FDxSDKPro.SGFDxDeviceName;
+import SecuGen.FDxSDKPro.SGFDxErrorCode;
+import SecuGen.FDxSDKPro.SGFDxSecurityLevel;
+import SecuGen.FDxSDKPro.SGFDxTemplateFormat;
+import SecuGen.FDxSDKPro.SGFingerInfo;
+import SecuGen.FDxSDKPro.SGFingerPresentEvent;
+import SecuGen.FDxSDKPro.SGISOTemplateInfo;
+import SecuGen.FDxSDKPro.SGImpressionType;
+import SecuGen.FDxSDKPro.SGWSQLib;
 
 public class MainActivity extends Activity
         implements View.OnClickListener, Runnable, SGFingerPresentEvent {
@@ -223,7 +240,7 @@ public class MainActivity extends Activity
         //USB Permissions
         mPermissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
         filter = new IntentFilter(ACTION_USB_PERMISSION);
-        sgfplib = new JSGFPLib((UsbManager)getSystemService(Context.USB_SERVICE));
+        sgfplib = new JSGFPLib(  this, (UsbManager)getSystemService(Context.USB_SERVICE));
         this.mToggleButtonSmartCapture.toggle();
         bSecuGenDeviceOpened = false;
         usbPermissionRequested = false;
@@ -840,7 +857,7 @@ public class MainActivity extends Activity
             return;
         }
 
-        JSGFPLib sgFplibSDKTest = new JSGFPLib((UsbManager)getSystemService(Context.USB_SERVICE));
+        JSGFPLib sgFplibSDKTest = new JSGFPLib(  this, (UsbManager)getSystemService(Context.USB_SERVICE));
 
         error = sgFplibSDKTest.InitEx( X_SIZE, Y_SIZE, 500);
         debugMessage("InitEx("+ X_SIZE + "," + Y_SIZE + ",500) ret:" +  error + "\n");

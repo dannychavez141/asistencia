@@ -1,21 +1,17 @@
 package com.example.huelleroapp;
 
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Vector;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.BroadcastReceiver;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.media.MediaPlayer;
@@ -27,12 +23,8 @@ import android.os.Message;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,13 +39,16 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.huelleroapp.clases.cDocente;
-import com.example.huelleroapp.clases.cClase;
 import com.example.huelleroapp.clases.config;
-import com.example.huelleroapp.modelos.mAlumno;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.nio.ByteBuffer;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
 
 import SecuGen.FDxSDKPro.*;
 
@@ -66,7 +61,7 @@ public class Principal extends Activity
     private Button mButtonCapture;
     private Button btnBuscar;
     static public TextView txtdatosalu;
-    private android.widget.TextView mTextViewResult;
+    private TextView mTextViewResult;
     private PendingIntent mPermissionIntent;
     private ImageView mImageViewFingerprint;
     private int[] mMaxTemplateSize;
@@ -160,9 +155,9 @@ public class Principal extends Activity
         sb.setPixels(sintbuffer, 0, JSGFPLib.MAX_IMAGE_WIDTH_ALL_DEVICES / 2, 0, 0, JSGFPLib.MAX_IMAGE_WIDTH_ALL_DEVICES / 2, JSGFPLib.MAX_IMAGE_HEIGHT_ALL_DEVICES / 2);
         mMaxTemplateSize = new int[1];
         //USB Permissions
-        mPermissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
+        mPermissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), PendingIntent.FLAG_IMMUTABLE);
         filter = new IntentFilter(ACTION_USB_PERMISSION);
-        sgfplib = new JSGFPLib((UsbManager) getSystemService(Context.USB_SERVICE));
+        sgfplib = new JSGFPLib(  this, (UsbManager)getSystemService(Context.USB_SERVICE));
         bSecuGenDeviceOpened = false;
         usbPermissionRequested = false;
         mAutoOnEnabled = false;
@@ -189,6 +184,7 @@ public class Principal extends Activity
     }
 
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @Override
     public void onResume() {
         Log.d(TAG, "Enter onResume()");
