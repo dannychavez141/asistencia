@@ -63,17 +63,6 @@ class _vActividadState extends State<vActividad> {
           child: Column(
             children: <Widget>[pantalla(context)],
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => setState(() {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        rActividadDoc(usuario: widget.usuario)));
-          }),
-          tooltip: 'Registro de Actividades',
-          child: const Icon(Icons.add),
         ));
   }
 
@@ -465,28 +454,84 @@ class _vActividadState extends State<vActividad> {
     row.cells[6].value = fin;
     row.cells[7].value = salida;
   }
-void detalle(mActividad ele) {
+  void detalle(mActividad ele) {
     showDialog(
-        context: context,
-        builder: (buildcontext) {
-
-          return AlertDialog(
-            insetPadding: EdgeInsets.all(0),
-            title: Text(ele.descrAct ),
-            content: Column(children: [Text(ele.docente.nomDoc + "-" + ele.docente.apemaDoc)],),
-            actions: <Widget>[
-              TextButton(
-                child: const Text(
-                  "CERRAR",
-                  style: TextStyle(color: Colors.black),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              )
+      context: context,
+      builder: (buildcontext) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          title: Column(
+            children: [
+              Text(
+                ele.tipo.descrTipAct.toUpperCase(),
+                style: TextStyle(color: Colors.blue.shade700, fontSize: 12, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 5),
+              Text(ele.descrAct, style: const TextStyle(fontWeight: FontWeight.bold)),
             ],
-          );
-        });
+          ),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Divider(),
+
+                // SECCIÓN DOCENTE
+                _buildInfoRow(Icons.person, "Docente",
+                    "${ele.docente.nomDoc} ${ele.docente.apepaDoc} ${ele.docente.apemaDoc}"),
+
+                // SECCIÓN FECHA Y HORA
+                _buildInfoRow(Icons.calendar_today, "Fecha", ele.fechaAct),
+                _buildInfoRow(Icons.access_time, "Horario", "${ele.hIniAct} - ${ele.hFinAct}"),
+
+                // SECCIÓN LUGAR
+                _buildInfoRow(Icons.location_on, "Lugar", ele.lugar.descrLug),
+
+                Padding(
+                  padding: const EdgeInsets.only(left: 40),
+                  child: Text(
+                    ele.lugar.dirLug,
+                    style: const TextStyle(fontSize: 13, color: Colors.grey, fontStyle: FontStyle.italic),
+                  ),
+                ),
+
+                if (ele.lugar.telfLug.isNotEmpty)
+                  _buildInfoRow(Icons.phone, "Contacto", ele.lugar.telfLug),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text("CERRAR", style: TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold)),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+// Widget auxiliar para mantener el código limpio y ordenado
+  Widget _buildInfoRow(IconData icon, String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, size: 20, color: Colors.blueGrey),
+          const SizedBox(width: 15),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(label, style: const TextStyle(fontSize: 11, color: Colors.grey)),
+                Text(value, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
   Widget txtBusq() {
     return GestureDetector(

@@ -186,7 +186,9 @@ class _MyHomePageState extends State<MyHomePage> {
       value: tipos[0],
       onChanged: (String? newValue) {
         setState(() {
+          usuario.dniUsu="";
           this.cTipo = newValue!;
+
         });
       },
       items: tipos

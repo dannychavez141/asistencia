@@ -37,6 +37,7 @@ class _vActividadDocState extends State<vActividadDoc> {
   void initState() {
     super.initState();
     lista = metodos.getDatos(widget.usuario.id);
+    //print(lista.toString());
   }
 
   @override
@@ -85,16 +86,16 @@ class _vActividadDocState extends State<vActividadDoc> {
             children: <Widget>[
               Container(
                   margin: const EdgeInsets.all(4),
-                  width: MediaQuery.of(context).size.width * 0.25,
+                  width: MediaQuery.of(context).size.width * 0.40,
                   child: Text("Nombre de Actividad")),
               Container(
                   margin: const EdgeInsets.all(4),
                   width: MediaQuery.of(context).size.width * 0.40,
                   child: Text("Fecha-Lugar-Hora")),
-              Container(
+            /*Container(
                   margin: const EdgeInsets.all(4),
                   width: MediaQuery.of(context).size.width * 0.25,
-                  child: Text("Acciones"))
+                  child: Text("Acciones"))*/
             ]),
         SizedBox(
             height: MediaQuery.of(context).size.height * 0.66,
@@ -108,7 +109,7 @@ class _vActividadDocState extends State<vActividadDoc> {
         future: lista,
         builder: (context, snapshop) {
           if (snapshop.hasData) {
-            // print(snapshop.data);
+             print(snapshop.data);
             // List<Calumno>? datos= snapshop.data;
             return ListView(
               scrollDirection: Axis.vertical,
@@ -136,7 +137,7 @@ class _vActividadDocState extends State<vActividadDoc> {
         children: [
           Container(
               margin: const EdgeInsets.all(4),
-              width: MediaQuery.of(context).size.width * 0.25,
+              width: MediaQuery.of(context).size.width * 0.40,
               child: Column(
                 children: [
                   Padding(
@@ -178,7 +179,7 @@ class _vActividadDocState extends State<vActividadDoc> {
                   )
                 ],
               )),
-          Container(
+        /*  Container(
               margin: const EdgeInsets.all(4),
               width: MediaQuery.of(context).size.width * 0.20,
               child: Column(children: [
@@ -202,7 +203,7 @@ class _vActividadDocState extends State<vActividadDoc> {
                           ..strokeWidth = 1
                           ..color = Colors.red[700]!,
                       )))
-              ]))
+              ]))*/
         ],
       )));
     }

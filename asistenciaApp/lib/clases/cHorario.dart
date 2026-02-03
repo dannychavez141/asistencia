@@ -39,7 +39,7 @@ class cHorario {
             "",
             "",
             "");
-final dia=mDia(item["idDia"], item["descrDia"], item["idEst"]);
+final dia=mDia(item["idDia"], item["descrDia"], item["idEst"] ?? "");
         datos.add(mHorario(
             item["idHor"],
             docente,

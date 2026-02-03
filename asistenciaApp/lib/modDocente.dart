@@ -236,10 +236,11 @@ class _modDocenteState extends State<modDocente> {
     mDocente doc = mDocente(widget.mdoc.idDoc, dni, clave, nomb, apepa, apema,
         tempFoto, "1", "", "", "", "");
     String resp = await metodos.mdDocente(doc);
-    final respjson = jsonDecode(resp);
-    //  print(resp);
+    final respjson = jsonDecode(jsonDecode(resp));
+    // print(respjson);
+    //print(respjson['est']);
     var fondo;
-    if (respjson['est'] == 'success') {
+    if (respjson['est']=="success") {
       fondo = Colors.blue;
     } else {
       fondo = Colors.red;

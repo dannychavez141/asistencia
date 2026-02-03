@@ -34,4 +34,10 @@ class mActividad {
       this.hFinDoc,
       this.logFinDoc,
       this.latFinDoc);
+
+  @override
+  String toString() {
+    return 'mActividad{idAct: $idAct, docente: $docente, lugar: $lugar, tipo: $tipo, descrAct: $descrAct, fechaAct: $fechaAct, hIniAct: $hIniAct, hFinAct: $hFinAct, hIniDoc: $hIniDoc, logIniAct: $logIniAct, latIniAct: $latIniAct, hFinDoc: $hFinDoc, logFinDoc: $logFinDoc, latFinDoc: $latFinDoc}';
+  }
 }
+
