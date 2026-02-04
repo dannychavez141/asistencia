@@ -58,12 +58,12 @@ class cActividad {
             item["fechaAct"] ?? "",
             item["hIniAct"] ?? "",
             item["hFinAct"] ?? "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""));
+            item["hIniDoc"] ?? "",
+            item["logIniAct"] ?? "",
+            item["latIniAct"] ?? "",
+            item["hFinDoc"] ?? "",
+            item["logFinDoc"] ?? "",
+            item["latFinDoc"] ?? ""));
       }
       return datos;
     } else {
@@ -116,12 +116,12 @@ class cActividad {
             item["fechaAct"] ?? "",
             item["hIniAct"] ?? "",
             item["hFinAct"] ?? "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""));
+            item["hIniDoc"] ?? "",
+            item["logIniAct"] ?? "",
+            item["latIniAct"] ?? "",
+            item["hFinDoc"] ?? "",
+            item["logFinDoc"] ?? "",
+            item["latFinDoc"] ?? ""));
       }
       return datos;
     } else {

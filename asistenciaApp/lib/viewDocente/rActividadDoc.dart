@@ -34,6 +34,8 @@ class _rActividadDocState extends State<rActividadDoc> {
   cActividad metodos = new cActividad();
   cLugar cLug = new cLugar();
   sesion ses = sesion();
+  var hentradatxt="";
+  var hsalidatxt="";
   late Vistas componentes;
   late Future<List<mTipoAct>> tipos;
   late Future<List<mLugar>> lugares;
@@ -218,7 +220,7 @@ class _rActividadDocState extends State<rActividadDoc> {
                     DateFormat('HH:mm:ss').format(parsedTime);
                     print(formattedTime); //output 14:59:00
                     //DateFormat() is from intl package, you can format the time on any pattern you need.
-
+                    hentradatxt=formattedTime;
                   } catch (e) {
 
                   }
@@ -226,6 +228,7 @@ class _rActividadDocState extends State<rActividadDoc> {
                   setState(() {
                     hentrada.text =
                         formattedTime; //set the value of text field.
+
                   });
                 } else {
                   print("Hora no seleccionada");
@@ -267,7 +270,8 @@ class _rActividadDocState extends State<rActividadDoc> {
                     print(parsedTime); //output 1970-01-01 22:53:00.000
                     String formattedTime =
                         DateFormat('HH:mm:ss').format(parsedTime);
-                    print(formattedTime);
+                    print(formattedTime+"aca toy");
+                    hsalidatxt=formattedTime;
                   } catch (e) {
 
                   }
@@ -278,6 +282,7 @@ class _rActividadDocState extends State<rActividadDoc> {
 
                   setState(() {
                     hsalida.text = formattedTime; //set the value of text field.
+                   // hsalidatxt=formattedTime;
                   });
                 } else {
                   print("Hora no seleccionada");
@@ -332,8 +337,8 @@ class _rActividadDocState extends State<rActividadDoc> {
   }
 
   void confirmar() {
-    String hent = hentrada.text;
-    String hsal = hsalida.text;
+    String hent = hentradatxt;
+    String hsal = hsalidatxt;
     String fAct = fActi.text;
     String descr = descrAct.text;
     print(lugar.toString());
@@ -355,6 +360,7 @@ class _rActividadDocState extends State<rActividadDoc> {
           "",
           "",
           "");
+      print(dato.toString());
       showDialog(
           context: context,
           builder: (buildcontext) {
@@ -377,7 +383,7 @@ class _rActividadDocState extends State<rActividadDoc> {
                     ])
               ]),
               content: Container(
-                  child: Text("¿DESEAS REGISTRAR AL DOCENTE?",
+                  child: Text("¿DESEAS REGISTRAR AL ACTIVIDAD DEL DOCENTE?",
                       style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,
