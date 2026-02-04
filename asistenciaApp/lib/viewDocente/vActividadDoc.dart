@@ -179,7 +179,7 @@ class _vActividadDocState extends State<vActividadDoc> {
                   )
                 ],
               )),
-        / Container(
+        Container(
               margin: const EdgeInsets.all(4),
               width: MediaQuery.of(context).size.width * 0.20,
               child: Column(children: [
