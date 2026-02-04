@@ -27,12 +27,12 @@ class cHorario {
       for (var item in datosjson) {
         print(item);
         final docente = mDocente(
-            item["idDoc"],
-            item["dniDoc"],
+            item["idDoc"] ?? "",
+            item["dniDoc"] ?? "",
             "",
-            item["nomDoc"],
-            item["apepaDoc"],
-            item["apemaDoc"],
+            item["nomDoc"] ?? "",
+            item["apepaDoc"] ?? "",
+            item["apemaDoc"] ?? "",
             "",
             "",
             "",
@@ -41,11 +41,11 @@ class cHorario {
             "");
 final dia=mDia(item["idDia"], item["descrDia"], item["idEst"] ?? "");
         datos.add(mHorario(
-            item["idHor"],
+            item["idHor"] ?? "",
             docente,
             dia,
-            item["hEntrada"],
-            item["hSalida"]));
+            item["hEntrada"] ?? "",
+            item["hSalida"] ?? ""));
       }
       return datos;
     } else {

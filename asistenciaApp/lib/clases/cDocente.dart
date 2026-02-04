@@ -87,19 +87,19 @@ class cDocente {
       //print(datosjson[0]);
       for (var item in datosjson) {
         datos.add(mDocente(
-            item["idDoc"],
-            item["dniDoc"],
-            item["claveDoc"],
-            item["nomDoc"],
-            item["apepaDoc"],
-            item["apemaDoc"],
+            item["idDoc"] ?? "",
+            item["dniDoc"] ?? "",
+            item["claveDoc"] ?? "",
+            item["nomDoc"] ?? "",
+            item["apepaDoc"] ?? "",
+            item["apemaDoc"] ?? "",
            // item["foto"],
             "",
-            item["est"],
+            item["est"] ?? "",
             "",
             "",
-            item["idgAcademico"],
-            item["idgAcademico"]));
+            item["idgAcademico"] ?? "",
+            item["idgAcademico"] ?? ""));
       }
       return datos;
     } else {

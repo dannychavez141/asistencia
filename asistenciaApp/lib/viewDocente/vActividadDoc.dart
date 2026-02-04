@@ -86,7 +86,7 @@ class _vActividadDocState extends State<vActividadDoc> {
             children: <Widget>[
               Container(
                   margin: const EdgeInsets.all(4),
-                  width: MediaQuery.of(context).size.width * 0.40,
+                  width: MediaQuery.of(context).size.width * 0.25,
                   child: Text("Nombre de Actividad")),
               Container(
                   margin: const EdgeInsets.all(4),
@@ -137,7 +137,7 @@ class _vActividadDocState extends State<vActividadDoc> {
         children: [
           Container(
               margin: const EdgeInsets.all(4),
-              width: MediaQuery.of(context).size.width * 0.40,
+              width: MediaQuery.of(context).size.width * 0.25,
               child: Column(
                 children: [
                   Padding(
