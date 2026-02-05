@@ -3,28 +3,28 @@ import 'dart:isolate';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'Conexion.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-FlutterLocalNotificationsPlugin();
+//import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+//final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+//FlutterLocalNotificationsPlugin();
 Future<void> initNoti() async{
-  const AndroidInitializationSettings initializationSettings= AndroidInitializationSettings('not_icon');
+ /* const AndroidInitializationSettings initializationSettings= AndroidInitializationSettings('not_icon');
   const DarwinInitializationSettings initializationSettingsIos= DarwinInitializationSettings();
   const InitializationSettings initializationSettingsAll= InitializationSettings(
       android: initializationSettings,
       iOS: initializationSettingsIos
   );
-  await flutterLocalNotificationsPlugin.initialize(initializationSettingsAll);
- // hilo();
+  await flutterLocalNotificationsPlugin.initialize(settings: initializationSettingsAll);
+ // hilo();*/
 }
 Future<void> MostrarNoti(String titulo,String mensaje) async{
-  AndroidNotificationDetails  androidNotificationDetails=  AndroidNotificationDetails('your_channel_id', 'your_channel_name',importance: Importance.max,priority: Priority.high);
+  /*AndroidNotificationDetails  androidNotificationDetails=  AndroidNotificationDetails('your_channel_id', 'your_channel_name',importance: Importance.max,priority: Priority.high);
   DarwinNotificationDetails darwinNotificationDetails=DarwinNotificationDetails();
   NotificationDetails notificationDetails= NotificationDetails(
       android: androidNotificationDetails,
       iOS: darwinNotificationDetails
   );
-  await flutterLocalNotificationsPlugin.show(1, titulo , mensaje, notificationDetails);
-}
+  await flutterLocalNotificationsPlugin.show(id: 0, title: titulo , body: mensaje, notificationDetails: notificationDetails,payload: 'item x');
+*/}
 void hilo() async {
   //await initNoti();
   ReceivePort receivePort = ReceivePort();
