@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <head>
     <?php
-    //error_reporting(0);
+    error_reporting(0);
     session_start();
     if (isset($_SESSION['usuario'])) {
          echo "<script type='text/javascript'>
@@ -59,7 +59,7 @@
     </div>
 
 <center>
-    <!-- contact --><h3 >ACCESO AL SISTEMA <?php print_r($_SESSION); ?></h3>
+    <!-- contact --><h3 >ACCESO AL SISTEMA </h3>
     <h3 >DE ASISTENCIA</h3>
 
     <div class="contact py-5" id="contact">
