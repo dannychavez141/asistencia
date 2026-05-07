@@ -4,7 +4,10 @@ import 'package:app/clases/sesion.dart';
 import 'package:app/modelos/mAsistencia.dart';
 import 'package:app/modelos/mLogo.dart';
 import 'package:app/pdf/saveApp.dart';
+//cambiar para compilar en app o web
+//import 'package:app/pdf/saveApp.dart';
 import 'package:app/pdf/saveWeb.dart';
+///-------------------
 import 'package:flutter/material.dart';
 import 'package:app/modelos/mDocente.dart';
 import 'package:app/clases/vistas.dart';
@@ -371,7 +374,7 @@ class _vAsistenciasState extends State<vAsistencias> {
     await saveAndLaunchFileweb(bytes, 'reporteAsistencia.pdf');
     } else {
 
-     // await saveAndLaunchFile(bytes, 'reporteAsistencia.pdf');
+      //await saveAndLaunchFile(bytes, 'reporteAsistencia.pdf');
     }
   }
   void _requestAppSupportDirectory() {

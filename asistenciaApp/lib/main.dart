@@ -1,17 +1,18 @@
+import 'package:flutter/material.dart';
+// Asegúrate de que estas rutas coincidan con la estructura de tu proyecto
 import 'package:app/clases/sesion.dart';
 import 'package:app/modelos/Musuario.dart';
-import 'package:flutter/material.dart';
 import 'package:app/principal.dart';
-import 'clases/cDocente.dart';
+import 'package:app/clases/cDocente.dart';
 
+// Variables Globales (Manteniendo tu estructura original)
 late Musuario usuario;
 cDocente metodos = cDocente();
 sesion ses = sesion();
-var media;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
- // await initNoti();
+  // Inicialización de sesión
   usuario = await ses.verificarInicio();
   runApp(const MyApp());
 }
@@ -19,25 +20,25 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-   // hilo();
-    //print(usuario);
     return MaterialApp(
-      title: ' App',
+      title: 'Asistencia UNU',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.lightGreen,
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: usuario.id == "null"  ? MyHomePage(title: 'Asistencia Unu 2.0'):principal(usuario: usuario),
+      // Lógica de enrutamiento inicial
+      home: usuario.id == "null"
+          ? const MyHomePage(title: 'Asistencia Unu 2.0')
+          : principal(usuario: usuario),
     );
   }
-
 }
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-
   final String title;
 
   @override
@@ -51,247 +52,211 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      //appBar: AppBar(
-       // title: Text(widget.title),
-     // ),
-      body:
-          cuerpo(), // This trailing comma makes auto-formatting nicer for build methods.
+    return Scaffold(
+      body: cuerpo(),
     );
   }
 
   Widget cuerpo() {
-     media = MediaQuery.of(context).size;
     return Container(
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("assets/img/fondounu.png"),
-              fit: BoxFit.cover)),
-      child: Center(
-        child: Container(
-            margin: EdgeInsets.only(top: 20),
-
-            width: 600,
-            height: 500,
-            alignment: Alignment.center,
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            appName(),
-            titulo(),
-            txtUsuario(),
-            txtPass(),
-            spTipo(),
-            btnIngresar()
-          ],
-        )),
+      width: double.infinity,
+      height: double.infinity,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/img/fondounu.png"),
+          fit: BoxFit.cover,
+        ),
       ),
-    );
-  }
-
-  Widget titulo() {
-    return Stack(
-      children: <Widget>[
-        // Stroked text as border.
-        Text(
-           "Inicio de Sesion",
-          style: TextStyle(
-            fontSize: 38,
-            foreground: Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = 6
-              ..color = Colors.blue[700]!,
+      child: Container(
+        color: Colors.black.withOpacity(0.3), // Capa oscura para resaltar el logo
+        child: Center(
+          child: SingleChildScrollView(
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 30),
+              constraints: const BoxConstraints(maxWidth: 400),
+              padding: const EdgeInsets.all(30),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.95),
+                borderRadius: BorderRadius.circular(25),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black45,
+                    blurRadius: 20,
+                    offset: Offset(0, 10),
+                  )
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  // Logo o Icono Principal
+                  const CircleAvatar(
+                    radius: 40,
+                    backgroundColor: Color(0xFF0D47A1),
+                    child: Icon(Icons.school, size: 45, color: Colors.white),
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    "Asistencia Unu 2.0",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF0D47A1),
+                    ),
+                  ),
+                  const Text(
+                    "Panel de Acceso",
+                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                  ),
+                  const SizedBox(height: 30),
+                  txtUsuario(),
+                  const SizedBox(height: 15),
+                  txtPass(),
+                  const SizedBox(height: 15),
+                  spTipo(),
+                  const SizedBox(height: 30),
+                  btnIngresar(),
+                  const SizedBox(height: 10),
+                ],
+              ),
+            ),
           ),
         ),
-        // Solid text as fill.
-        Text(
-          "Inicio de Sesion",
-          style: TextStyle(
-            fontSize: 38,
-            color: Colors.white,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget appName() {
-    return Stack(
-      children: <Widget>[
-        // Stroked text as border.
-        Text(
-          'Asistencia Unu 2.0',
-          style: TextStyle(
-            fontSize: 38,
-            foreground: Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = 6
-              ..color = Colors.blue[700]!,
-          ),
-        ),
-        // Solid text as fill.
-        Text(
-          'Asistencia Unu 2.0',
-          style: TextStyle(
-            fontSize: 38,
-            color: Colors.white,
-          ),
-        ),
-      ],
+      ),
     );
   }
 
   Widget txtUsuario() {
-    String txtusu="";
-    if(usuario.dniUsu!= "null"){
-      txtusu=usuario.dniUsu;
+    // Autocompletado de DNI si existe sesión previa fallida
+    if (usuario.dniUsu != "null" && cUsu.text.isEmpty) {
+      cUsu.text = usuario.dniUsu;
     }
-    cUsu.text=txtusu;
-    return Container(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-        child: TextField(
-          decoration: InputDecoration(
-            hintText: "Usuario",
-            fillColor: Colors.white,
-            filled: true,
-          ),
-          controller: cUsu,
-        ));
-  }
-
-  Widget txtPass() {
-    return Container(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-        child: TextField(
-            obscureText: true,
-            decoration: InputDecoration(
-              hintText: "Contraseña",
-              fillColor: Colors.white,
-              filled: true,
-            ),
-            controller: cPass));
-  }
-  Widget spTipo() {
-    List<String>   tipos = ['DOCENTE', 'ADMINISTRADOR'];
-
-
-    return Container(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-    child:DropdownButtonFormField(
-        decoration: InputDecoration(
-          fillColor: Colors.white,
-          filled: true,
-        ),
-      hint: Text('Seleccionar'),
-      value: tipos[0],
-      onChanged: (String? newValue) {
-        setState(() {
-          usuario.dniUsu="";
-          this.cTipo = newValue!;
-
-        });
-      },
-      items: tipos
-          .map((item) => DropdownMenuItem<String>(
-          onTap: () {
-            setState(() {
-              //CREA UNA VARIABLE DE CLASE DEL ID
-              //idAnio = item.id;
-            });
-          },
-          child: Text(item,
-              textAlign: TextAlign.center, style: TextStyle(fontSize: 20)),
-          value: item))
-          .toList(),
-    ));
-  }
-  Widget btnIngresar() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(4),
-      child: Stack(
-        children: <Widget>[
-          Positioned.fill(
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    Color(0xFF0D47A1),
-                    Color(0xFF1976D2),
-                    Color(0xFF42A5F5),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          TextButton(
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.all(16.0),
-                textStyle: const TextStyle(fontSize: 20),
-              ),
-              onPressed: () {
-                validar();
-              },
-              child: Text("Ingresar",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.bold))),
-        ],
+    return TextField(
+      controller: cUsu,
+      keyboardType: TextInputType.text,
+      decoration: InputDecoration(
+        labelText: "Usuario / DNI",
+        prefixIcon: const Icon(Icons.person_outline),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+        filled: true,
+        fillColor: Colors.grey[50],
       ),
     );
   }
 
+  Widget txtPass() {
+    return TextField(
+      controller: cPass,
+      obscureText: true,
+      decoration: InputDecoration(
+        labelText: "Contraseña",
+        prefixIcon: const Icon(Icons.lock_outline),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+        filled: true,
+        fillColor: Colors.grey[50],
+      ),
+    );
+  }
+
+  Widget spTipo() {
+    List<String> tipos = ['DOCENTE', 'ADMINISTRADOR'];
+    return DropdownButtonFormField<String>(
+      value: cTipo,
+      decoration: InputDecoration(
+        labelText: "Tipo de Usuario",
+        prefixIcon: const Icon(Icons.admin_panel_settings_outlined),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+        filled: true,
+        fillColor: Colors.grey[50],
+      ),
+      onChanged: (String? newValue) {
+        setState(() {
+          cTipo = newValue!;
+          usuario.dniUsu = "";
+        });
+      },
+      items: tipos.map((item) {
+        return DropdownMenuItem<String>(
+          value: item,
+          child: Text(item),
+        );
+      }).toList(),
+    );
+  }
+
+  Widget btnIngresar() {
+    return SizedBox(
+      width: double.infinity,
+      height: 55,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF0D47A1),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          elevation: 4,
+        ),
+        onPressed: () => validar(),
+        child: const Text(
+          "INICIAR SESIÓN",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1.2,
+          ),
+        ),
+      ),
+    );
+  }
+
+  // --- Lógica de negocio intacta ---
+
   void validar() async {
-    String usu = cUsu.text;
-    String pass = cPass.text;
+    String usu = cUsu.text.trim();
+    String pass = cPass.text.trim();
     String tipo = cTipo;
-    if (usu.length < 1 || pass.length < 1) {
-      alerta("Error de Inicio de Identidicación", "Campos Vacios",
-          "Los campos de Usuario o Contraseña se encuentran  vacios");
+
+    if (usu.isEmpty || pass.isEmpty) {
+      alerta("Atención", "Campos Vacíos", "Por favor ingrese su usuario y contraseña.");
     } else {
-      List<Musuario> usuarios = await metodos.getUsuario(usu, pass,tipo);
-      int canti = usuarios.length;
-      if (canti > 0) {
+      // Mostrar indicador de carga (opcional)
+      List<Musuario> usuarios = await metodos.getUsuario(usu, pass, tipo);
+      if (usuarios.isNotEmpty) {
         usuario = usuarios[0];
         ses.guardarSesion(usuario);
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => principal(usuario: usuario,)));
+        if (!mounted) return;
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => principal(usuario: usuario)),
+        );
       } else {
-        alerta("Error de Inicio de Identidicación", "Credenciales Erroneas",
-            "No se pudo identificar al usuario");
+        alerta("Error", "Credenciales Incorrectas", "No se encontró el usuario o la contraseña es inválida.");
       }
     }
   }
 
-  void alerta(String titulo, String head, String body) async {
-    return showDialog<void>(
+  void alerta(String titulo, String head, String body) {
+    showDialog(
       context: context,
-      barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(titulo),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Center(
-                    child: Text(head,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ))),
-                Text(body),
-              ],
-            ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          title: Text(titulo, style: const TextStyle(fontWeight: FontWeight.bold)),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(head, style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.redAccent)),
+              const SizedBox(height: 10),
+              Text(body),
+            ],
           ),
-          actions: <Widget>[
+          actions: [
             TextButton(
-              child: const Text(
-                'Cerrar',
-                style: TextStyle(color: Colors.blue),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+              onPressed: () => Navigator.pop(context),
+              child: const Text("Aceptar"),
             ),
           ],
         );
