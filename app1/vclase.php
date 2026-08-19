@@ -13,7 +13,7 @@ join estados e on c.est=e.idestados  where d.idDocente=$iddoc and concat(cu.desc
         $rs=$mysqli->query($sql);         
    while ($row = $rs ->fetch_array()) {
 
-                  $curso[]=array_map('utf8_encode',$row);
+                  $curso[]=$row;
 
 }  echo json_encode($curso);
         

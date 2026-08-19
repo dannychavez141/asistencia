@@ -10,6 +10,8 @@ $this->bd = new mysqli("localhost", "root", "root", "asistenciaunu");
         if ($this->bd->connect_errno) {
             echo 'error al conectar:';
             echo 'error' . $this->bd->connect_error;
+        } else {
+            $this->bd->set_charset("utf8mb4");
         }
     }
 

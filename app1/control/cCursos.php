@@ -46,7 +46,7 @@ where aa.idDocente='$doc'and c.descr like'%$ncurso%' and aa.est='1' and aa.idAni
          //$datos[] = mysqli_num_rows($rs);
       $i=0;
         while ($dato = $rs->fetch_array()) {
-            $datos[$i] =array_map('utf8_encode',$dato);
+            $datos[$i] =$dato;
             $i++;
         }
         return $datos;

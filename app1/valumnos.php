@@ -9,7 +9,7 @@ join estados e on a.est=e.idestados  where concat(a.nomAlu,a.apepaAlu,a.apemaAlu
 $rs = $mysqli->query($sql);
 while ($row = $rs->fetch_array()) {
 
-    $alumno[] = array_map('utf8_encode', $row);
+    $alumno[] = $row;
 } echo json_encode($alumno);
 
 $rs->close();

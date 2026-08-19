@@ -1,14 +1,23 @@
-///Dart imports
 import 'dart:async';
-import 'dart:convert';
-// ignore: avoid_web_libraries_in_flutter
-//import 'dart:html';
+import 'dart:js_interop';
+import 'dart:typed_data';
+
+import 'package:web/web.dart' as web;
 
 ///To save the pdf file in the device
 Future<void> saveAndLaunchFileweb(List<int> bytes, String fileName) async {
-  /*AnchorElement(
-      href:
-      'data:application/octet-stream;charset=utf-16le;base64,${base64.encode(bytes)}')
-    ..setAttribute('download', fileName)
-    ..click();*/
+  final blob = web.Blob(
+    <JSAny>[Uint8List.fromList(bytes).toJS].toJS,
+    web.BlobPropertyBag(type: 'application/pdf'),
+  );
+  final url = web.URL.createObjectURL(blob);
+  final anchor = web.HTMLAnchorElement()
+    ..href = url
+    ..download = fileName;
+
+  web.document.body?.append(anchor);
+  anchor
+    ..click();
+  anchor.remove();
+  web.URL.revokeObjectURL(url);
 }

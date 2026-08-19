@@ -14,8 +14,8 @@ join estados e on c.est=e.idestados  where c.idClase=$id;";
 	$rs = $mysqli->query($query);
 	while($fila = $rs->fetch_array())
 	{$clase=$fila[0];
- $curso=utf8_decode($fila[2]); 
- $docente=utf8_decode($fila[4].' '.$fila[5].' '.$fila[3]);
+ $curso=pdf_text($fila[2]); 
+ $docente=pdf_text($fila[4].' '.$fila[5].' '.$fila[3]);
   $fecha=$fila[7];
    $hora=$fila[8];
 	}
@@ -50,7 +50,7 @@ join estados e on c.est=e.idestados  where c.idClase=$id;";
 		$pdf->Ln(6);
 		$pdf->SetX(20);
 		$pdf->Cell(25,6,$row[1],1,0,'C');
-		$pdf->Cell(100,6,utf8_decode($row[2]),1,0,'C');
+		$pdf->Cell(100,6,pdf_text($row[2]),1,0,'C');
 		$pdf->Cell(50,6,"",1,0,'C');
 		
 	}

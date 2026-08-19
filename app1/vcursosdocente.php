@@ -12,7 +12,7 @@ where d.idDocente=$cod and aa.idAnioAcademico=(select idAnioAcademico from anioa
         $rs=$mysqli->query($sql);         
    while ($row = $rs ->fetch_array()) {
 
-                  $curso[]=array_map('utf8_encode',$row);
+                  $curso[]=$row;
 
 }  echo json_encode($curso);
         

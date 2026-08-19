@@ -31,7 +31,7 @@ class mMetodos {
         $respuesta = $bd->query($sql);
         if (!empty($respuesta) && mysqli_num_rows($respuesta) > 0) {
             while ($dato = mysqli_fetch_array($respuesta)) {
-                $datos[] = array_map('utf8_encode', $dato);
+                $datos[] = $dato;
             }
         }
         $datosAjax = json_encode($datos);
@@ -45,7 +45,7 @@ class mMetodos {
         $respuesta = $bd->query($sql);
         if (!empty($respuesta) && mysqli_num_rows($respuesta) > 0) {
             while ($dato = mysqli_fetch_array($respuesta)) {
-              $datos[] = array_map('utf8_encode', $dato);
+              $datos[] = $dato;
                 // print_r($dato);
             }
         }

@@ -1,5 +1,17 @@
 <?php
 	require 'fpdf/fpdf.php';
+
+	if (!function_exists('pdf_text')) {
+		function pdf_text($value) {
+			if ($value === null) {
+				return '';
+			}
+			if (function_exists('mb_convert_encoding')) {
+				return mb_convert_encoding((string) $value, 'ISO-8859-1', 'UTF-8');
+			}
+			return iconv('UTF-8', 'ISO-8859-1//TRANSLIT', (string) $value);
+		}
+	}
 	
 	class PDF extends FPDF
 	{

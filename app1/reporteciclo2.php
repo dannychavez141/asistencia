@@ -12,8 +12,8 @@ join curso c on ad.idCurso=c.idCurso join anioacademico aa on ad.idAnioAcademico
 	$rs = $mysqli->query($query);
 	while($fila = $rs->fetch_array())
 	{$aniou=$fila[16];
- $curso=utf8_decode($fila[13]); 
- $docente=utf8_decode($fila[7].' '.$fila[8].' '.$fila[6]);
+ $curso=pdf_text($fila[13]); 
+ $docente=pdf_text($fila[7].' '.$fila[8].' '.$fila[6]);
   $fecha=date('d-m-Y');
   $sqlnclase="SELECT count(idClase) FROM asistencia.clase c join asignaciondoc ad on c.idAsignacionDoc=ad.idAsignacionDoc where ad.idCurso='$cur' and ad.idAnioAcademico='$anio';";
  $clases = $mysqli->query($sqlnclase);
@@ -28,7 +28,7 @@ join curso c on ad.idCurso=c.idCurso join anioacademico aa on ad.idAnioAcademico
 	$pdf->AddPage();
 	$pdf->Ln(10);
 	$pdf->SetX(53);
-	$pdf->Cell(40,6,utf8_decode( 'Año Academido: ').$aniou,0,1,'C');
+	$pdf->Cell(40,6,pdf_text( 'Año Academido: ').$aniou,0,1,'C');
 	$pdf->SetX(72);
 	$pdf->Cell(53,6, 'Curso: '.$curso,0,1,'C');
 	$pdf->SetX(65);
@@ -36,7 +36,7 @@ join curso c on ad.idCurso=c.idCurso join anioacademico aa on ad.idAnioAcademico
 	$pdf->SetX(59);
 	$pdf->Cell(54,6, 'Fecha de reporte: '.$fecha,0,1,'C');
 	$pdf->SetX(58);
-	$pdf->Cell(53,6,utf8_decode( 'N° de clases Registradas: ').$nclase,0,1,'C');
+	$pdf->Cell(53,6,pdf_text( 'N° de clases Registradas: ').$nclase,0,1,'C');
 		$pdf->Line(10,70,200,70);
 	$pdf->Ln(10);
 	$pdf->SetFillColor(232,232,232);
@@ -55,7 +55,7 @@ join curso c on ad.idCurso=c.idCurso join anioacademico aa on ad.idAnioAcademico
 		$pdf->Ln(6);
 		$pdf->SetX(20);
 		$pdf->Cell(25,6,$row[1],1,0,'C');
-		$pdf->Cell(85,6,utf8_decode($row[7].' '.$row[8].' '.$row[6]),1,0,'C');
+		$pdf->Cell(85,6,pdf_text($row[7].' '.$row[8].' '.$row[6]),1,0,'C');
 		$sqlnasis="SELECT count(a.idClase) FROM asistencia.asistencia a join clase c on a.idClase=c.idClase 
 join alumno al on a.codAlu=al.codAlu join asignaciondoc ad on c.idAsignacionDoc=ad.idAsignacionDoc
 where ad.idAnioAcademico='$anio' and ad.idCurso='$cur' and a.codAlu='$row[1]';";
@@ -79,7 +79,7 @@ where ad.idAnioAcademico='$anio' and ad.idCurso='$cur' and a.codAlu='$row[1]';";
 	if ($cont==0) {
 		$pdf->Ln(10);
 		$pdf->SetX(53);
-	$pdf->Cell(40,6,utf8_decode( 'NO SE REGISTRARON ASISTENCIAS EN EL CURSO'),0,1,'C');
+	$pdf->Cell(40,6,pdf_text( 'NO SE REGISTRARON ASISTENCIAS EN EL CURSO'),0,1,'C');
 	}
 	$pdf->Ln(20);
 $pdf->Cell(200,6,'_______________________                     	______________________',0,0,'C',0);

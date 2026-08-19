@@ -10,6 +10,8 @@ $mysqli = new mysqli("localhost", "root", "root", "asistenciaunu");
 if ($mysqli->connect_errno) {
     echo 'error al conectar';
     echo 'error' . $mysqli->connect_errno;
+} else {
+    $mysqli->set_charset("utf8mb4");
 }
 
 ?>

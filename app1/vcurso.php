@@ -8,7 +8,7 @@ join estados e on c.est=e.idestados where concat(c.idCurso,c.descr) like '%".$co
         $rs=$mysqli->query($sql);         
    while ($row = $rs ->fetch_array()) {
 
-                  $curso[]=array_map('utf8_encode',$row);
+                  $curso[]=$row;
 
 
 
